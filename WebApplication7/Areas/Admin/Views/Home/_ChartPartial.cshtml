@@ -1,0 +1,78 @@
+﻿@{
+    Layout = null; // Không sử dụng Layout cho Partial View
+}
+
+<canvas id="myChart" width="800" height="400"></canvas>
+
+<div>
+    <label for="timeRange">Chọn khoảng thời gian:</label>
+    <select id="timeRange" class="form-control">
+        <option value="threeMonths">3 Tháng</option>
+        <option value="sixMonths">6 Tháng</option>
+        <option value="oneYear">1 Năm</option>
+        <option value="all">Tất Cả</option>
+    </select>
+</div>
+
+<script>
+    // Gọi AJAX để lấy dữ liệu từ controller
+    $.ajax({
+        url: '@Url.Action("GetChartData", "Charts", new { area = "Admin" })',
+        type: 'GET',
+        success: function (data) {
+            // Hàm xử lý thành công: cập nhật biểu đồ với dữ liệu nhận được
+            salesData = data;
+            updateChart('threeMonths'); // Mặc định vẽ biểu đồ cho khoảng thời gian 3 tháng
+        },
+        error: function () {
+            // Xử lý khi có lỗi
+            console.error('Không thể lấy dữ liệu biểu đồ.');
+        }
+    });
+
+    function updateChart(selectedValue) {
+        var data = salesData[selectedValue];
+        var labels = data.labels;
+        var nikeSales = data.nike;
+        var adidasSales = data.adidas;
+        var pumaSales = data.puma;
+
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Nike',
+                    data: nikeSales,
+                    borderColor: 'rgb(255, 99, 132)',
+                    fill: false
+                }, {
+                    label: 'Adidas',
+                    data: adidasSales,
+                    borderColor: 'rgb(54, 162, 235)',
+                    fill: false
+                }, {
+                    label: 'Puma',
+                    data: pumaSales,
+                    borderColor: 'rgb(255, 206, 86)',
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+
+    // Gọi hàm updateChart khi giá trị trong dropdown thay đổi
+    document.getElementById('timeRange').addEventListener('change', function () {
+        var selectedValue = this.value;
+        updateChart(selectedValue);
+    });
+</script>

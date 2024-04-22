@@ -1,0 +1,9 @@
+﻿@using WebApplication7
+@using WebApplication7.Models
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, PagedList.Core.Mvc
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial.cshtml");
+    }
+}

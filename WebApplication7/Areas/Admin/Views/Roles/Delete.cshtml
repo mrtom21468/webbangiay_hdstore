@@ -1,0 +1,20 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model Microsoft.AspNetCore.Identity.IdentityRole
+
+<h2>Delete Role</h2>
+
+<p>Are you sure you want to delete this role?</p>
+
+<div>
+    <h4>Role Name: @Model.Name</h4>
+</div>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

@@ -1,0 +1,114 @@
+﻿@using WebApplication7.Areas.Admin.Helpper
+@model PaginatedList<WebApplication7.Models.Order>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayName("Địa chỉ")
+            </th>
+            <th>
+                @Html.DisplayName("Sô điện thoại")
+
+            </th>
+            <th>
+                @Html.DisplayName("Trạng thái thanh toán")
+
+            </th>
+            <th>
+                @Html.DisplayName("Trạng thái đơn hàng")
+
+            </th>
+            <th>
+                @Html.DisplayName("Tổng tiền")
+
+            </th>
+            <th>
+                @Html.DisplayName("Ngày tạo")
+
+            </th>
+            <th>
+                @Html.DisplayName("Id người đặt")
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaymentStatus)
+            </td>
+            <td>
+                    @{
+                        string status = item.Status;
+                        string color = "";
+
+                        // Xác định màu sắc dựa trên giá trị của Status
+                        switch (status)
+                        {
+                            case "Chờ xử lý":
+                                color = "orange";
+                                break;
+                            case "Đã đóng gói":
+                                color = "green";
+                                break;
+                            case "Đang đóng gói":
+                                color = "green";
+                                break;
+                            default:
+                                color = "black"; // Màu mặc định nếu không phù hợp với các trường hợp trên
+                            break;
+                        }
+                    }
+                    <span style="color: @color;">@Html.DisplayFor(modelItem => item.Status)</span>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Account.AccountId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.OrderId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.OrderId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.OrderId">Delete</a> |
+                    <a asp-controller="OrderDetails" asp-action="Details" asp-route-id="@item.OrderId">Xem chi tiết đơn hàng</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="Index"
+   asp-route-pageNumber="@(Model.PageIndex - 1)"
+   class="btn btn-default @prevDisabled">
+    Previous
+</a>
+<a asp-action="Index"
+   asp-route-pageNumber="@(Model.PageIndex + 1)"
+   class="btn btn-default @nextDisabled">
+    Next
+</a>

@@ -1,0 +1,431 @@
+﻿@model IEnumerable<WebApplication7.Models.ProductDetail>
+@using WebApplication7.Models
+@using AspNetCoreHero.ToastNotification.Notyf
+@{
+    ViewBag.Title = "Chi tiết sản phẩm";
+}
+@{
+    var uniqueColors = Model.GroupBy(x => x.Color.ColorId)
+                        .Select(g => g.First());
+    var uniqueSizes = Model.GroupBy(x => x.Size.SizeId)
+           .Select(g => g.First());
+}
+<section class="hero hero-normal">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="hero__categories">
+                    <div class="hero__categories__all">
+                        <i class="fa fa-bars"></i>
+                        <span>Tât cả thể loại</span>
+                    </div>
+                    <ul>
+                        @await Component.InvokeAsync("TheLoai")
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="hero__search">
+                    <div class="hero__search__form">
+                        <form action="#">
+                            <div class="hero__search__categories">
+                                Tất cả sản phẩm
+                                <span class="arrow_carrot-down"></span>
+                            </div>
+                            <input type="text" placeholder="Bạn cần tìm gì?">
+                            <button type="submit" class="site-btn">Tìm kiếm</button>
+                        </form>
+                    </div>
+                    <div class="hero__search__phone">
+                        <div class="hero__search__phone__icon">
+                            <i class="fa fa-phone"></i>
+                        </div>
+                        <div class="hero__search__phone__text">
+                            <h5>+84 68.688.888</h5>
+                            <span>hỗ trợ 24/7</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Hero Section End -->
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-section set-bg" data-setbg="@Url.Content("~/Userdata/img/breadcrumb1.jpg")">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2>Thông tin sản phẩm</h2>
+                    <div class="breadcrumb__option">
+                        <a href="./index.html">Home</a>
+                        <a href="./index.html">@Model.FirstOrDefault().Product.Brand.BrandName</a>
+                        <span>@Model.FirstOrDefault().Product.ProductName</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+<!-- Product Details Section Begin -->
+<section class="product-details spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6">
+                <div class="product__details__pic">
+                    <div class="product__details__pic__item">
+                        <img class="product__details__pic__item--large"
+                             src=@Model.FirstOrDefault().Product.ImagePath alt="">
+                    </div>
+                    <div class="product__details__pic__slider owl-carousel">
+                        <img data-imgbigurl=@Model.FirstOrDefault().Product.ImagePath
+                             src=@Model.FirstOrDefault().Product.ImagePath alt="" />
+                        <img data-imgbigurl=@Model.FirstOrDefault().Product.ImagePath
+                             src=@Model.FirstOrDefault().Product.ImagePath alt="" />
+                        <img data-imgbigurl=@Model.FirstOrDefault().Product.ImagePath
+                             src=@Model.FirstOrDefault().Product.ImagePath alt="" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="product__details__text">
+                    <h3>@Model.FirstOrDefault().Product.ProductName</h3>
+                    <div class="product__details__rating">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star-half-o"></i>
+                        <span>(18 reviews)</span>
+                    </div>
+                    <!-- Chọn loại sản phẩm nào hiện giá đấy -->
+                    <div class="product__details__price" id="x"> @("$ "+Model.FirstOrDefault().SellingPrice )</div>
+                    <input type="hidden" id="productId" value="@Model.FirstOrDefault().ProductId" />
+                    <div id="stockQuantity" style="color: red"></div>
+                        <!-- Previous code remains -->
+                        <div class="product__details__color">
+                            <label for="color">Color:</label>
+                            <div id="color">
+                            @foreach (var i in uniqueColors)
+                                {
+                                    <input type="radio" name="color" value="@i.Color.ColorId">
+                                    <label for="@i.Color.ColorName">@i.Color.ColorName </label>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="product__details__size">
+                            <label for="size">Size:</label>
+                            <div id="size">
+                            @foreach (var i in uniqueSizes)
+                                {   
+                                    <input type="radio" name="size" value="@i.Size.SizeId">
+                                <label for="@i.Size.SizeName">@i.Size.SizeName</label>
+                                }
+                            </div>
+                        <!-- Previous code remains -->
+                    </div>
+                    <div class="product__details__quantity">
+                        <div class="quantity">
+                            <div class="pro-qt">
+                                <span class="dec qtybtn">-</span>
+                                <input id="Soluongthem" type="text" value="1">
+                                <span class="inc qtybtn">+</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Color Selection -->
+                    
+                    <a href="#" class="primary-btn" id="addcard" onclick="addToCart()">ADD TO CARD</a>
+                    <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
+                    <ul>
+                        <li><b>Tổng hàng trong kho</b> <span>@Model.Sum(p=>p.Quantity)</span></li>
+                        <li><b>Thể loại</b> <span> <samp>@Model.FirstOrDefault().Product.Category.CategoryName</samp></span></li>
+                        <li><b>Weight</b> <span>0.5 kg</span></li>
+                        <li>
+                            <b>Share on</b>
+                            <div class="share">
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                <a href="#"><i class="fa fa-instagram"></i></a>
+                                <a href="#"><i class="fa fa-pinterest"></i></a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="product__details__tab">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab"
+                               aria-selected="true">Description</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab"
+                               aria-selected="false">Information</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab"
+                               aria-selected="false">Reviews <span>(1)</span></a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tabs-1" role="tabpanel">
+                            <div class="product__details__tab__desc">
+                                <h6>Products Infomation</h6>
+                                <p>
+                                    Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.
+                                    Pellentesque in ipsum id orci porta dapibus. Proin eget tortor risus. Vivamus
+                                    suscipit tortor eget felis porttitor volutpat. Vestibulum ac diam sit amet quam
+                                    vehicula elementum sed sit amet dui. Donec rutrum congue leo eget malesuada.
+                                    Vivamus suscipit tortor eget felis porttitor volutpat. Curabitur arcu erat,
+                                    accumsan id imperdiet et, porttitor at sem. Praesent sapien massa, convallis a
+                                    pellentesque nec, egestas non nisi. Vestibulum ac diam sit amet quam vehicula
+                                    elementum sed sit amet dui. Vestibulum ante ipsum primis in faucibus orci luctus
+                                    et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam
+                                    vel, ullamcorper sit amet ligula. Proin eget tortor risus.
+                                </p>
+                                <p>
+                                    Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Lorem
+                                    ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit aliquet
+                                    elit, eget tincidunt nibh pulvinar a. Cras ultricies ligula sed magna dictum
+                                    porta. Cras ultricies ligula sed magna dictum porta. Sed porttitor lectus
+                                    nibh. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.
+                                    Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Sed
+                                    porttitor lectus nibh. Vestibulum ac diam sit amet quam vehicula elementum
+                                    sed sit amet dui. Proin eget tortor risus.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tabs-2" role="tabpanel">
+                            <div class="product__details__tab__desc">
+                                <h6>Products Infomation</h6>
+                                <p>
+                                    Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.
+                                    Pellentesque in ipsum id orci porta dapibus. Proin eget tortor risus.
+                                    Vivamus suscipit tortor eget felis porttitor volutpat. Vestibulum ac diam
+                                    sit amet quam vehicula elementum sed sit amet dui. Donec rutrum congue leo
+                                    eget malesuada. Vivamus suscipit tortor eget felis porttitor volutpat.
+                                    Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Praesent
+                                    sapien massa, convallis a pellentesque nec, egestas non nisi. Vestibulum ac
+                                    diam sit amet quam vehicula elementum sed sit amet dui. Vestibulum ante
+                                    ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
+                                    Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula.
+                                    Proin eget tortor risus.
+                                </p>
+                                <p>
+                                    Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Lorem
+                                    ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit aliquet
+                                    elit, eget tincidunt nibh pulvinar a. Cras ultricies ligula sed magna dictum
+                                    porta. Cras ultricies ligula sed magna dictum porta. Sed porttitor lectus
+                                    nibh. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tabs-3" role="tabpanel">
+                            <div class="product__details__tab__desc">
+                                <h6>Products Infomation</h6>
+                                <p>
+                                    Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.
+                                    Pellentesque in ipsum id orci porta dapibus. Proin eget tortor risus.
+                                    Vivamus suscipit tortor eget felis porttitor volutpat. Vestibulum ac diam
+                                    sit amet quam vehicula elementum sed sit amet dui. Donec rutrum congue leo
+                                    eget malesuada. Vivamus suscipit tortor eget felis porttitor volutpat.
+                                    Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Praesent
+                                    sapien massa, convallis a pellentesque nec, egestas non nisi. Vestibulum ac
+                                    diam sit amet quam vehicula elementum sed sit amet dui. Vestibulum ante
+                                    ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
+                                    Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula.
+                                    Proin eget tortor risus.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Product Details Section End -->
+@if (ViewBag.SPlienquan != null && ViewBag.SPlienquan.Count > 0)
+{
+    <!-- Related Product Section Begin -->
+    <section class="related-product">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title related__product__title">
+                        <h2>Sản phẩm liên quan</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                @foreach (var i in ViewBag.SPlienquan)
+                {   
+                        <div class="col-lg-3 col-md-4 col-sm-6">
+                            <div class="product__item">
+                                <div class="product__item__pic set-bg" data-setbg=@i.ImagePath>
+                                    @*                                 <ul class="product__item__pic__hover">
+                        <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                        <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                        <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                        </ul> *@
+                                </div>
+                                <div class="product__item__text">
+                                <h6><a asp-controller="SanPhamChiTiet" asp-route-id="@i.ProductId">@i.ProductName</a></h6>
+                                    <h5>@i.ProductDetails[0].SellingPrice $</h5>
+                                </div>
+                            </div>
+                        </div>
+                }
+                
+            </div>
+        </div>
+    </section>
+}
+else
+{
+        <section class="related-product">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title related__product__title">
+                        <h2>Các thể loại</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    @await Component.InvokeAsync("ChiTietTheLoai")
+
+    <br />
+    <br />
+    <br />
+    
+}
+
+<!-- Link jQuery from a CDN -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Related Product Section End -->
+<script>
+    $(document).ready(function () {
+        $('input[name="color"]:first').prop('checked', true);
+        $('input[name="size"]:first').prop('checked', true);
+
+        // Gọi hàm kiểm tra tồn kho
+        checkStock();
+        $('input[name="size"], input[name="color"]').on('change', function () {
+            var size = $('input[name="size"]:checked').val();
+            var color = $('input[name="color"]:checked').val();
+
+            // Kiểm tra nếu có ít nhất một size và một color được chọn
+            if (size !== undefined && color !== undefined) {
+                // Gọi hàm để kiểm tra tồn tại số lượng hàng
+                checkStock();
+            }
+        });
+    });
+
+    function checkStock() {
+        var productId = $('#productId').val();
+        var size = $('input[name="size"]:checked').val();
+        var color = $('input[name="color"]:checked').val();
+
+        // Thực hiện AJAX request để kiểm tra số lượng hàng
+        $.ajax({
+            url: '/SanPhamChiTiet/GetProductStock',
+            type: 'GET',
+            data: { productId: productId, sizeid: size, colorid: color },
+            success: function (data) {
+                setData(data.stockQuantity, data.x)
+            },
+            error: function () {
+                alert('Error occurred while fetching stock quantity.');
+            }
+        });
+    }
+    function setData(stockQuantity, x) {
+        $('#stockQuantity').text('Số lượng sản phẩm : ' + stockQuantity);
+        $('#x').text('$ ' + x.toFixed(2));
+    }
+    // thêm sản phẩm vào giỏ hàng
+    function addToCart() {
+        var productId = $('#productId').val();
+        var Soluongthem = $('#Soluongthem').val();
+        var size = $('input[name="size"]:checked').val();
+        var color = $('input[name="color"]:checked').val();
+        $.ajax({
+            url: '/SanPhamChiTiet/AddToCart',
+            type: 'POST',
+            data: { productId: productId, sizeid: size, colorid: color, Soluongthem: Soluongthem },
+            success: function (result) {
+                if (result.success) {
+                    // Hiển thị thông báo thành công
+                    var notyf = new Notyf();
+                    notyf.success(result.message);
+                } else {
+                    // Hiển thị thông báo lỗi
+                    var notyf = new Notyf();
+                    notyf.error(result.message);
+                }
+            },
+            error: function () {
+                var notyf = new Notyf();
+                notyf.error('Vui lòng đăng nhập để mua hàng');
+                window.location.href = '@Url.Action("Login", "Account", new { area = "Identity" })?returnUrl=/SanPhamChiTiet/Index/' + productId;
+            }
+        });
+    }
+    
+    var proQty = $('.pro-qt');
+
+    // Lắng nghe sự kiện click của các nút +/- trong ô nhập liệu số lượng
+    proQty.on('click', '.qtybtn', function () {
+        var $button = $(this);
+        var $input = $button.parent().find('input');
+        var oldValue = parseInt($input.val());
+
+        // Kiểm tra nếu nút được nhấn là nút tăng (+)
+        if ($button.hasClass('inc')) {
+            var newVal = oldValue + 1; // Tăng giá trị lên 1
+        } else {
+            // Kiểm tra giá trị hiện tại không được nhỏ hơn 1
+            if (oldValue > 1) {
+                var newVal = oldValue - 1; // Giảm giá trị đi 1
+            } else {
+                newVal = 1; // Nếu giá trị hiện tại là 1 thì giữ nguyên
+            }
+        }
+        var notyf = new Notyf();
+        notyf.success("Giá trị mới: " + newVal)
+        // Cập nhật giá trị mới cho ô nhập liệu
+        var $newInput = $('<input>').attr({
+            type: 'text',
+            id: 'Soluongthem',
+            value: newVal
+        });
+        $input.replaceWith($newInput);
+    });
+    // Lắng nghe sự kiện input trên input có id là Soluongthem
+    proQty.on('input', '#Soluongthem', function () {
+        // Lấy giá trị mới từ input
+        var newVal = parseInt($(this).val());
+        var notyf = new Notyf();
+        notyf.success("Giá trị mới: " + newVal)
+        // Kiểm tra xem giá trị mới có phải là một số không âm
+        if (isNaN(newVal) || newVal < 1) {
+            newVal = 1; // Nếu không phải thì gán giá trị mặc định là 1
+        }
+        var $newInput = $('<input>').attr({
+            type: 'text',
+            id: 'Soluongthem',
+            value: newVal
+        });
+        // Gán giá trị mới vào input
+        $(this).replaceWith($newInput);
+    });
+</script>

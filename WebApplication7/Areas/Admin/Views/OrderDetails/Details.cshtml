@@ -1,0 +1,41 @@
+﻿@model WebApplication7.Models.OrderDetail
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Chi tiết đơn hàng</h1>
+
+<div>
+    <h4>Mã đơn hàng @ViewBag.orderDetail[0].OrderId</h4>
+    <hr />
+    <div class="container">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">Tên sản phẩm</th>
+                    <th scope="col">Màu sản phẩm</th>
+                    <th scope="col">Size sản phẩm</th>
+                    <th scope="col">Số lượng</th>
+                    <th scope="col">Đơn giá</th>
+                    <th scope="col">Thành tiền</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (OrderDetail i in ViewBag.orderDetail)
+                {
+                    <tr>
+                        <td>@i.Productdetail.Product.ProductName</td>
+                        <td>@i.Productdetail.Color.ColorName</td>
+                        <td>@i.Productdetail.Size.SizeName</td>
+                        <td>@i.Quantity</td>
+                        <td>@i.Productdetail.SellingPrice $</td>
+                        <td>@(@i.Productdetail.SellingPrice * @i.Quantity) $</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    @Html.ActionLink("Xuất Excel", "ExportToExcel", "OrderDetails", new { id = ViewBag.orderDetail[0].OrderId }, new { @class = "btn btn-primary" })
+
+</div>

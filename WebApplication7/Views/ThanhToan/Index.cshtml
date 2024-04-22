@@ -1,0 +1,209 @@
+﻿@model IEnumerable<WebApplication7.Models.Cart>
+@using WebApplication7.Models
+<section class="hero hero-normal">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="hero__categories">
+                    <div class="hero__categories__all">
+                        <i class="fa fa-bars"></i>
+                        <span>Tất cả thể loại</span>
+                    </div>
+                    <ul>
+                        @await Component.InvokeAsync("TheLoai")
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="hero__search">
+                    <div class="hero__search__form">
+                        <form action="#">
+                            <div class="hero__search__categories">
+                                Tât cả sản phẩm
+                                <span class="arrow_carrot-down"></span>
+                            </div>
+                            <input type="text" placeholder="Bạn đang cần gì?">
+                            <button type="submit" class="site-btn">Tìm kiếm</button>
+                        </form>
+                    </div>
+                    <div class="hero__search__phone">
+                        <div class="hero__search__phone__icon">
+                            <i class="fa fa-phone"></i>
+                        </div>
+                        <div class="hero__search__phone__text">
+                            <h5>+84 68.688.888</h5>
+                            <span>hỗ trợ 24/7</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Hero Section End -->
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-section set-bg" data-setbg="@Url.Content("~/Userdata/img/breadcrumb1.jpg")">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2>Thanh toán</h2>
+                    <div class="breadcrumb__option">
+                        <a asp-controller="Home">Home</a>
+                        <span>Thanh toán</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+<!-- Checkout Section Begin -->
+<section class="checkout spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+@*                 <h6>
+                    <span class="icon_tag_alt"></span> Have a coupon? <a href="#">Click here</a> to enter your code
+                </h6> *@
+            </div>
+        </div>
+        <div class="checkout__form">
+            <h4>Chi tiết hóa đơn</h4>
+            <form asp-action="XuLyThanhToan" method="post">
+                <div class="row">
+                    <div class="col-lg-6 col-md-4">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="checkout__input">
+                                    <p>Fist Name<span>*</span></p>
+                                    <input type="text" name="fname" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="checkout__input">
+                                    <p>Last Name<span>*</span></p>
+                                    <input type="text" name="lname" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="checkout__input">
+                            <p>Thành phố/Tỉnh<span>*</span></p>
+                            <input type="text" name="tinh" required>
+                        </div>
+                        <div class="checkout__input">
+                            <p>Địa chỉ chi tiết<span>*</span></p>
+                            <input type="text" name="huyen" placeholder="Huyện" class="checkout__input__add" required>
+                            <input type="text" name="chitietdiachi" placeholder="xóm A-xã B" required>
+                        </div>
+@*                         <div class="checkout__input">
+                            <p>Town/City<span>*</span></p>
+                            <input type="text">
+                        </div>
+                        <div class="checkout__input">
+                            <p>Country/State<span>*</span></p>
+                            <input type="text">
+                        </div> *@
+@*                         <div class="checkout__input">
+                            <p>Postcode / ZIP<span>*</span></p>
+                            <input type="text">
+                        </div> *@
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="checkout__input">
+                                    <p>Phone<span>*</span></p>
+                                    <input type="text" name="phone" required>
+                                </div>
+                            </div>
+@*                             <div class="col-lg-6">
+                                <div class="checkout__input">
+                                    <p>Email<span>*</span></p>
+                                    <input type="text">
+                                </div>
+                            </div> *@
+                        </div>
+@*                         <div class="checkout__input__checkbox">
+                            <label for="acc">
+                                Create an account?
+                                <input type="checkbox" id="acc">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div> *@
+@*                         <p>
+                            Create an account by entering the information below. If you are a returning customer
+                            please login at the top of the page
+                        </p> *@
+@*                         <div class="checkout__input">
+                            <p>Account Password<span>*</span></p>
+                            <input type="text">
+                        </div> *@
+@*                         <div class="checkout__input__checkbox">
+                            <label for="diff-acc">
+                                Ship to a different address?
+                                <input type="checkbox" id="diff-acc">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div> *@
+                        <div class="checkout__input">
+                            <p>Order notes<span></span></p>
+                            <input type="text"
+                                   placeholder="Notes about your order, e.g. special notes for delivery." name="ghichu">
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-8">
+                        <div class="checkout__order">
+                            <h4>Đơn hàng của bạn</h4>
+                            <div class="checkout__order__products">Sản phẩm <span>Thành tiền</span></div>
+                            <ul>
+                                @foreach(var i in Model)
+                                {
+                                    <li>@i.Productdetail.Product.ProductName - @i.Productdetail.Size.SizeName - @i.Productdetail.Color.ColorName x @i.Amount<span>$ @(i.Amount*i.Productdetail.SellingPrice) </span></li>
+                                }
+                            </ul>
+                            @{
+                                decimal? subtotal = 0; // Khởi tạo biến subtotal để tích lũy tổng
+                                foreach (var i in Model)
+                                {
+                                    subtotal += (i.Productdetail.SellingPrice * i.Amount); // Cộng vào subtotal
+                                }
+                            }
+                            <div class="checkout__order__subtotal">Subtotal <span>$ @subtotal</span></div>
+                            <div class="checkout__order__total">Total <span>$ @subtotal</span></div>
+                            <div class="checkout__input__checkbox">
+                                <label for="acc-or">
+                                    Thanh toán bằng tiền mặt
+                                    <input type="radio" id="acc-or" name="payment_method"  value="Tiền mặt" checked> 
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+@*                             <p>
+                                Lorem ipsum dolor sit amet, consectetur adip elit, sed do eiusmod tempor incididunt
+                                ut labore et dolore magna aliqua.
+                            </p> *@
+                            <div class="checkout__input__checkbox">
+                                <label for="payment">
+                                    Thanh toán bằng ngân hàng
+                                    <input type="radio" id="payment" name="payment_method" value="Thẻ ngân hàng">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="checkout__input__checkbox">
+                                <label for="paypal">
+                                    Thanh toán bằng ví điện tử Momo
+                                    <input type="radio" id="paypal" name="payment_method" value="Ví Momo">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <button type="submit" class="site-btn">Đặt hàng</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<script>
+    // Lấy tất cả các checkbox trong cùng một nhóm
+ 
+
+</script>

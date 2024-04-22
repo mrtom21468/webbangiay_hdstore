@@ -1,0 +1,77 @@
+﻿
+<!-- Hero Section Begin -->
+<section class="hero">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="hero__categories">
+                    <div class="hero__categories__all">
+                        <i class="fa fa-bars"></i>
+                        <span>Tât cả thể loại</span>
+                    </div>
+                    <ul>
+                        @await Component.InvokeAsync("TheLoai")
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="hero__search">
+                    <div class="hero__search__form">
+                        <form action="#">
+                            <div class="hero__search__categories">
+                                Tất cả sản phẩm
+                                <span class="arrow_carrot-down"></span>
+                            </div>
+                            <input type="text" placeholder="Bạn cần tìm gì?">
+                            <button type="submit" class="site-btn">Tìm kiếm</button>
+                        </form>
+                    </div>
+                    <div class="hero__search__phone">
+                        <div class="hero__search__phone__icon">
+                            <i class="fa fa-phone"></i>
+                        </div>
+                        <div class="hero__search__phone__text">
+                            <h5>+84 68.688.888</h5>
+                            <span>hỗ trợ 24/7</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero__item set-bg" data-setbg="@Url.Content("~/Userdata/img/hero/banner1.png")">
+                    <div class="hero__text">
+                        <span>Đẳng Cấp</span>
+                        <h2>Phái nam <br />100% Chính Hãng</h2>
+                        <p>Miễn phí vận chuyển hôm nay</p>
+                        <a asp-area="" asp-controller="SanPhamShop" asp-action="Index" class="primary-btn">MUA NGAY</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Hero Section End -->
+<!-- Categories Section Begin -->
+@await Component.InvokeAsync("ChiTietTheLoai")
+<!-- Categories Section End -->
+<!-- Featured Section Begin -->
+@await Component.InvokeAsync("SanPhamBanChay")
+<!-- Featured Section End -->
+<!-- Banner Begin -->
+@await Html.PartialAsync("_Banner")
+<!-- Banner End -->
+<!-- Blog Section Begin -->
+@await Html.PartialAsync("_Blog")
+<!-- Blog Section End -->
+@* @{
+    string notyfMessage = TempData["notyf_message"] as string;
+    string notyfType = TempData["notyf_type"] as string;
+}
+
+@if (!string.IsNullOrEmpty(notyfMessage) && !string.IsNullOrEmpty(notyfType))
+{
+    <script>
+        notyf.open({
+            type: '@notyfType',
+            message: '@notyfMessage'
+        });
+    </script>
+} *@

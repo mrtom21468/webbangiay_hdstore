@@ -1,0 +1,5 @@
+﻿@model List<WebApplication7.Models.Brand>
+            @foreach (var i in Model)
+            {
+                <li><a asp-area="" asp-controller="SanPhamShop" asp-route-thuonghieu="@i.BrandId">@i.BrandName</a></li>
+            }

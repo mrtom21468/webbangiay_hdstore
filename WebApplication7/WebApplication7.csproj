@@ -1,0 +1,265 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AspNetCoreHero.ToastNotification" Version="1.1.0" />
+    <PackageReference Include="ClosedXML" Version="0.102.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid.EntityFrameworkAdapter" Version="8.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\acorn" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\acorn.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\acorn.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\atob" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\atob.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\atob.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\autoprefixer" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\autoprefixer.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\autoprefixer.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\babel" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\babel-external-helpers" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\babel-external-helpers.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\babel-external-helpers.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\babel.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\babel.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\blc" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\blc.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\blc.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\broken-link-checker" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\broken-link-checker.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\broken-link-checker.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\browserslist" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\browserslist.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\browserslist.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\bundlesize" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\bundlesize-init" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\bundlesize-init.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\bundlesize-init.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\bundlesize-pipe" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\bundlesize-pipe.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\bundlesize-pipe.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\bundlesize.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\bundlesize.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\cleancss" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\cleancss.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\cleancss.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\coveralls" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\coveralls.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\coveralls.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\cross-env" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\cross-env-shell" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\cross-env-shell.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\cross-env-shell.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\cross-env.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\cross-env.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\cssesc" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\cssesc.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\cssesc.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\ecstatic" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\ecstatic.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\ecstatic.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\errno" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\errno.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\errno.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\eslint" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\eslint.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\eslint.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\esparse" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\esparse.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\esparse.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\esvalidate" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\esvalidate.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\esvalidate.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\find-unused-sass-variables" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\find-unused-sass-variables.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\find-unused-sass-variables.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\fusv" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\fusv.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\fusv.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\gonzales" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\gonzales.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\gonzales.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\he" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\he.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\he.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\hs" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\hs.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\hs.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\http-server" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\http-server.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\http-server.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\in-install" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\in-install.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\in-install.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\in-publish" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\in-publish.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\in-publish.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\is-ci" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\is-ci.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\is-ci.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\is-docker" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\is-docker.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\is-docker.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\js-yaml" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\js-yaml.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\js-yaml.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\jsesc" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\jsesc.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\jsesc.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\json5" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\json5.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\json5.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\karma" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\karma.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\karma.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\lcov-parse" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\lcov-parse.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\lcov-parse.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\mime" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\mime.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\mime.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\mkdirp" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\mkdirp.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\mkdirp.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\node-gyp" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\node-gyp.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\node-gyp.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\node-sass" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\node-sass.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\node-sass.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\nodemon" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\nodemon.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\nodemon.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\nodetouch" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\nodetouch.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\nodetouch.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\nopt" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\nopt.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\nopt.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\not-in-install" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\not-in-install.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\not-in-install.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\not-in-publish" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\not-in-publish.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\not-in-publish.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\npm" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\npm-run-all" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\npm-run-all.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\npm-run-all.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\npm.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\npm.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\npx" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\npx.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\npx.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\oc" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\oc.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\oc.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\opencollective" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\opencollective.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\opencollective.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\opener" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\opener.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\opener.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\os-name" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\os-name.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\os-name.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\osx-release" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\osx-release.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\osx-release.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\parser" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\parser.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\parser.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\pidtree" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\pidtree.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\pidtree.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\postcss" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\postcss.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\postcss.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\ps-tree" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\ps-tree.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\ps-tree.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\qunit" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\qunit.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\qunit.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\rc" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\rc.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\rc.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\regjsparser" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\regjsparser.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\regjsparser.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\resolve" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\resolve.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\resolve.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\rimraf" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\rimraf.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\rimraf.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\rollup" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\rollup.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\rollup.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\run-p" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\run-p.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\run-p.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\run-s" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\run-s.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\run-s.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\sassgraph" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\sassgraph.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\sassgraph.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\semver" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\semver.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\semver.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\shjs" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\shjs.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\shjs.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\shx" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\shx.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\shx.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\specificity" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\specificity.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\specificity.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\sshpk-conv" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\sshpk-conv.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\sshpk-conv.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\sshpk-sign" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\sshpk-sign.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\sshpk-sign.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\sshpk-verify" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\sshpk-verify.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\sshpk-verify.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\strip-indent" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\strip-indent.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\strip-indent.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\stylelint" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\stylelint.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\stylelint.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\uglifyjs" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\uglifyjs.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\uglifyjs.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\update-browserslist-db" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\update-browserslist-db.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\update-browserslist-db.ps1" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\which" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\which.cmd" />
+    <None Include="wwwroot\Adminassets\vendors\bootstrap\node_modules\.bin\which.ps1" />
+  </ItemGroup>
+
+</Project>

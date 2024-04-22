@@ -1,0 +1,279 @@
+﻿
+@{
+    ViewData["Title"] = "Admin Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+@* thống kê số *@
+<div class="row">
+    <div class="col-md-6 col-lg-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="media align-items-center">
+                    <div class="avatar avatar-icon avatar-lg avatar-blue">
+                        <i class="anticon anticon-dollar"></i>
+                    </div>
+                    <div class="m-l-15">
+                        <h2 class="m-b-0">@* @ViewBag.TongDoanhThu *@ @ViewBag.Tongdoanhthu $ </h2>
+                        <p class="m-b-0 text-muted">Doanh thu</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="media align-items-center">
+                    <div class="avatar avatar-icon avatar-lg avatar-cyan">
+                        <i class="anticon anticon-line-chart"></i>
+                    </div>
+                    <div class="m-l-15">
+
+                        <h2 class="m-b-0">@* @ViewBag.TangTruong *@ @ViewBag.Tongsosanphamban</h2>
+                        <p class="m-b-0 text-muted">Sản phẩm đã bán</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="media align-items-center">
+                    <div class="avatar avatar-icon avatar-lg avatar-gold">
+                        <i class="anticon anticon-profile"></i>
+                    </div>
+                    <div class="m-l-15">
+                        @* số đơn hàng *@
+                        <h2 class="m-b-0">
+                            @ViewBag.Tongdonhang</h2>
+                        <p class="m-b-0 text-muted">Số đơn hàng</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="media align-items-center">
+                    <div class="avatar avatar-icon avatar-lg avatar-purple">
+                        <i class="anticon anticon-user"></i>
+                    </div>
+                    <div class="m-l-15">
+                        @* số người dùng *@
+                        <h2 class="m-b-0">@ViewBag.Tongtaikhoan</h2>
+                        <p class="m-b-0 text-muted">Số người dùng</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@* thống kê năm *@
+@* Biểu đồ doanh thu bán hàng theo hãng 6 tháng gần nhất: *@
+<div>
+        <h1>Biểu Đồ Doanh Số Bán Hàng</h1>
+        <!-- Render Partial View -->
+        @Html.Partial("_ChartPartial")
+
+</div>
+
+@* <div class="row">
+    <div class="col-md-12 col-lg-12">
+        Thống kê theo năm:
+        <select class="custom-select" style="max-width 100px;" id="thongkenam" name="thongkenam" asp-items="ViewBag.allyear">
+            <option selected>All</option>
+        </select>
+    </div> *@
+    @* donhthu *@
+  @*   <div class="col-md-12 col-lg-12">
+        <canvas id="doanhthu"></canvas>
+    </div> *@
+    @* doanh thu năm hiện tại *@
+@*     <div class="col-md-12 col-lg-4">
+        <div class="card">
+
+            <div class="card-body">
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <p class="m-b-0">Lợi nhuận trung bình</p>
+                        <h2 class="m-b-0">@ViewBag.DoanhThuTrungBinh VND</h2>
+                    </div>
+                </div>
+                <div class="m-t-15">
+                    <p>Doanh thu theo tháng: </p>
+                </div>
+                <div class="m-t-15" style="height: 5px">
+                    <p>Tháng 1: @string.Format("{0:0,0} VND", @ViewBag.TongDoanhThuThang1 )</p>
+                </div>
+                <div class="m-t-30" style="height: 5px">
+                    <p>Tháng 2: @string.Format("{0:0,0} VND", @ViewBag.TongDoanhThuThang2 )</p>
+                </div>
+                <div class="m-t-30" style="height: 5px">
+                    <p>Tháng 3: @string.Format("{0:0,0} VND", @ViewBag.TongDoanhThuThang3 )</p>
+                </div>
+                <div class="m-t-30" style="height: 5px">
+                    <p>Tháng 4: @string.Format("{0:0,0} VND", @ViewBag.TongDoanhThuThang4 )</p>
+                </div>
+                <div class="m-t-30" style="height: 5px">
+                    <p>Tháng 5: @string.Format("{0:0,0} VND", @ViewBag.TongDoanhThuThang5 )</p>
+                </div>
+                <div class="m-t-30" style="height: 5px">
+                    <p>Tháng 6: @string.Format("{0:0,0} VND", @ViewBag.TongDoanhThuThang6) </p>
+                </div>
+                <div class="m-t-30" style="height: 5px">
+                    <p>Tháng 7: @string.Format("{0:0,0} VND", @ViewBag.TongDoanhThuThang7 )</p>
+                </div>
+                <div class="m-t-30" style="height: 5px">
+                    <p>Tháng 8: @string.Format("{0:0,0} VND", @ViewBag.TongDoanhThuThang8 )</p>
+                </div>
+                <div class="m-t-30" style="height: 5px">
+                    <p>Tháng 9: @string.Format("{0:0,0} VND", @ViewBag.TongDoanhThuThang9 )</p>
+                </div>
+                <div class="m-t-30" style="height: 5px">
+                    <p>Tháng 10: @string.Format("{0:0,0} VND", @ViewBag.TongDoanhThuThang10) </p>
+                </div>
+                <div class="m-t-30" style="height: 5px">
+                    <p>Tháng 11: @string.Format("{0:0,0} VND", @ViewBag.TongDoanhThuThang11 )</p>
+                </div>
+                <div class="m-t-30" style="height: 5px">
+                    <p>Tháng 12: @string.Format("{0:0,0} VND", @ViewBag.TongDoanhThuThang12 )</p>
+                </div>
+                <div class="m-t-30" style="height: 5px">
+                    <br />
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h2 class="m-b-0">Tổng: @ViewBag.TongDoanhThuNamHienTai  VND</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> *@
+    @* mặt hàng bán chạy *@
+@*     <div class="col-md-12 col-lg-8">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5>Các mặt hàng bán chạy</h5>
+                </div>
+                <div class="m-t-30">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Mặt hàng</th>
+                                    <th>Đã bán</th>
+                                    <th>Giá bán</th>
+                                    <th style="max-width: 70px">Còn lại</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (@ViewBag.AnhTop5SanPham.Count > 0 && @ViewBag.AnhTop5SanPham != null)
+                                {
+                                    numberOfItem = @ViewBag.AnhTop5SanPham.Count > 5 ? 5 : @ViewBag.AnhTop5SanPham.Count;
+                                }
+                                @for (int i = 0; i < numberOfItem; i++)
+                                {
+                                    <tr>
+                                        <td>
+                                            <div class="media align-items-center">
+                                                <div class="avatar avatar-image rounded">
+                                                    <img src=@ViewBag.AnhTop5SanPham[i] alt="">
+                                                </div>
+                                                <div class="m-l-10">
+                                                    <span>@ViewBag.Top5SanPham[i].TenMatHang</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>@ViewBag.Top5SanPham[i].SoLuongDaBan</td>
+                                        <td>@string.Format("{0:0,0}", ViewBag.Top5SanPham[i].GiaBan) VND</td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="m-l-10">
+                                                    @ViewBag.Top5SanPham[i].SoLuong
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> *@
+</div>
+@section Scripts
+{
+    <!-- page js -->
+    @* <script>
+        var bienx = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
+        var bieny = [(@ViewBag.TongDoanhThuThang1) + 1, (@ViewBag.TongDoanhThuThang2) + 1, (@ViewBag.TongDoanhThuThang3) + 1,
+        (@ViewBag.TongDoanhThuThang4) + 1, (@ViewBag.TongDoanhThuThang5) + 1,
+        (@ViewBag.TongDoanhThuThang6) + 1, (@ViewBag.TongDoanhThuThang7) + 1, (@ViewBag.TongDoanhThuThang8) + 1,
+            (@ViewBag.TongDoanhThuThang9) + 1, (@ViewBag.TongDoanhThuThang10) + 1,
+            (@ViewBag.TongDoanhThuThang11) + 1, (@ViewBag.TongDoanhThuThang12) + 1];
+        var CHART = document.getElementById('doanhthu').getContext('2d');
+        var line_chart = new Chart(CHART, {
+            type: 'line',
+            data: {
+                labels: bienx,
+                datasets: [{
+                    label: "Doanh thu biến động theo tháng",
+                    data: bieny
+                }]
+            }
+        })
+
+        $(document).ready(function () {
+            jQuery("#thongkenam").change(function () {
+                var thisyear = jQuery(this).children(":selected").attr("value");
+
+                $('#thongkenam option')
+                    .removeAttr('selected');
+                $("#thongkenam > [value='" + thisyear + "']").attr("selected", "true");
+                $.ajax({
+                    url: '/Admin/Home/Filtter',
+                    datatype: "json",
+                    type: "GET",
+                    data: {
+                        year: thisyear
+                    },
+                    async: true,
+                    success: function (results) {
+                        if (results.status == "success") {
+                            window.location.href = results.redirectUrl;
+                        }
+                    },
+                    error: function (xhr) {
+                        alert('error');
+                    }
+                });
+            });
+
+            $("#keyword").keyup(function () {
+                var strkeyword = $('#keyword').val();
+                $.ajax({
+                    url: '/Admin/Search/FindProduct/',
+                    datatype: "json",
+                    type: "POST",
+                    data: { keyword: strkeyword },
+                    async: true,
+                    success: function (results) {
+                        $("#records_table").html("");
+                        $("#records_table").html(results);
+                    },
+                    error: function (xhr) {
+                        alert('error');
+                    }
+                });
+            });
+        });
+
+    </script> *@
+
+}

@@ -1,0 +1,6 @@
+﻿@model List<WebApplication7.Models.Category>
+
+           @foreach (var i in Model)
+                {
+                    <li><a asp-area="" asp-controller="SanPhamShop" asp-action="Index" asp-route-theloai="@i.CategoryId">@i.CategoryName</a></li>
+                }
