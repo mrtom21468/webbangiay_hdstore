@@ -53,7 +53,7 @@
                 <div class="breadcrumb__text">
                     <h2>Giỏ hàng</h2>
                     <div class="breadcrumb__option">
-                        <a asp-controller="Home">Trang chủ</a>
+                        <a asp-area="" asp-controller="Home" asp-action="Index">Trang chủ</a>
                         <span>Giỏ hàng</span>
                     </div>
                 </div>
@@ -87,7 +87,7 @@
                                     {
                                         <tr>
                                             <td class="shoping__cart__item">
-                                                <img src="img/cart/cart-1.jpg" alt="">
+                                                <img class="img-fluid" src=@i.Productdetail.Product.ImagePath alt="" style="max-width: 30%; max-height: 30vh; width: auto;">
                                                 <h5>@i.Productdetail.Product.ProductName - @i.Productdetail.Color.ColorName - @i.Productdetail.Size.SizeName</h5>
                                             </td>
                                             <td class="shoping__cart__price">
@@ -97,7 +97,7 @@
                                                 <div class="quantity">
                                                     <div class="pro-qt">
                                                         <span class="dec qtybtn">-</span>
-                                                        <input type="text" value="@i.Amount">
+                                                        <input type="text" class="Soluongcapnhat" value="@i.Amount" data-productdetail-id="@i.ProductdetailId" />
                                                         <span class="inc qtybtn">+</span>
                                                     </div>
                                                 </div>
@@ -170,4 +170,81 @@
         </div>
     </div>
 </section>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <!-- Shoping Cart Section End -->
+<script>
+    // cập nhập sản phẩm vào giỏ hàng
+    function updateToCart(productDetailId, newQuantity) {
+        $.ajax({
+            url: '/GioHang/UpdateQuantity',
+            type: 'POST',
+            data: { productDetailId: productDetailId, newQuantity: newQuantity },
+            success: function (result) {
+                if (result.success) {
+                    // Hiển thị thông báo thành công
+                    var notyf = new Notyf();
+                    notyf.success(result.message);
+                } else {
+                    // Hiển thị thông báo lỗi
+                    var notyf = new Notyf();
+                    notyf.error(result.message);
+                }
+            },
+            error: function () {
+                var notyf = new Notyf();
+                notyf.error('Vui lòng đăng nhập');
+                window.location.href = '@Url.Action("Login", "Account", new { area = "Identity" })?returnUrl=/SanPhamChiTiet/Index/' + productId;
+            }
+        });
+    }
+    var proQty = $('.pro-qt');
+    // Lắng nghe sự kiện click của các nút +/- trong ô nhập liệu số lượng
+    proQty.on('click', '.qtybtn', function () {
+        var $button = $(this);
+        var $input = $button.parent().find('input');
+        var oldValue = parseInt($input.val());
+        var productId = $input.data('productdetail-id');
+        // Kiểm tra nếu nút được nhấn là nút tăng (+)
+        if ($button.hasClass('inc')) {
+            var newVal = oldValue + 1; // Tăng giá trị lên 1
+        } else {
+            // Kiểm tra giá trị hiện tại không được nhỏ hơn 1
+            if (oldValue > 1) {
+                var newVal = oldValue - 1; // Giảm giá trị đi 1
+            } else {
+                newVal = 1; // Nếu giá trị hiện tại là 1 thì giữ nguyên
+            }
+        }
+        // Cập nhật giá trị mới cho ô nhập liệu
+        var $newInput = $('<input>').attr({
+            type: 'text',
+            class: 'Soluongcapnhat',
+            value: newVal,
+            'data-productdetail-id': productId
+        });
+        $input.replaceWith($newInput);
+        updateToCart(productId, newVal);
+    });
+    // Lắng nghe sự kiện input trên input có class là Soluongcapnhat
+    proQty.on('input', '.Soluongcapnhat', function () {
+        // Lấy giá trị mới từ input
+        var newVal = parseInt($(this).val());
+        var productId = $(this).data('productdetail-id');
+        // Kiểm tra xem giá trị mới có phải là một số không âm
+        if (isNaN(newVal) || newVal < 1) {
+            newVal = 1; // Nếu không phải thì gán giá trị mặc định là 1
+        }
+        var $newInput = $('<input>').attr({
+            type: 'text',
+            class: 'Soluongcapnhat',
+            value: newVal,
+            'data-productdetail-id': productId
+        });
+        // Gán giá trị mới vào input
+        $(this).replaceWith($newInput);
+        updateToCart(productId, newVal);
+
+    });
+
+</script>

@@ -62,7 +62,7 @@ namespace WebApplication7.Controllers
             {
                 var userid = _userManager.GetUserId(User);
                 var user = _context.Accounts.Where(u => u.UserId == userid).Select(u => u.AccountId).FirstOrDefaultAsync();
-                List<Cart> cart = _context.Carts.Where(c => c.AccountId == 2).ToList();
+                List<Cart> cart = _context.Carts.Where(c => c.AccountId == user.Result).ToList();
                 var cartremove = _context.Carts.Where(c => c.ProductdetailId == ProductdetailId && c.AccountId == user.Result).First();
                 if (cart != null && cartremove != null)
                 {
@@ -78,6 +78,34 @@ namespace WebApplication7.Controllers
                 _notyfService.Warning("Xóa sản phẩm khỏi giỏ hàng thất bại", 3);
                 return RedirectToAction("Index", "GioHang"); // Chuyển hướng đến trang giỏ hàng
 
+            }
+        }
+        //cập nhật giỏ hàng
+        [HttpPost]
+        public IActionResult UpdateQuantity(int productDetailId, int newQuantity)
+        {
+            try
+            {
+                // lấy account id cần cập nhật
+                var userid = _userManager.GetUserId(User);
+                var user = _context.Accounts.Where(u => u.UserId == userid).Select(u => u.AccountId).FirstOrDefaultAsync();
+                var cartupdate = _context.Carts.Where(c => c.ProductdetailId == productDetailId && c.AccountId == user.Result).First();
+                var Productdetail = _context.ProductDetails.Where(p => p.ProductdetailId == productDetailId && p.Quantity >= newQuantity).FirstOrDefault();
+                if (Productdetail != null && cartupdate != null)
+                {
+                    cartupdate.Amount = newQuantity;
+                    _context.Update(cartupdate);
+                    _context.SaveChangesAsync();
+                    return Json(new { success = true, message = "Cập nhật số lượng sản phẩm thành công" }); // Trả về kết quả thành công
+                }
+                else
+                {
+                    return Json(new { success = false, message = "Sản phẩm trong kho không đủ" }); ; // Trả về kết quả thành công
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "Cập nhật số lượng sản phẩm thất bại lỗi hệ thống" }); ; // Trả về kết quả thành công
             }
         }
     }

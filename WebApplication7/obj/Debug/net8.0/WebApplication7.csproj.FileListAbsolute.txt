@@ -303,3 +303,4 @@ D:\Code_Asp\WebApplication7\WebApplication7\bin\Debug\net8.0\System.IO.Packaging
 D:\Code_Asp\WebApplication7\WebApplication7\bin\Debug\net8.0\XLParser.dll
 D:\Code_Asp\WebApplication7\WebApplication7\bin\Debug\net8.0\AspNetCoreHero.ToastNotification.Views.dll
 D:\Code_Asp\WebApplication7\WebApplication7\bin\Debug\net8.0\AspNetCoreHero.ToastNotification.dll
+D:\Code_Asp\WebApplication7\WebApplication7\obj\Debug\net8.0\WebApplication7.sourcelink.json
