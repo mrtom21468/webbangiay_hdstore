@@ -17,383 +17,383 @@ build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = WebApplication7
 build_property.RootNamespace = WebApplication7
-build_property.ProjectDir = D:\Code_Asp\WebApplication7\WebApplication7\
+build_property.ProjectDir = C:\Users\ADMIN\Desktop\webbangiay_hdstore\WebApplication7\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = D:\Code_Asp\WebApplication7\WebApplication7
+build_property.MSBuildProjectDirectory = C:\Users\ADMIN\Desktop\webbangiay_hdstore\WebApplication7
 build_property._RazorSourceGeneratorDebug = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/Brands/Create.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/Brands/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQnJhbmRzXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/Brands/Delete.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/Brands/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQnJhbmRzXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/Brands/Details.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/Brands/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQnJhbmRzXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/Brands/Edit.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/Brands/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQnJhbmRzXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/Brands/Index.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/Brands/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQnJhbmRzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/Categories/Create.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/Categories/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ2F0ZWdvcmllc1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/Categories/Delete.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/Categories/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ2F0ZWdvcmllc1xEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/Categories/Details.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/Categories/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ2F0ZWdvcmllc1xEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/Categories/Edit.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/Categories/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ2F0ZWdvcmllc1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/Categories/Index.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/Categories/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ2F0ZWdvcmllc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/Colors/Create.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/Colors/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ29sb3JzXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/Colors/Delete.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/Colors/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ29sb3JzXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/Colors/Details.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/Colors/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ29sb3JzXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/Colors/Edit.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/Colors/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ29sb3JzXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/Colors/Index.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/Colors/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ29sb3JzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/Home/Index.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/Home/_ChartPartial.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/Home/_ChartPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZVxfQ2hhcnRQYXJ0aWFsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/NguoiDungs/Delete.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/NguoiDungs/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTmd1b2lEdW5nc1xEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/NguoiDungs/Edit.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/NguoiDungs/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTmd1b2lEdW5nc1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/NguoiDungs/Index.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/NguoiDungs/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTmd1b2lEdW5nc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/OrderDetails/Create.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/OrderDetails/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcT3JkZXJEZXRhaWxzXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/OrderDetails/Delete.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/OrderDetails/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcT3JkZXJEZXRhaWxzXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/OrderDetails/Details.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/OrderDetails/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcT3JkZXJEZXRhaWxzXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/OrderDetails/Edit.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/OrderDetails/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcT3JkZXJEZXRhaWxzXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/OrderDetails/Index.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/OrderDetails/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcT3JkZXJEZXRhaWxzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/Orders/Create.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/Orders/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcT3JkZXJzXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/Orders/Delete.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/Orders/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcT3JkZXJzXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/Orders/Details.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/Orders/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcT3JkZXJzXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/Orders/Edit.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/Orders/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcT3JkZXJzXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/Orders/Index.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/Orders/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcT3JkZXJzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/ProductDetails/Create.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/ProductDetails/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUHJvZHVjdERldGFpbHNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/ProductDetails/Delete.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/ProductDetails/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUHJvZHVjdERldGFpbHNcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/ProductDetails/Details.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/ProductDetails/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUHJvZHVjdERldGFpbHNcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/ProductDetails/Edit.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/ProductDetails/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUHJvZHVjdERldGFpbHNcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/ProductDetails/Index.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/ProductDetails/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUHJvZHVjdERldGFpbHNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/Products/Create.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/Products/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUHJvZHVjdHNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/Products/Delete.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/Products/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUHJvZHVjdHNcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/Products/Details.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/Products/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUHJvZHVjdHNcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/Products/Edit.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/Products/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUHJvZHVjdHNcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/Products/Index.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/Products/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUHJvZHVjdHNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/Roles/Create.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/Roles/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUm9sZXNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/Roles/Delete.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/Roles/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUm9sZXNcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/Roles/Edit.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/Roles/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUm9sZXNcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/Roles/Index.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/Roles/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUm9sZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/Shared/Error.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/Shared/Footer.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/Shared/Footer.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2hhcmVkXEZvb3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/Shared/Header.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/Shared/Header.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2hhcmVkXEhlYWRlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/Shared/_AdminLayout.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/Shared/_AdminLayout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2hhcmVkXF9BZG1pbkxheW91dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/Shared/_SideNavPartialView.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/Shared/_SideNavPartialView.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2hhcmVkXF9TaWRlTmF2UGFydGlhbFZpZXcuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/Sizes/Create.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/Sizes/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2l6ZXNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/Sizes/Delete.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/Sizes/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2l6ZXNcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/Sizes/Details.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/Sizes/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2l6ZXNcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/Sizes/Edit.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/Sizes/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2l6ZXNcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/Sizes/Index.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/Sizes/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2l6ZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/Suppliers/Create.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/Suppliers/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU3VwcGxpZXJzXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/Suppliers/Delete.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/Suppliers/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU3VwcGxpZXJzXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/Suppliers/Details.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/Suppliers/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU3VwcGxpZXJzXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/Suppliers/Edit.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/Suppliers/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU3VwcGxpZXJzXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/Suppliers/Index.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/Suppliers/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU3VwcGxpZXJzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/_ViewImports.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Admin/Views/_ViewStart.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Admin/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Identity/Pages/Account/Login.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Identity/Pages/Account/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Identity/Pages/Account/Logout.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Identity/Pages/Account/Logout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxMb2dvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Identity/Pages/Account/Manage/_Layout.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Identity/Pages/Account/Manage/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcX0xheW91dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Identity/Pages/Account/Manage/_ManageNav.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Identity/Pages/Account/Manage/_ManageNav.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcX01hbmFnZU5hdi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Identity/Pages/Account/Manage/_ViewImports.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Identity/Pages/Account/Manage/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Identity/Pages/Account/Register.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Identity/Pages/Account/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Identity/Pages/Account/_ViewImports.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Identity/Pages/Account/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxfVmlld0ltcG9ydHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Identity/Pages/_ValidationScriptsPartial.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Identity/Pages/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZhbGlkYXRpb25TY3JpcHRzUGFydGlhbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Identity/Pages/_ViewImports.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Identity/Pages/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Areas/Identity/Pages/_ViewStart.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Areas/Identity/Pages/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Views/GioHang/Index.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Views/GioHang/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2lvSGFuZ1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Views/Home/Index.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Views/LienHe/Index.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Views/LienHe/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGllbkhlXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Views/SanPhamChiTiet/Index.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Views/SanPhamChiTiet/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FuUGhhbUNoaVRpZXRcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Views/SanPhamShop/Index.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Views/SanPhamShop/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FuUGhhbVNob3BcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Views/Shared/Components/ChiTietTheLoai/Default.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Views/Shared/Components/ChiTietTheLoai/Default.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcQ2hpVGlldFRoZUxvYWlcRGVmYXVsdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Views/Shared/Components/SanPhamBanChay/Default.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Views/Shared/Components/SanPhamBanChay/Default.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcU2FuUGhhbUJhbkNoYXlcRGVmYXVsdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Views/Shared/Components/TheLoai/Default.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Views/Shared/Components/TheLoai/Default.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcVGhlTG9haVxEZWZhdWx0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Views/Shared/Components/ThuongHieu/Default.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Views/Shared/Components/ThuongHieu/Default.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcVGh1b25nSGlldVxEZWZhdWx0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Views/Shared/Error.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Views/Shared/_Banner.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Views/Shared/_Banner.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9CYW5uZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Views/Shared/_Blog.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Views/Shared/_Blog.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9CbG9nLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Views/Shared/_Footer.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Views/Shared/_Footer.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Gb290ZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Views/Shared/_Header.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Views/Shared/_Header.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9IZWFkZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Views/Shared/_LoginPartial.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Views/Shared/_LoginPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Views/ThanhToan/Index.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Views/ThanhToan/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGhhbmhUb2FuXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Views/ThanhToan/XuLyThanhToan.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Views/ThanhToan/XuLyThanhToan.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGhhbmhUb2FuXFh1THlUaGFuaFRvYW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Views/_ViewImports.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Views/_ViewStart.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code_Asp/WebApplication7/WebApplication7/Views/Shared/_Layout.cshtml]
+[C:/Users/ADMIN/Desktop/webbangiay_hdstore/WebApplication7/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-kcj6918upk

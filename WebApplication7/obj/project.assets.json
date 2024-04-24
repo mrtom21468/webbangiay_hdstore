@@ -13294,11 +13294,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Code_Asp\\WebApplication7\\WebApplication7\\WebApplication7.csproj",
+      "projectUniqueName": "C:\\Users\\ADMIN\\Desktop\\webbangiay_hdstore\\WebApplication7\\WebApplication7.csproj",
       "projectName": "WebApplication7",
-      "projectPath": "D:\\Code_Asp\\WebApplication7\\WebApplication7\\WebApplication7.csproj",
+      "projectPath": "C:\\Users\\ADMIN\\Desktop\\webbangiay_hdstore\\WebApplication7\\WebApplication7.csproj",
       "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
-      "outputPath": "D:\\Code_Asp\\WebApplication7\\WebApplication7\\obj\\",
+      "outputPath": "C:\\Users\\ADMIN\\Desktop\\webbangiay_hdstore\\WebApplication7\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
