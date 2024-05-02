@@ -1,0 +1,185 @@
+﻿@model WebApplication7.Models.Product
+@using WebApplication7.Models
+@{
+    ViewData["Title"] = "Manager";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.ProductId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+<style>
+    .custom-input:focus,
+    .custom-input:not(:placeholder-shown) {
+        border-width: 2px;
+        border-color: #d3d3d3; /* Light gray color */
+    }
+</style>
+<div class="container mt-4">
+    <div class="row">
+        <!-- Sản phẩm và danh sách các phiên bản sản phẩm -->
+        <div class="col-md-8">
+            <div class="row">
+                <!-- Sản phẩm -->
+                <div class="col-md-12">
+                    <h4>Sản phẩm</h4>
+                    <hr />
+                    <dl class="row">
+                        <dt class="col-sm-2">
+                            @Html.DisplayNameFor(model => model.ProductName)
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Html.DisplayFor(model => model.ProductName)
+                        </dd>
+                        <dt class="col-sm-2">
+                            Brand
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Html.DisplayFor(model => model.Brand.BrandName)
+                        </dd>
+                        <dt class="col-sm-2">
+                            Category
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Html.DisplayFor(model => model.Category.CategoryName)
+                        </dd>
+                    </dl>
+                    <hr />
+                </div>
+                <!-- Danh sách các phiên bản sản phẩm -->
+                <div class="col-md-12">
+                    <h4>Danh sách các phiên bản sản phẩm</h4>
+                    <input type="text" id="searchInput" placeholder="Nhập từ khóa tìm kiếm...">
+                    <button id="searchButton">Tìm kiếm</button>
+                    <div id="searchResults">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Màu</th>
+                                    <th>Size</th>
+                                    <th>Số lượng</th>
+                                    <th>Giá bán</th>
+                                    <th>Giá nhập</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var version in Model.ProductDetails)
+                                {
+                                    <tr>
+                                        <td>@version.Color.ColorName</td>
+                                        <td>@version.Size.SizeName</td>
+                                        <td>@version.Quantity</td>
+                                        <td>@version.SellingPrice $</td>
+                                        <td>@version.PurchasePrice $</td>
+                                        <!-- Các ô dữ liệu khác nếu cần -->
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                     </div>
+                </div>
+            </div>
+        </div>
+        <!-- Thêm mới phiên bản sản phẩm -->
+        <div class="col-md-4">
+            <h4>Thêm mới phiên bản sản phẩm</h4>
+            <form id="create-form" class="form-horizontal">
+                <input id="ProductId" type="hidden" value="@Model.ProductId" />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group row">
+                    <label class="control-label col-sm-4 align-self-center">Size</label>
+                    <div class="col-sm-6">
+                        <select id="SizeId" class="form-control custom-input" asp-items="ViewBag.SizeId"></select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="control-label col-sm-4 align-self-center">Màu sắc</label>
+                    <div class="col-sm-6">
+                        <select id="ColorId" class="form-control custom-input" asp-items="ViewBag.ColorId"></select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="control-label col-sm-4 align-self-center">Số lượng</label>
+                    <div class="col-sm-6">
+                        <input id="Quantity" class="form-control custom-input" />
+                        <span class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="control-label col-sm-4 align-self-center">Giá Bán</label>
+                    <div class="col-sm-6">
+                        <input id="SellingPrice" class="form-control custom-input" />
+                        <span class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="control-label col-sm-4 align-self-center">Giá nhập</label>
+                    <div class="col-sm-6">
+                        <input id="PurchasePrice" class="form-control custom-input" />
+                        <span class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row justify-content-center">
+                    <div class="col-sm-6">
+                        <button type="button" id="submit-btn" class="btn btn-primary btn-block">Create</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#searchButton').click(function () {
+            var keyword = $('#searchInput').val();
+            $.ajax({
+                url: '@Url.Action("Search", "Products", new { area = "Admin" })',
+                type: 'POST',
+                data: { keyword: keyword, id: @Model.ProductId },
+                success: function (response) {
+                    $('#searchResults').html(response);
+                }
+            });
+        });
+    });
+
+    $(document).ready(function () {
+        $('#submit-btn').click(function () {
+            var formData = {
+                ProductId: $('#ProductId').val(),
+                SizeId: $('#SizeId').val(),
+                ColorId: $('#ColorId').val(),
+                Quantity: $('#Quantity').val(),
+                PurchasePrice: $('#PurchasePrice').val(),
+                SellingPrice: $('#SellingPrice').val()
+            };
+
+            $.ajax({
+                url: '@Url.Action("Create", "Products", new { area = "Admin" })',
+                type: 'PUT',
+                contentType: 'application/json',
+                data: JSON.stringify(formData),
+                success: function (response) {
+                    if (response.status != null || response.status==false) {
+                        // Hiển thị thông báo lỗi từ server
+                        var notyf = new Notyf();
+                        notyf.error(response.mes);
+                    } else {
+                        // Xử lý phản hồi từ server nếu thành công
+                        var notyf = new Notyf();
+                        notyf.success('Thêm dữ liệu thành công');
+                        // Cập nhật phần kết quả tìm kiếm nếu cần
+                        $('#searchResults').html(response);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    // Xử lý lỗi từ server nếu có
+                    var notyf = new Notyf();
+                    notyf.error('Thêm thất bại gặp lỗi');
+                }
+            });
+        });
+    });
+</script>

@@ -14,10 +14,11 @@ public partial class ProductDetail
     public int? ColorId { get; set; }
 
     public int? Quantity { get; set; }
-
+    public decimal? PurchasePrice { get; set; }
     public decimal? SellingPrice { get; set; }
 
     public virtual ICollection<Cart> Carts { get; set; } = new List<Cart>();
+    public virtual ICollection<StoreIn> StoreIns { get; set; } = new List<StoreIn>();
 
     public virtual Color? Color { get; set; }
 

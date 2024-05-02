@@ -17,7 +17,7 @@ namespace WebApplication7.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.3")
+                .HasAnnotation("ProductVersion", "8.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -350,6 +350,9 @@ namespace WebApplication7.Migrations
                         .HasDefaultValue("cancelled")
                         .HasColumnName("payment_status");
 
+                    b.Property<string>("PaymentType")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("PhoneNumber")
                         .HasMaxLength(20)
                         .IsUnicode(false)
@@ -383,6 +386,9 @@ namespace WebApplication7.Migrations
                     b.Property<int?>("OrderId")
                         .HasColumnType("int")
                         .HasColumnName("order_id");
+
+                    b.Property<decimal?>("PriceAtOrderTime")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int?>("ProductdetailId")
                         .HasColumnType("int")
@@ -465,13 +471,8 @@ namespace WebApplication7.Migrations
                         .HasColumnType("varchar(50)")
                         .HasColumnName("product_name");
 
-                    b.Property<decimal?>("PurchasePrice")
-                        .HasColumnType("decimal(10, 2)")
-                        .HasColumnName("purchase_price");
-
-                    b.Property<int?>("SupplierId")
-                        .HasColumnType("int")
-                        .HasColumnName("supplier_id");
+                    b.Property<bool?>("State")
+                        .HasColumnType("bit");
 
                     b.HasKey("ProductId")
                         .HasName("PK__Product__47027DF5F3E00BD2");
@@ -479,8 +480,6 @@ namespace WebApplication7.Migrations
                     b.HasIndex(new[] { "BrandId" }, "IX_Product_brand_id");
 
                     b.HasIndex(new[] { "CategoryId" }, "IX_Product_category_id");
-
-                    b.HasIndex(new[] { "SupplierId" }, "IX_Product_supplier_id");
 
                     b.ToTable("Product", (string)null);
                 });
@@ -501,6 +500,9 @@ namespace WebApplication7.Migrations
                     b.Property<int?>("ProductId")
                         .HasColumnType("int")
                         .HasColumnName("product_id");
+
+                    b.Property<decimal?>("PurchasePrice")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int?>("Quantity")
                         .HasColumnType("int")
@@ -551,6 +553,43 @@ namespace WebApplication7.Migrations
                         .HasName("PK__Size__0DCACE3135AEF154");
 
                     b.ToTable("Size", (string)null);
+                });
+
+            modelBuilder.Entity("WebApplication7.Models.StoreIn", b =>
+                {
+                    b.Property<int>("StoreInId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StoreInId"));
+
+                    b.Property<int?>("AccountId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("ImprortPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int?>("ProductdetailId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SupplierId")
+                        .HasColumnType("int");
+
+                    b.HasKey("StoreInId");
+
+                    b.HasIndex("AccountId");
+
+                    b.HasIndex("ProductdetailId");
+
+                    b.HasIndex("SupplierId");
+
+                    b.ToTable("StoreIns");
                 });
 
             modelBuilder.Entity("WebApplication7.Models.Supplier", b =>
@@ -783,16 +822,9 @@ namespace WebApplication7.Migrations
                         .HasForeignKey("CategoryId")
                         .HasConstraintName("FK__Product__categor__440B1D61");
 
-                    b.HasOne("WebApplication7.Models.Supplier", "Supplier")
-                        .WithMany("Products")
-                        .HasForeignKey("SupplierId")
-                        .HasConstraintName("FK__Product__supplie__44FF419A");
-
                     b.Navigation("Brand");
 
                     b.Navigation("Category");
-
-                    b.Navigation("Supplier");
                 });
 
             modelBuilder.Entity("WebApplication7.Models.ProductDetail", b =>
@@ -819,6 +851,27 @@ namespace WebApplication7.Migrations
                     b.Navigation("Size");
                 });
 
+            modelBuilder.Entity("WebApplication7.Models.StoreIn", b =>
+                {
+                    b.HasOne("WebApplication7.Models.Account", "Account")
+                        .WithMany("StoreIns")
+                        .HasForeignKey("AccountId");
+
+                    b.HasOne("WebApplication7.Models.ProductDetail", "ProductDetail")
+                        .WithMany("StoreIns")
+                        .HasForeignKey("ProductdetailId");
+
+                    b.HasOne("WebApplication7.Models.Supplier", "Supplier")
+                        .WithMany("StoreIns")
+                        .HasForeignKey("SupplierId");
+
+                    b.Navigation("Account");
+
+                    b.Navigation("ProductDetail");
+
+                    b.Navigation("Supplier");
+                });
+
             modelBuilder.Entity("WebApplication7.Models.Account", b =>
                 {
                     b.Navigation("Addresses");
@@ -826,6 +879,8 @@ namespace WebApplication7.Migrations
                     b.Navigation("Carts");
 
                     b.Navigation("Orders");
+
+                    b.Navigation("StoreIns");
                 });
 
             modelBuilder.Entity("WebApplication7.Models.Brand", b =>
@@ -860,6 +915,8 @@ namespace WebApplication7.Migrations
                     b.Navigation("Carts");
 
                     b.Navigation("OrderDetails");
+
+                    b.Navigation("StoreIns");
                 });
 
             modelBuilder.Entity("WebApplication7.Models.Size", b =>
@@ -869,7 +926,7 @@ namespace WebApplication7.Migrations
 
             modelBuilder.Entity("WebApplication7.Models.Supplier", b =>
                 {
-                    b.Navigation("Products");
+                    b.Navigation("StoreIns");
                 });
 #pragma warning restore 612, 618
         }

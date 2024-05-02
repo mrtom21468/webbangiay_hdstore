@@ -40,6 +40,10 @@ namespace WebApplication7.Areas.Admin.Helpper
                     {
                         stringBuilder.Append(char.ToLower(c));
                     }
+                    else if (c == 'Đ' || c == 'đ')
+                    {
+                        stringBuilder.Append('d');
+                    }
                 }
             }
 

@@ -31,6 +31,7 @@ namespace WebApplication7.Models
         public virtual DbSet<Size> Sizes { get; set; }
 
         public virtual DbSet<Supplier> Suppliers { get; set; }
+        public virtual DbSet<StoreIn> StoreIns { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -230,8 +231,8 @@ namespace WebApplication7.Models
 
                 entity.HasIndex(e => e.CategoryId, "IX_Product_category_id");
 
-                entity.HasIndex(e => e.SupplierId, "IX_Product_supplier_id");
-
+/*                entity.HasIndex(e => e.SupplierId, "IX_Product_supplier_id");
+*/
                 entity.Property(e => e.ProductId).HasColumnName("product_id");
                 entity.Property(e => e.BrandId).HasColumnName("brand_id");
                 entity.Property(e => e.CategoryId).HasColumnName("category_id");
@@ -239,11 +240,11 @@ namespace WebApplication7.Models
                     .HasMaxLength(50)
                     .IsUnicode(false)
                     .HasColumnName("product_name");
-                entity.Property(e => e.PurchasePrice)
+/*                entity.Property(e => e.PurchasePrice)
                     .HasColumnType("decimal(10, 2)")
-                    .HasColumnName("purchase_price");
-                entity.Property(e => e.SupplierId).HasColumnName("supplier_id");
-
+                    .HasColumnName("purchase_price");*/
+/*                entity.Property(e => e.SupplierId).HasColumnName("supplier_id");
+*/
                 entity.HasOne(d => d.Brand).WithMany(p => p.Products)
                     .HasForeignKey(d => d.BrandId)
                     .HasConstraintName("FK__Product__brand_i__4316F928");
@@ -252,9 +253,9 @@ namespace WebApplication7.Models
                     .HasForeignKey(d => d.CategoryId)
                     .HasConstraintName("FK__Product__categor__440B1D61");
 
-                entity.HasOne(d => d.Supplier).WithMany(p => p.Products)
-                    .HasForeignKey(d => d.SupplierId)
-                    .HasConstraintName("FK__Product__supplie__44FF419A");
+/*                entity.HasOne(d => d.Supplier).WithMany(p => p.Products)
+*//*                    .HasForeignKey(d => d.SupplierId)
+                    .HasConstraintName("FK__Product__supplie__44FF419A");*/
             });
 
             modelBuilder.Entity<ProductDetail>(entity =>

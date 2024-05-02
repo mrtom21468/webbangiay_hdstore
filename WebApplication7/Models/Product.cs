@@ -10,15 +10,13 @@ public partial class Product
 {
     public int ProductId { get; set; }
 
+    [Required(ErrorMessage = "Vui lòng nhập tên sản phẩm.")]
     public string ProductName { get; set; } = null!;
 
+    public bool? State { get; set; }
     public int? BrandId { get; set; }
 
     public int? CategoryId { get; set; }
-
-    public int? SupplierId { get; set; }
-
-    public decimal? PurchasePrice { get; set; }
 
     public string? ImagePath { get; set; }
 
@@ -33,9 +31,9 @@ public partial class Product
 
     public virtual ICollection<ProductDetail> ProductDetails { get; set; } = new List<ProductDetail>();
 
-    public virtual Supplier? Supplier { get; set; }
     // Thêm thuộc tính để lưu trữ file ảnh
     [NotMapped] // Đánh dấu không ánh xạ vào cơ sở dữ liệu
     [DisplayName("Upload Image")]
+    [Required(ErrorMessage = "Vui lòng tải lên ảnh sản phẩm.")]
     public IFormFile ImageFile { get; set; }
 }

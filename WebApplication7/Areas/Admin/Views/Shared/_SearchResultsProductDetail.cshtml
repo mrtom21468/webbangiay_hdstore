@@ -1,0 +1,29 @@
+﻿
+@{
+    Layout = null;
+}
+@model IEnumerable<ProductDetail>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Màu</th>
+            <th>Size</th>
+            <th>Số lượng</th>
+            <th>Giá bán</th>
+            <th>Giá nhập</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var version in Model)
+        {
+            <tr>
+                <td>@version.Color.ColorName</td>
+                <td>@version.Size.SizeName</td>
+                <td>@version.Quantity</td>
+                <td>@version.SellingPrice $</td>
+                <td>@version.PurchasePrice $</td>
+                <!-- Các ô dữ liệu khác nếu cần -->
+            </tr>
+        }
+    </tbody>
+</table>

@@ -25,11 +25,13 @@ namespace WebApplication7.Areas.Admin.Controllers
         // GET: Admin/Orders
         public async Task<IActionResult> Index(int? pageNumber)
         {
-            var qLDBcontext = _context.Orders.Include(o => o.Account);
-            int pageSize = 3;
-            return View(await PaginatedList<Order>.CreateAsync(qLDBcontext.AsNoTracking(), pageNumber ?? 1, pageSize));
+            var qLDBcontext = _context.Orders
+                                    .Include(o => o.Account)
+                                    .OrderByDescending(o => o.CreatedAt)
+                                    .AsNoTracking();
+            int pageSize = 5;
+            return View(await PaginatedList<Order>.CreateAsync(qLDBcontext, pageNumber ?? 1, pageSize));
         }
-
         // GET: Admin/Orders/Details/5
         public async Task<IActionResult> Details(int? id)
         {

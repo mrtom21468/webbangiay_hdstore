@@ -1,32 +1,37 @@
-﻿@model IEnumerable<WebApplication7.Models.Product>
+﻿@using WebApplication7.Models
+@model IEnumerable<WebApplication7.Models.Product>
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Quản lý sản phẩm</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create"><i class="anticon-plus"></i>Tạo mới sản phẩm</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ProductName)
+                @Html.DisplayName("Ảnh")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PurchasePrice)
+                @Html.DisplayName("Tên sản phẩm")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Brand)
+                @Html.DisplayName("Thương hiệu")
+
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Category)
+                @Html.DisplayName("Thể loại")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Supplier)
+                @Html.DisplayName("Phiên bản")
+            </th>
+            <th>
+                @Html.DisplayName("Tổng có thể bán")
             </th>
             <th></th>
         </tr>
@@ -34,11 +39,13 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
+              <td>
+                    <img class="img-fluid" src=@item.ImagePath alt="" style="max-width: 30%; max-height: 30vh; width: auto;">
+              </td>
+
             <td>
-                @Html.DisplayFor(modelItem => item.ProductName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PurchasePrice)$
+                    <h5><a style="color: initial; text-decoration: none; display: inline-block;" onmouseover="this.style.color='#7fad39'" onmouseout="this.style.color='initial'" href=@Url.Action("Manager","Products",new {id=@item.ProductId })>@item.ProductName</a></h5>
+
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Brand.BrandName)
@@ -46,9 +53,22 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Category.CategoryName)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Supplier.SupplierName)
-            </td>
+                <td>
+                    @item.ProductDetails.Count()
+                </td>
+                <td>
+                    @{
+                        // Khởi tạo biến sum để tính tổng
+                        int? sum = 0;
+
+                        // Duyệt qua từng sản phẩm trong ProductDetails của item và tính tổng
+                        foreach (var productDetail in item.ProductDetails)
+                        {
+                            sum += productDetail.Quantity;
+                        }
+                    }
+                    @sum <!-- Hiển thị tổng -->
+                </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ProductId">Chỉnh sửa</a> |
                 <a asp-action="Details" asp-route-id="@item.ProductId">Chi tiết</a> |

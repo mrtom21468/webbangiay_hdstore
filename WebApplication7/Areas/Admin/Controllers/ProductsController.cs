@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using WebApplication7.Models;
 using Microsoft.AspNetCore.Hosting;
 using AspNetCoreHero.ToastNotification.Notyf;
+using DocumentFormat.OpenXml.Office2010.Excel;
 
 namespace WebApplication7.Areas.Admin.Controllers
 {
@@ -29,12 +30,12 @@ namespace WebApplication7.Areas.Admin.Controllers
         // GET: Admin/Products
         public async Task<IActionResult> Index()
         {
-            var qLDBcontext = _context.Products.Include(p => p.Brand).Include(p => p.Category).Include(p => p.Supplier);
+            var qLDBcontext = _context.Products.Include(p => p.Brand).Include(p => p.Category).Include(p=>p.ProductDetails);
             return View(await qLDBcontext.ToListAsync());
         }
 
         // GET: Admin/Products/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Manager(int? id)
         {
             if (id == null)
             {
@@ -44,8 +45,13 @@ namespace WebApplication7.Areas.Admin.Controllers
             var product = await _context.Products
                 .Include(p => p.Brand)
                 .Include(p => p.Category)
-                .Include(p => p.Supplier)
+                .Include(p => p.ProductDetails)
+                .ThenInclude(p=>p.Size)
+                .Include(p => p.ProductDetails)
+                .ThenInclude(p => p.Color)
                 .FirstOrDefaultAsync(m => m.ProductId == id);
+            ViewData["ColorId"] = new SelectList(_context.Colors, "ColorId", "ColorName");
+            ViewData["SizeId"] = new SelectList(_context.Sizes, "SizeId", "SizeName");
             if (product == null)
             {
                 return NotFound();
@@ -53,13 +59,83 @@ namespace WebApplication7.Areas.Admin.Controllers
 
             return View(product);
         }
+               [HttpPost]
+        public async Task<IActionResult> Search(int? id,string? keyword)
+        {
+            var productDetails = _context.ProductDetails
+                                                    .Include(p => p.Color)
+                                                    .Include(p => p.Size)
+                                                    .Where(p => p.ProductId == id);
 
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                var keywords = keyword.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+                foreach (var key in keywords)
+                {
+                    string keywordLower = key.ToLower(); // Chuyển key về dạng không phân biệt hoa thường
+
+                    productDetails = productDetails.Where(p => p.Color.ColorName.ToLower().Contains(keywordLower)
+                                            || p.Size.SizeName.ToLower().Contains(keywordLower)
+                                            || p.Quantity.ToString().Contains(key)
+                                            || p.SellingPrice.ToString().Contains(key)
+                                            || p.PurchasePrice.ToString().Contains(key));
+                }
+            }
+            return PartialView("_SearchResultsProductDetail", productDetails);
+        }
+        //thêm mới phiên bản sản phẩm
+        [HttpPut]
+        public async Task<IActionResult> Create([FromBody] ProductDetail model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    //kiểm tra xem có trùng không
+                    var checkproduct = _context.ProductDetails.Where(p => p.ProductId == model.ProductId && p.ColorId == model.ColorId && p.SizeId == model.SizeId).FirstOrDefault();
+                    if (checkproduct != null)
+                    {
+                        return Ok(new { status = false, mes = "Thêm thất bại do đã tồn tại phiên bản của sản phẩm" });
+                    }
+                    // Tạo một đối tượng Product từ dữ liệu được gửi từ biểu mẫu
+                    var ProductDetail = new ProductDetail
+                    {
+                        ProductId = model.ProductId,
+                        SizeId = model.SizeId,
+                        ColorId = model.ColorId,
+                        Quantity = model.Quantity,
+                        SellingPrice = model.SellingPrice,
+                        PurchasePrice = model.PurchasePrice
+                    };
+
+                    // Thực hiện các thao tác lưu vào cơ sở dữ liệu
+                    _context.ProductDetails.Add(ProductDetail);
+                    _context.SaveChanges();
+                    var productDetails = _context.ProductDetails
+                                            .Include(p => p.Color)
+                                            .Include(p => p.Size)
+                                            .Where(p => p.ProductId == model.ProductId);
+                    // Trả về một phản hồi thành công (ví dụ: mã thành công 200) kèm theo một thông điệp
+                    return PartialView("_SearchResultsProductDetail", productDetails);
+                }
+                else
+                {
+                    // Nếu dữ liệu không hợp lệ, trả về một phản hồi lỗi với các thông báo lỗi
+                    return Ok(new { status = false, mes = "Thêm thất bại do dữ liệu không hợp lệ" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Ok(new { status = false, mes = "Thêm thất bại lỗi hệ thống" });
+
+            }
+        }
         // GET: Admin/Products/Create
         public IActionResult Create()
         {
             ViewData["BrandId"] = new SelectList(_context.Brands, "BrandId", "BrandName");
             ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryName");
-            ViewData["SupplierId"] = new SelectList(_context.Suppliers, "SupplierId", "SupplierName");
             return View();
         }
 
@@ -99,7 +175,6 @@ namespace WebApplication7.Areas.Admin.Controllers
             }
             ViewData["BrandId"] = new SelectList(_context.Brands, "BrandId", "BrandName", product.BrandId);
             ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryName", product.CategoryId);
-            ViewData["SupplierId"] = new SelectList(_context.Suppliers, "SupplierId", "SupplierName", product.SupplierId);
             _notyfService.Warning("Thêm sản phẩm tthất bại", 3);
 
             return View(product);
@@ -120,7 +195,6 @@ namespace WebApplication7.Areas.Admin.Controllers
             }
             ViewData["BrandId"] = new SelectList(_context.Brands, "BrandId", "BrandName", product.BrandId);
             ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryName", product.CategoryId);
-            ViewData["SupplierId"] = new SelectList(_context.Suppliers, "SupplierId", "SupplierName", product.SupplierId);
             return View(product);
         }
 
@@ -158,7 +232,6 @@ namespace WebApplication7.Areas.Admin.Controllers
             }
             ViewData["BrandId"] = new SelectList(_context.Brands, "BrandId", "BrandName", product.BrandId);
             ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryName", product.CategoryId);
-            ViewData["SupplierId"] = new SelectList(_context.Suppliers, "SupplierId", "SupplierName", product.SupplierId);
             return View(product);
         }
 
@@ -173,7 +246,6 @@ namespace WebApplication7.Areas.Admin.Controllers
             var product = await _context.Products
                 .Include(p => p.Brand)
                 .Include(p => p.Category)
-                .Include(p => p.Supplier)
                 .FirstOrDefaultAsync(m => m.ProductId == id);
             if (product == null)
             {

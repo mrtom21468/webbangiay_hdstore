@@ -29,8 +29,8 @@
                         <td>@i.Productdetail.Color.ColorName</td>
                         <td>@i.Productdetail.Size.SizeName</td>
                         <td>@i.Quantity</td>
-                        <td>@i.Productdetail.SellingPrice $</td>
-                        <td>@(@i.Productdetail.SellingPrice * @i.Quantity) $</td>
+                        <td>@i.PriceAtOrderTime $</td>
+                        <td>@(@i.PriceAtOrderTime * @i.Quantity) $</td>
                     </tr>
                 }
             </tbody>

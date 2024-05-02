@@ -71,49 +71,50 @@
                     <table>
                         <thead>
                             <tr>
-                                <th class="shoping__product">Products</th>
-                                <th>Price</th>
-                                <th>Quantity</th>
-                                <th>Total</th>
+                                <th class="shoping__product">Sản phẩm</th>
+                                <th>Đơn giá</th>
+                                <th>Số lượng</th>
+                                <th>Thành tiền</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             
                             @{
-                                if (Model != null)
+                                if (Model.Count()>=1)
                                 {
                                     foreach (var i in Model)
                                     {
-                                        <tr>
-                                            <td class="shoping__cart__item">
-                                                <img class="img-fluid" src=@i.Productdetail.Product.ImagePath alt="" style="max-width: 30%; max-height: 30vh; width: auto;">
-                                                <h5>@i.Productdetail.Product.ProductName - @i.Productdetail.Color.ColorName - @i.Productdetail.Size.SizeName</h5>
-                                            </td>
-                                            <td class="shoping__cart__price">
-                                                $ @i.Productdetail.SellingPrice
-                                            </td>
-                                            <td class="shoping__cart__quantity">
-                                                <div class="quantity">
-                                                    <div class="pro-qt">
-                                                        <span class="dec qtybtn">-</span>
-                                                        <input type="text" class="Soluongcapnhat" value="@i.Amount" data-productdetail-id="@i.ProductdetailId" />
-                                                        <span class="inc qtybtn">+</span>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="shoping__cart__total">
-                                                $ @(i.Productdetail.SellingPrice * i.Amount)
-                                            </td>
-                                            <td class="shoping__cart__item__close">
-                                                <a asp-action="RemoveFromCart" asp-controller="GioHang" asp-route-ProductdetailId="@i.ProductdetailId"><span class="icon_close"></span></a>
-                                            </td>
-                                        </tr>
+                                                <tr>
+                                                    <td class="shoping__cart__item">
+                                                        <img class="img-fluid" src=@i.Productdetail.Product.ImagePath alt="" style="max-width: 30%; max-height: 30vh; width: auto;">
+                                                <h5><a style="color: initial; text-decoration: none; display: inline-block;" onmouseover="this.style.color='#7fad39'" onmouseout="this.style.color='initial'" href=@Url.Action("Index","SanPhamChiTiet",new {id=@i.Productdetail.ProductId })>@i.Productdetail.Product.ProductName - @i.Productdetail.Color.ColorName - @i.Productdetail.Size.SizeName</a></h5>
+                                                    </td>
+                                                    <td class="shoping__cart__price" data-priceID="@i.ProductdetailId">
+                                                        $ @i.Productdetail.SellingPrice
+                                                    </td>
+                                                    <td class="shoping__cart__quantity" >
+                                                        <div class="quantity">
+                                                            <div class="pro-qt">
+                                                                <span class="dec qtybtn">-</span>
+                                                                <input type="text" readonly class="Soluongcapnhat" value="@i.Amount" data-productdetail-id="@i.ProductdetailId" />
+                                                                <span class="inc qtybtn">+</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="shoping__cart__total">
+                                                        $ <span id="@i.ProductdetailId">@(i.Productdetail.SellingPrice * i.Amount)</span>
+                                                        
+                                                    </td>
+                                                    <td class="shoping__cart__item__close">
+                                                        <a asp-action="RemoveFromCart" asp-controller="GioHang" asp-route-ProductdetailId="@i.ProductdetailId"><span class="icon_close"></span></a>
+                                                    </td>
+                                                </tr>
                                     }
                                 }
                                 else
                                 {
-                                    <tr><td colspan="5"><h5>Giỏ hàng trống</h5></td></tr>
+                                            <tr><td colspan="5"><h5>Giỏ hàng trống</h5></td></tr>
                                 }
                             }
 
@@ -148,7 +149,7 @@
                     <h5>Cart Total</h5>
                     <ul>
                         <li>
-                            Subtotal <span>
+                            Subtotal <span id="subtotal">
                                 $
                                 @{
                                     decimal? subtotal = 0; // Khởi tạo biến subtotal để tích lũy tổng
@@ -159,10 +160,10 @@
                                             subtotal += (i.Productdetail.SellingPrice * i.Amount); // Cộng vào subtotal
                                         }
                                     }
-                                    @subtotal
+                                            @subtotal
                                 }
                             </span></li>
-                        <li>Total <span>$ @subtotal</span></li>
+                        <li>Total <span id="total">$ @subtotal</span></li>
                     </ul>
                     <a asp-controller="ThanhToan"  class="primary-btn">PROCEED TO CHECKOUT</a>
                 </div>
@@ -175,7 +176,7 @@
 <!-- Shoping Cart Section End -->
 <script>
     // cập nhập sản phẩm vào giỏ hàng
-    function updateToCart(productDetailId, newQuantity) {
+    function updateToCart(productDetailId, newQuantity, callback) {
         $.ajax({
             url: '/GioHang/UpdateQuantity',
             type: 'POST',
@@ -185,10 +186,17 @@
                     // Hiển thị thông báo thành công
                     var notyf = new Notyf();
                     notyf.success(result.message);
+                    var sellingPrice = parseFloat(document.querySelector('.shoping__cart__price[data-priceID="' + productDetailId + '"]').textContent.replace('$', ''));
+                    var totalPrice = sellingPrice * newQuantity;
+                    document.getElementById(productDetailId).textContent = totalPrice.toFixed(2);
+                    callback(true); // Gọi callback với tham số true để biểu thị thành công
+
                 } else {
                     // Hiển thị thông báo lỗi
                     var notyf = new Notyf();
                     notyf.error(result.message);
+                    callback(false); // Gọi callback với tham số false để biểu thị thất bại
+
                 }
             },
             error: function () {
@@ -197,6 +205,16 @@
                 window.location.href = '@Url.Action("Login", "Account", new { area = "Identity" })?returnUrl=/SanPhamChiTiet/Index/' + productId;
             }
         });
+    }
+    // Cập nhật tổng giá trị khi số lượng sản phẩm thay đổi
+    function updateTotal() {
+        var total = 0;
+        $('.shoping__cart__total').each(function () {
+            var totalPrice = parseFloat($(this).text().replace('$', ''));
+            total += totalPrice;
+        });
+        $('span#subtotal').text('$ ' + total.toFixed(2));
+        $('span#total').text('$ ' + total.toFixed(2));
     }
     var proQty = $('.pro-qt');
     // Lắng nghe sự kiện click của các nút +/- trong ô nhập liệu số lượng
@@ -208,6 +226,9 @@
         // Kiểm tra nếu nút được nhấn là nút tăng (+)
         if ($button.hasClass('inc')) {
             var newVal = oldValue + 1; // Tăng giá trị lên 1
+            if (isNaN(newVal) || newVal < 1) {
+                newVal = 1; // Nếu không phải thì gán giá trị mặc định là 1
+            }
         } else {
             // Kiểm tra giá trị hiện tại không được nhỏ hơn 1
             if (oldValue > 1) {
@@ -216,35 +237,67 @@
                 newVal = 1; // Nếu giá trị hiện tại là 1 thì giữ nguyên
             }
         }
+        // Lưu trữ tham chiếu đến input trước khi gọi updateToCart
+        var $inputToReplace = $input;
         // Cập nhật giá trị mới cho ô nhập liệu
         var $newInput = $('<input>').attr({
             type: 'text',
             class: 'Soluongcapnhat',
             value: newVal,
             'data-productdetail-id': productId
+        }).prop('readonly', true);
+        updateToCart(productId, newVal, function (result) {
+            if (result) {
+                // Sử dụng tham chiếu đã lưu trữ để thay thế input
+                $inputToReplace.replaceWith($newInput);
+            }
+            else {
+                var $oldInput = $('<input>').attr({
+                    type: 'text',
+                    class: 'Soluongcapnhat',
+                    value: oldValue,
+                    'data-productdetail-id': productId
+                }).prop('readonly', true);
+                // Sử dụng tham chiếu đã lưu trữ để thay thế input
+                $inputToReplace.replaceWith($oldInput);
+            }
+            // Sau khi thực hiện cập nhật, gọi lại hàm updateTotal
+            updateTotal();
         });
-        $input.replaceWith($newInput);
-        updateToCart(productId, newVal);
     });
+
     // Lắng nghe sự kiện input trên input có class là Soluongcapnhat
     proQty.on('input', '.Soluongcapnhat', function () {
-        // Lấy giá trị mới từ input
-        var newVal = parseInt($(this).val());
-        var productId = $(this).data('productdetail-id');
-        // Kiểm tra xem giá trị mới có phải là một số không âm
+        var $input = $(this); // Lưu trữ tham chiếu đến phần tử input
+
+        var newVal = parseInt($input.val());
+        var productId = $input.data('productdetail-id');
+
         if (isNaN(newVal) || newVal < 1) {
-            newVal = 1; // Nếu không phải thì gán giá trị mặc định là 1
+            newVal = 1;
         }
+
         var $newInput = $('<input>').attr({
             type: 'text',
             class: 'Soluongcapnhat',
             value: newVal,
             'data-productdetail-id': productId
-        });
-        // Gán giá trị mới vào input
-        $(this).replaceWith($newInput);
-        updateToCart(productId, newVal);
+        }).prop('readonly', true);
 
+        updateToCart(productId, newVal, function (result) {
+            if (result) {
+                $input.replaceWith($newInput);
+            } else {
+                var $oldInput = $('<input>').attr({
+                    type: 'text',
+                    class: 'Soluongcapnhat',
+                    value: 1,
+                    'data-productdetail-id': productId
+                }).prop('readonly', true);
+                $input.replaceWith($oldInput);
+            }
+            updateTotal(); // Gọi lại hàm updateTotal sau khi cập nhật giá trị
+        });
     });
 
 </script>

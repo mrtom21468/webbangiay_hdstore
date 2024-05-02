@@ -22,8 +22,6 @@
     <link rel="stylesheet" href="~/Userdata/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="~/Userdata/css/style1.css" type="text/css">
     @* thông báo *@
-    <script src="~/node_modules/notyf/notyf.min.js"></script>
-
 
 </head>
 
@@ -46,7 +44,7 @@
     <script src="~/Userdata/js/mixitup.min.js"></script>
     <script src="~/Userdata/js/owl.carousel.min.js"></script>
     <script src="~/Userdata/js/main.js"></script>
-    @await Component.InvokeAsync("Notyf");
+    @await Component.InvokeAsync("Notyf")
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 

@@ -18,4 +18,5 @@ public partial class Account
     public virtual ICollection<Cart> Carts { get; set; } = new List<Cart>();
 
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
+    public virtual ICollection<StoreIn> StoreIns { get; set; } = new List<StoreIn>();
 }
