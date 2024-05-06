@@ -1259,13 +1259,13 @@ ol {
     overflow: hidden;
 }
 
-    .product__discount__item__pic .product__discount__percent {
+    .product__discount__item__pic .product__discount__percent1 {
         height: 45px;
         width: 45px;
         background: #dd2222;
-        border-radius: 50%;
+        border-radius: 30%;
         font-size: 14px;
-        color: #ffffff;
+        color: #333333;
         line-height: 45px;
         text-align: center;
         position: absolute;
@@ -1592,13 +1592,14 @@ ol {
         font-weight: 700;
     }
 
-.product__pagination,
+.product__pagination1,
 .blog__pagination {
     padding-top: 10px;
+    text-align: center;
 }
 
-    .product__pagination a,
-    .blog__pagination a {
+    .product__pagination1 a,
+    .blog__pagination1 a {
         display: inline-block;
         width: 30px;
         height: 30px;
@@ -1616,18 +1617,28 @@ ol {
         transition: all, 0.3s;
     }
 
-        .product__pagination a:hover,
+        .product__pagination1 a:hover,
         .blog__pagination a:hover {
             background: #7fad39;
             border-color: #7fad39;
             color: #ffffff;
         }
 
-        .product__pagination a:last-child,
+        .product__pagination1 a:last-child,
         .blog__pagination a:last-child {
             margin-right: 0;
         }
+        .product__pagination1 a.disabled {
+            pointer-events: none; /* Ngăn chặn sự kiện click */
+            cursor: not-allowed; /* Thay đổi kiểu con trỏ */
+            opacity: 0.6; /* Làm mờ phần tử */
+        }
 
+            .product__pagination1 a.disabled:hover {
+                background: none; /* Bỏ màu nền khi hover */
+                border-color: #b2b2b2; /* Giữ màu viền như bình thường */
+                color: #b2b2b2; /* Giữ màu chữ như bình thường */
+            }
 /*---------------------
   Shop Details
 -----------------------*/

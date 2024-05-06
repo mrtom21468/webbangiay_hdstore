@@ -1,8 +1,58 @@
-﻿@model IEnumerable<WebApplication7.Models.Product>
+﻿@using WebApplication7.Areas.Admin.Helpper
+@model PaginatedList<WebApplication7.Models.Product>
 @using WebApplication7.Models
 @{
     ViewData["Title"] = "SanPhamShop";
 }
+<style>
+    .product__pagination1{
+        padding-top: 10px;
+        text-align: center;
+    }
+
+        .product__pagination1 a,
+        .blog__pagination1 a {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border: 1px solid #b2b2b2;
+            font-size: 14px;
+            color: #b2b2b2;
+            font-weight: 700;
+            line-height: 28px;
+            text-align: center;
+            margin-right: 16px;
+            -webkit-transition: all, 0.3s;
+            -moz-transition: all, 0.3s;
+            -ms-transition: all, 0.3s;
+            -o-transition: all, 0.3s;
+            transition: all, 0.3s;
+        }
+
+            .product__pagination1 a:hover,
+            .blog__pagination a:hover {
+                background: #7fad39;
+                border-color: #7fad39;
+                color: #ffffff;
+            }
+
+            .product__pagination1 a:last-child,
+            .blog__pagination a:last-child {
+                margin-right: 0;
+            }
+
+            .product__pagination1 a.disabled {
+                pointer-events: none; /* Ngăn chặn sự kiện click */
+                cursor: not-allowed; /* Thay đổi kiểu con trỏ */
+                opacity: 0.6; /* Làm mờ phần tử */
+            }
+
+                .product__pagination1 a.disabled:hover {
+                    background: none; /* Bỏ màu nền khi hover */
+                    border-color: #b2b2b2; /* Giữ màu viền như bình thường */
+                    color: #b2b2b2; /* Giữ màu chữ như bình thường */
+                }
+</style>
     <!-- Hero Section Begin -->
     <section class="hero hero-normal">
         <div class="container">
@@ -21,12 +71,12 @@
                 <div class="col-lg-9">
                     <div class="hero__search">
                         <div class="hero__search__form">
-                            <form action="#">
+                        <form id="searchForm" method="get">
                                 <div class="hero__search__categories">
                                     Tất cả sản phẩm
                                     <span class="arrow_carrot-down"></span>
                                 </div>
-                                <input type="text" placeholder="Bạn cần tìm gì?">
+                            <input type="text" name="search" id="searchInput" placeholder="Bạn cần tìm gì?" value="@(ViewBag.search != null ? ViewBag.search : "")">
                                 <button type="submit" class="site-btn">Tìm kiếm</button>
                             </form>
                         </div>
@@ -53,8 +103,8 @@
                     <div class="breadcrumb__text">
                         <h2>HD Shop</h2>
                         <div class="breadcrumb__option">
-                            <a asp-asp-controller="Home">Home</a>
-                            <span>Thương hiệu</span>
+                            <a asp-asp-controller="Home" asp-area="" asp-action="Index">Home</a>
+                            <span>Sản phẩm</span>
                         </div>
                     </div>
                 </div>
@@ -68,12 +118,13 @@
             <div class="row">
                 <div class="col-lg-3 col-md-5">
                     <div class="sidebar">
-                        <div class="sidebar__item">
+@*                         <div class="sidebar__item">
                             <h4>Tât cả thể loại</h4>
                             <ul>
                                 @await Component.InvokeAsync("TheLoai")
                             </ul>
-                        </div>
+                        </div> *@
+                        @*lọc theo giá*@
                         <div class="sidebar__item">
                             <h4>Price</h4>
                             <div class="price-range-wrap">
@@ -91,6 +142,7 @@
                                 </div>
                             </div>
                         </div>
+                        @*Lọc theo màu*@
                         <div class="sidebar__item sidebar__item__color--option">
                             <h4>Colors</h4>
                             <div class="sidebar__item__color sidebar__item__color--white">
@@ -130,17 +182,24 @@
                                 </label>
                             </div>
                         </div>
+                    <div style="text-align: center; margin-right:20px;">
+                        <!-- Định dạng vùng chứa nút để căn giữa -->
+                        <button type="submit" id="loc" class="site-btn">Lọc</button>
+                    </div>
                     </div>
                 </div>
+                @*Lọc theo giá tăng giảm*@
                 <div class="col-lg-9 col-md-7">
                     <div class="filter__item">
                         <div class="row">
                             <div class="col-lg-4 col-md-5">
                                 <div class="filter__sort">
                                     <span>Sort By</span>
-                                    <select>
-                                        <option value="0">Default</option>
-                                        <option value="0">Default</option>
+                                <select id="sortSelect" onchange="handleChange(this)">
+                                        <option value="0">Mặc định</option>
+                                        <option value="1">Giá tăng dần</option>
+                                        <option value="2">Giá giảm dần</option>
+                                        <option value="3">Sản phẩm bán chạy</option>
                                     </select>
                                 </div>
                             </div>
@@ -150,10 +209,10 @@
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-3">
-                                <div class="filter__option">
+@*                                 <div class="filter__option">
                                     <span class="icon_grid-2x2"></span>
                                     <span class="icon_ul"></span>
-                                </div>
+                                </div> *@
                             </div>
                         </div>
                     </div>
@@ -172,7 +231,7 @@
                                         </ul> *@
                                     </div>
                                     <div class="product__item__text">
-                                        <h6><a asp-controller="SanPhamChiTiet" asp-route-id="@i.ProductId">@i.ProductName</a></h6>
+                                        <h6><a asp-controller="SanPhamChiTiet" asp-action="Index" asp-route-id="@i.ProductId">@i.ProductName</a></h6>
                                         <h5>@i.ProductDetails.First().SellingPrice $</h5>
                                     </div>
                                 </div>
@@ -190,7 +249,7 @@
                                         </ul> *@
                                     </div>
                                     <div class="product__item__text">
-                                        <h6><a asp-controller="SanPhamChiTiet" asp-route-id="@i.ProductId">@i.ProductName</a></h6>
+                                        <h6><a>@i.ProductName</a></h6>
                                         <h5 class="text-danger">Hết hàng</h5>
                                     </div>
                                 </div>
@@ -199,131 +258,169 @@
                         }
                     }
                 </div>
-                    <div class="product__pagination">
-                        <a href="#">1</a>
+                    <div class="product__pagination1" style="margin-bottom:35px">
+                    @{
+                        var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+                        var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+                    }
+
+                    <a
+                       data-pageNumber="@(Model.PageIndex - 1)"
+                       class="@prevDisabled">
+                        <i class="fa fa-long-arrow-left"></i>
+                    </a>
+                    
+                    <a 
+                        data-pageNumber="@(Model.PageIndex + 1)"
+                       class="@nextDisabled">
+                        <i class="fa fa-long-arrow-right"></i>
+                    </a>
+                    <span>Trang @Model.PageIndex / @Model.TotalPages</span>
+@*                         <a href="#">1</a>
                         <a href="#">2</a>
                         <a href="#">3</a>
-                        <a href="#"><i class="fa fa-long-arrow-right"></i></a>
+                        <a href="#"><i class="fa fa-long-arrow-right"></i></a> *@
                     </div>
-                    <div class="product__discount">
-                        <div class="section-title product__discount__title">
-                            <h2>Giảm giá mạnh</h2>
-                        </div>
-                        <div class="row">
-                            <div class="product__discount__slider owl-carousel">
-                                <div class="col-lg-4">
-                                    <div class="product__discount__item">
-                                        <div class="product__discount__item__pic set-bg"
-                                         data-setbg="~/Userdata/img/product/discount/pd-1.jpg">
-                                            <div class="product__discount__percent">-20%</div>
-                                            <ul class="product__item__pic__hover">
-                                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="product__discount__item__text">
-                                            <span>Dried Fruit</span>
-                                            <h5><a href="#">Raisin’n’nuts</a></h5>
-                                            <div class="product__item__price">$30.00 <span>$36.00</span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="product__discount__item">
-                                        <div class="product__discount__item__pic set-bg"
-                                         data-setbg="~/Userdata/img/product/discount/pd-2.jpg">
-                                            <div class="product__discount__percent">-20%</div>
-                                            <ul class="product__item__pic__hover">
-                                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="product__discount__item__text">
-                                            <span>Vegetables</span>
-                                            <h5><a href="#">Vegetables’package</a></h5>
-                                            <div class="product__item__price">$30.00 <span>$36.00</span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="product__discount__item">
-                                        <div class="product__discount__item__pic set-bg"
-                                             data-setbg="img/product/discount/pd-3.jpg">
-                                            <div class="product__discount__percent">-20%</div>
-                                            <ul class="product__item__pic__hover">
-                                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="product__discount__item__text">
-                                            <span>Dried Fruit</span>
-                                            <h5><a href="#">Mixed Fruitss</a></h5>
-                                            <div class="product__item__price">$30.00 <span>$36.00</span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="product__discount__item">
-                                        <div class="product__discount__item__pic set-bg"
-                                             data-setbg="img/product/discount/pd-4.jpg">
-                                            <div class="product__discount__percent">-20%</div>
-                                            <ul class="product__item__pic__hover">
-                                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="product__discount__item__text">
-                                            <span>Dried Fruit</span>
-                                            <h5><a href="#">Raisin’n’nuts</a></h5>
-                                            <div class="product__item__price">$30.00 <span>$36.00</span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="product__discount__item">
-                                        <div class="product__discount__item__pic set-bg"
-                                             data-setbg="img/product/discount/pd-5.jpg">
-                                            <div class="product__discount__percent">-20%</div>
-                                            <ul class="product__item__pic__hover">
-                                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="product__discount__item__text">
-                                            <span>Dried Fruit</span>
-                                            <h5><a href="#">Raisin’n’nuts</a></h5>
-                                            <div class="product__item__price">$30.00 <span>$36.00</span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="product__discount__item">
-                                        <div class="product__discount__item__pic set-bg"
-                                             data-setbg="img/product/discount/pd-6.jpg">
-                                            <div class="product__discount__percent">-20%</div>
-                                            <ul class="product__item__pic__hover">
-                                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="product__discount__item__text">
-                                            <span>Dried Fruit</span>
-                                            <h5><a href="#">Raisin’n’nuts</a></h5>
-                                            <div class="product__item__price">$30.00 <span>$36.00</span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @await Component.InvokeAsync("SanPhamBanChay")
                 </div>
             </div>
         </div>
     </section>
-    <!-- Product Section End -->
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+           
+            // Đoạn mã xử lý sau khi DOM đã được load
+            var urlParams = new URLSearchParams(window.location.search);
+            var selectedValue = urlParams.get('sort');
+            var selectElement = document.querySelector('.filter__sort select'); // Thay đổi ở đây
+            if (selectedValue !== null && selectElement !== null) {
+                var options = selectElement.querySelectorAll('option');
+                options.forEach(function (option) {
+                    if (option.value === selectedValue) {
+                        // Lấy phần tử hiện tại đang được chọn
+                        var currentOption = selectElement.parentNode.querySelector('.nice-select .current');
+
+                        // Chỉnh sửa CSS của văn bản
+                        currentOption.textContent = option.textContent;
+                        // Xóa các lớp CSS 'selected' và 'focus' từ phần tử li
+                        var listItems = currentOption.parentNode.querySelectorAll('li');
+                        listItems.forEach(function (item) {
+                            item.classList.remove('selected', 'focus');
+                        });
+                        // Thêm các lớp CSS cho phần tử mới (nếu cần)
+                        currentOption.classList.add('selected', 'focus');
+
+                    }
+                });
+            } else {
+                console.error('.filter__sort select not found');
+            }
+            var paginationLinks = document.querySelectorAll('.product__pagination a.disabled');
+            paginationLinks.forEach(function (link) {
+                link.addEventListener('click', function (event) {
+                    event.preventDefault();
+                });
+            });
+            // Lấy giá trị min và max từ URL nếu có
+            var minPrice = urlParams.get('min');
+            var maxPrice = urlParams.get('max');
+
+            // Gán lại giá trị input nếu min và max đã tồn tại trong URL
+            if (minPrice !== null) {
+                document.getElementById('minamount').value = '$'+minPrice;
+            }
+            if (maxPrice !== null) {
+                document.getElementById('maxamount').value = '$'+maxPrice;
+            }
+            // Lắng nghe sự kiện khi nút "Lọc" được nhấn
+            var filterButton = document.querySelector('#loc');
+            filterButton.addEventListener('click', function (event) {
+                event.preventDefault(); // Ngăn chặn hành động mặc định của nút "Lọc"
+
+                // Lấy giá trị min và max từ input
+                var minPrice = document.getElementById('minamount').value.replace('$', ''); // Loại bỏ ký tự "$"
+                var maxPrice = document.getElementById('maxamount').value.replace('$', ''); // Loại bỏ ký tự "$"
+
+
+                // Tạo URL mới với tham số min và max giá
+                var currentUrl = window.location.href; // Lấy URL hiện tại
+                var url = new URL(currentUrl);
+                var queryParams = url.searchParams;
+
+                url.searchParams.set('min', minPrice);
+                url.searchParams.set('max', maxPrice);
+
+                if (queryParams.has("pageNumber")) {
+                    // Nếu pageNumber đã tồn tại, cập nhật giá trị của nó
+                    queryParams.set("pageNumber", 1);
+                } else {
+                    // Nếu pageNumber chưa tồn tại, thêm mới
+                    queryParams.set("pageNumber", 1);
+
+                }
+                // Chuyển hướng đến URL mới
+                window.location.href = url;
+            });
+        });
+
+        function handleChange(selectElement) {
+            var selectedValue = selectElement.value;
+            var currentUrl = window.location.href; // Get the current URL
+
+            // Tách phần query string từ URL
+            var urlParts = currentUrl.split('?');
+            var baseUrl = urlParts[0];
+            var params = new URLSearchParams(urlParts[1]);
+
+            // Xóa tất cả các tham số 'sort' hiện có từ query string
+            params.delete('sort');
+
+            // Thêm tham số 'sort' mới
+            params.append('sort', selectedValue);
+
+            // Tạo URL mới với tham số đã được cập nhật
+            var newUrl = baseUrl + '?' + params.toString();
+
+            // Chuyển hướng đến URL mới
+            window.location.href = newUrl;
+        };
+        document.querySelectorAll('.product__pagination1 a').forEach(function (link) {
+            link.addEventListener('click', function (event) {
+                event.preventDefault();
+
+                var pageNumber = parseInt(this.getAttribute('data-pageNumber'));
+                if (!isNaN(pageNumber)) {
+                    var currentUrl = window.location.href;
+                    var newUrl = addPageNumberToUrl(currentUrl, pageNumber);
+                    window.location.href = newUrl;
+                }
+            });
+        });
+
+        function addPageNumberToUrl(url, pageNumber) {
+            var urlObject = new URL(url);
+            var queryParams = urlObject.searchParams;
+            if (queryParams.has("pageNumber")) {
+                // Nếu pageNumber đã tồn tại, cập nhật giá trị của nó
+                queryParams.set("pageNumber", pageNumber);
+            } else {
+                // Nếu pageNumber chưa tồn tại, thêm mới
+                queryParams.append("pageNumber", pageNumber);
+            }
+            return urlObject.toString();
+        }
+        document.getElementById("searchForm").addEventListener("submit", function (event) {
+            var searchInput = document.getElementById("searchInput").value;
+            var currentUrl = window.location.href;
+            var newUrl = addQueryParamToUrl(currentUrl, "search", searchInput);
+            this.action = newUrl; // Set action của form thành URL mới
+        });
+
+        function addQueryParamToUrl(url, key, value) {
+            var urlObject = new URL(url);
+            urlObject.searchParams.set(key, value);
+            return urlObject.toString();
+        }
+    </script>
+}

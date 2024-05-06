@@ -23,6 +23,7 @@ builder.Services.AddIdentity<UserIdentitycs, IdentityRole>(options => options.Si
     .AddDefaultTokenProviders();
 builder.Services.AddRazorPages();
 builder.Services.AddSession();
+builder.Services.AddHttpContextAccessor();
 //notyf 
 builder.Services.AddNotyf(configure =>
 {

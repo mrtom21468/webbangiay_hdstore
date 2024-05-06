@@ -343,6 +343,11 @@ namespace WebApplication7.Migrations
                         .HasColumnName("created_at")
                         .HasDefaultValueSql("(getdate())");
 
+                    b.Property<string>("OrderIdMoMo")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
                     b.Property<string>("PaymentStatus")
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(10)
@@ -358,6 +363,11 @@ namespace WebApplication7.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(20)")
                         .HasColumnName("phone_number");
+
+                    b.Property<string>("ReqrIdMoMo")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
 
                     b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");

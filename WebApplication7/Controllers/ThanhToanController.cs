@@ -13,6 +13,8 @@ using WebApplication7.Models;
 using WebApplication7.Areas.Admin.Helpper;
 using System.Security.Claims;
 using System.Text;
+using Newtonsoft.Json.Linq;
+using Store_HD.Models;
 
 namespace WebApplication7.Controllers
 {
@@ -67,6 +69,8 @@ namespace WebApplication7.Controllers
             }
 
         }
+
+
         //xử lý thanh toán
         [HttpPost]
         public async Task<IActionResult> XuLyThanhToan(IFormCollection requestions)
@@ -103,6 +107,8 @@ namespace WebApplication7.Controllers
                     TotalAmount = tongtien,
                     PhoneNumber = requestions["phone"],
                     PaymentType = requestions["payment_method"],
+                    OrderIdMoMo="",
+                    ReqrIdMoMo="",
                     PaymentStatus="0",
                     Address = newAddress.FullAddress +"-"+ newAddress.City
                 };
@@ -136,9 +142,193 @@ namespace WebApplication7.Controllers
                 var thongtin = CreateOrderSummaryTable(_context.OrderDetails.Include(p=>p.Productdetail).ThenInclude(p=>p.Product)
                     .Include(p => p.Productdetail).ThenInclude(c=>c.Color).Include(p=>p.Productdetail).ThenInclude(s=>s.Size).Where(o => o.OrderId == newOrders.OrderId).ToList());
                 NotyfGmail.SenGmail(emailClaim, newOrders.OrderId, thongtin);
-                return View();
+            //thanh toán theo hình thức khác chọn
+            if (requestions["payment_method"] == "Ví Momo")
+            {
+
+                var link = thanhToanMomo(newOrders.OrderId,(float)tongtien * 26000);
+                return Redirect(link);
+            }
+            if (requestions["payment_method"] == "Thẻ ngân hàng")
+            {
+
+                var link= thanhToanATM((float)tongtien * 26000);
+                return Redirect(link);
+            }
+            ViewBag.Message = "Đặt hàng thành công";
+            return View();
             
         }
+        public async Task<IActionResult> XacNhan( string orderId, string requestId)
+        {
+            string partnerCode = "MOMO5RGX20191128";
+            string serectkey = "nqQiVSgDMy809JoPF6OzP5OdBUB550Y4";
+            string accessKey = "M8brj9K6E22vXoDB";
+            string endpoint = "https://test-payment.momo.vn//v2/gateway/api/query";
+            //Before sign HMAC SHA256 signature
+            string rawHash = "accessKey=" + accessKey +
+                "&orderId=" + orderId +
+                "&partnerCode=" + partnerCode +
+                "&requestId=" + requestId 
+                ;
+
+            MoMoSecurity crypto = new MoMoSecurity();
+            //sign signature SHA256
+            string signature = crypto.signSHA256(rawHash, serectkey);
+            JObject message = new JObject
+            {
+                { "partnerCode", partnerCode },
+                { "requestId", requestId },
+                { "orderId", orderId },
+                { "signature", signature },
+                { "lang", "en" }
+
+            };
+            string responseFromMomo = PaymentRequest.sendPaymentRequest(endpoint, message.ToString());
+            JObject jmessage = JObject.Parse(responseFromMomo);
+            string result = jmessage.GetValue("resultCode").ToString();
+            if (result == "0")
+            {
+                //xử lý thanh toán thành công
+                ViewBag.Message = "Thanh toán đơn hàng thành công ";
+                ViewBag.Madonhang = orderId;
+                var od =_context.Orders.Where(o=>o.OrderIdMoMo == orderId).FirstOrDefault();
+                if(od != null)
+                {
+                    od.PaymentStatus = "1";
+                    _context.SaveChanges();
+                }
+            }
+            else
+            {
+                var od = _context.Orders.Where(o => o.OrderIdMoMo == orderId).FirstOrDefault();
+                od.PaymentStatus = "0";
+                _context.SaveChanges();
+                ViewBag.Message ="Thanh toán đơn hàng thất bại ";
+                ViewBag.Madonhang = orderId;
+            }
+
+            return View("XuLyThanhToan");
+        }
+        private string thanhToanMomo(int OrderId,float sotien)
+        {
+            string endpoint = "https://test-payment.momo.vn/v2/gateway/api/create";
+            string partnerCode = "MOMO5RGX20191128";
+            string accessKey = "M8brj9K6E22vXoDB";
+            string serectkey = "nqQiVSgDMy809JoPF6OzP5OdBUB550Y4";
+            string orderInfo = "Store HD";
+            string redirectUrl = "https://localhost:7166/ThanhToan/XacNhan";
+            string ipnUrl = "https://localhost:7166/Huy";
+            string requestType = "captureWallet";
+
+            string amount = sotien.ToString();
+            string orderId = Guid.NewGuid().ToString();
+            string requestId = Guid.NewGuid().ToString();
+            string extraData = "";
+            //lưu mã đơn hàng và mã yêu cầu vào đây
+            var od = _context.Orders.Where(o => o.OrderId == OrderId).FirstOrDefault();
+            if (od != null)
+            {
+                od.OrderIdMoMo = orderId;
+                od.ReqrIdMoMo = requestId;
+                _context.SaveChanges();
+            }
+            //Before sign HMAC SHA256 signature
+            string rawHash = "accessKey=" + accessKey +
+                "&amount=" + amount +
+                "&extraData=" + extraData +
+                "&ipnUrl=" + ipnUrl +
+                "&orderId=" + orderId +
+                "&orderInfo=" + orderInfo +
+                "&partnerCode=" + partnerCode +
+                "&redirectUrl=" + redirectUrl +
+                "&requestId=" + requestId +
+                "&requestType=" + requestType
+                ;
+
+            MoMoSecurity crypto = new MoMoSecurity();
+            //sign signature SHA256
+            string signature = crypto.signSHA256(rawHash, serectkey);
+
+            //build body json request
+            JObject message = new JObject
+            {
+                { "partnerCode", partnerCode },
+                { "partnerName", "Test" },
+                { "storeId", "MomoTestStore" },
+                { "requestId", requestId },
+                { "amount", amount },
+                { "orderId", orderId },
+                { "orderInfo", orderInfo },
+                { "redirectUrl", redirectUrl },
+                { "ipnUrl", ipnUrl },
+                { "lang", "en" },
+                { "extraData", extraData },
+                { "requestType", requestType },
+                { "signature", signature }
+
+            };
+            string responseFromMomo = PaymentRequest.sendPaymentRequest(endpoint, message.ToString());
+            Console.WriteLine(responseFromMomo);
+            JObject jmessage = JObject.Parse(responseFromMomo);
+            return jmessage.GetValue("payUrl").ToString();
+        }
+        private string thanhToanATM(float sotien)
+        {
+            string endpoint = "https://test-payment.momo.vn//v2/gateway/api/create";
+            string partnerCode = "MOMO5RGX20191128";
+            string accessKey = "M8brj9K6E22vXoDB";
+            string serectkey = "nqQiVSgDMy809JoPF6OzP5OdBUB550Y4";
+            string requestId = Guid.NewGuid().ToString();
+            string amount = sotien.ToString();
+            string orderId = Guid.NewGuid().ToString();
+            string orderInfo = "Store HD";
+            string redirectUrl = "https://localhost:7166/ThanhToan/XacNhan";
+            string ipnUrl = "https://facebook.com";
+            string requestType = "payWithATM";
+            string extraData = "";
+            string lang = "vi";
+            string signature = "";
+
+            string rawhash = "accessKey=" + accessKey +
+                                "&amount=" + amount +
+                                "&extraData=" + extraData +
+                                "&ipnUrl=" + ipnUrl +
+                                "&orderId=" + orderId +
+                                "&orderInfo=" + orderInfo +
+                                "&partnerCode=" + partnerCode +
+                                "&redirectUrl=" + redirectUrl +
+                                "&requestId=" + requestId +
+                                "&requestType=" + requestType;
+            MoMoSecurity moMoSecurity = new MoMoSecurity();
+            signature = moMoSecurity.signSHA256(rawhash, serectkey);
+
+            JObject message = new JObject
+            {
+                { "partnerCode", partnerCode },
+                { "requestId", requestId },
+                { "amount", amount },
+                { "orderId", orderId },
+                { "orderInfo", orderInfo },
+                { "redirectUrl", redirectUrl },
+                { "ipnUrl", ipnUrl },
+                { "requestType", requestType },
+                { "extraData", extraData },
+                {"lang", lang },
+                { "signature", signature}
+            };
+            string responseMomo = PaymentRequest.sendPaymentRequest(endpoint, message.ToString());
+            try
+            {
+                JObject jmessage = JObject.Parse(responseMomo);
+                return jmessage.GetValue("payUrl").ToString();
+            }
+            catch (Exception ex)
+            {
+                return "";
+            }
+        }
+
         public string CreateOrderSummaryTable(List<OrderDetail> orderDetails)
         {
             // Tạo biến string chứa nội dung bảng

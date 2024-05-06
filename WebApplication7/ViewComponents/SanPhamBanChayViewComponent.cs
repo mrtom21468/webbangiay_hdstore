@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApplication7.Controllers;
 using WebApplication7.Models;
+using WebApplication7.ViewModel;
 
 namespace WebApplication7.ViewComponents
 {
@@ -19,13 +20,21 @@ namespace WebApplication7.ViewComponents
         }
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var items = _QLDBcontext.Products
-                .Include(p => p.ProductDetails)
-                .Where(p => p.ProductDetails.Any(pd => pd.Quantity > 0))
-                .OrderByDescending(p => p.ProductId) // Sắp xếp theo thời gian thêm mới nhất
+            var topProducts =_QLDBcontext.OrderDetails
+                .Include(od => od.Productdetail)
+                    .ThenInclude(pd => pd.Product)
+                .GroupBy(od => od.Productdetail.ProductId)
+                .Select(g => new TopProductsViewModel
+                {
+                    Products = g.FirstOrDefault().Productdetail.Product, // Lấy ra sản phẩm từ bất kỳ chi tiết đơn hàng trong nhóm
+                    ProductDetails= g.Select(od => od.Productdetail).FirstOrDefault(),
+                    TotalQuantity = g.Sum(od => od.Quantity)
+                })
+                .OrderByDescending(g => g.TotalQuantity)
                 .Take(8)
                 .ToList();
-            return View(items);
+
+            return View(topProducts);
         }
     }
 }

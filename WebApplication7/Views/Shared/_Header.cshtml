@@ -67,14 +67,14 @@
             <div class="col-lg-6">
                 <nav class="header__menu">
                     <ul>
-                        <li class="active"><a asp-area="" asp-controller="Home" asp-action="Index">Trang chủ</a></li>
+                        <li @* class="active" *@><a asp-area="" asp-controller="Home" asp-action="Index">Trang chủ</a></li>
                         <li>
-                            <a asp-area="" asp-controller="SanPhamShop">Thương hiệu</a>
+                            <a asp-area="" asp-controller="SanPhamShop" asp-action="Index">Thương hiệu</a>
                             <ul class="header__menu__dropdown">
                                 @await Component.InvokeAsync("ThuongHieu")
                             </ul>
                         </li>
-                        <li><a href="./blog.html">Tin tức</a></li>
+                        <li><a href="#">Tin tức</a></li>
                         <li><a asp-area="" asp-controller="LienHe" asp-action="Index" >Liên hệ</a></li>
                     </ul>
                 </nav>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebApplication7.Models;
 
@@ -19,6 +20,12 @@ public partial class Order
     public string? Status { get; set; }
 
     public decimal? TotalAmount { get; set; }
+
+    [StringLength(64)]
+    public string OrderIdMoMo { get; set; }
+    [StringLength(64)]
+    public string ReqrIdMoMo { get; set; }
+
 
     public DateTime? CreatedAt { get; set; }
 
