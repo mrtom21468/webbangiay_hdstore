@@ -299,7 +299,7 @@ namespace WebApplication7.Models
                 entity.ToTable("Size");
 
                 entity.Property(e => e.SizeId).HasColumnName("size_id");
-                entity.Property(e => e.SizeCode).HasDefaultValue("");
+                entity.Property(e => e.SizeSlug).HasDefaultValue("");
                 entity.Property(e => e.SizeName)
                     .HasMaxLength(10)
                     .IsUnicode(false)

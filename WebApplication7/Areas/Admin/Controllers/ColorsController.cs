@@ -6,6 +6,7 @@ using AspNetCoreHero.ToastNotification.Notyf;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using WebApplication7.Areas.Admin.Helpper;
 using WebApplication7.Models;
 
 namespace WebApplication7.Areas.Admin.Controllers
@@ -27,24 +28,6 @@ namespace WebApplication7.Areas.Admin.Controllers
             return View(await _context.Colors.ToListAsync());
         }
 
-        // GET: Admin/Colors/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var color = await _context.Colors
-                .FirstOrDefaultAsync(m => m.ColorId == id);
-            if (color == null)
-            {
-                return NotFound();
-            }
-
-            return View(color);
-        }
-
         // GET: Admin/Colors/Create
         public IActionResult Create()
         {
@@ -60,12 +43,19 @@ namespace WebApplication7.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(color);
-                await _context.SaveChangesAsync();
-                _notyfService.Success("Thêm màu thành công", 3);
-                return RedirectToAction(nameof(Index));
+                color.ColorSlug = Slug.GenerateSlug(color.ColorName);
+                var checkcolor = _context.Colors.FirstOrDefault(m => m.ColorSlug == color.ColorSlug);
+                if (checkcolor == null)
+                {
+                    _notyfService.Success("Thêm thành công", 3);
+                    _context.Add(color);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                _notyfService.Error("Màu sắc trùng", 3);
+                return View(color);
             }
-            _notyfService.Warning("Thêm màu thât bại", 3);
+            _notyfService.Error("Nhập dữ liệu hợp lệ", 3);
             return View(color);
         }
 
@@ -101,16 +91,21 @@ namespace WebApplication7.Areas.Admin.Controllers
             {
                 try
                 {
+                    color.ColorSlug = Slug.GenerateSlug(color.ColorName);
+                    var checkSize = _context.Colors.FirstOrDefault(m => m.ColorSlug == color.ColorSlug && m.ColorId != id);
+                    if (checkSize != null)
+                    {
+                        _notyfService.Error("Trùng màu sắc", 3);
+                        return View(color);
+                    }
                     _context.Update(color);
                     await _context.SaveChangesAsync();
-                    _notyfService.Success("Sửa màu thành công", 3);
-
+                    _notyfService.Success("Cập nhật thành công", 3);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!ColorExists(color.ColorId))
                     {
-                        _notyfService.Warning("Sửa màu thất bại", 3);
                         return NotFound();
                     }
                     else

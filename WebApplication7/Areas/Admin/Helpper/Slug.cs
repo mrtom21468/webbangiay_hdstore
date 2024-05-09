@@ -44,6 +44,10 @@ namespace WebApplication7.Areas.Admin.Helpper
                     {
                         stringBuilder.Append('d');
                     }
+                    else if (Char.IsDigit(c) || c == '.')
+                    {
+                        stringBuilder.Append(c);
+                    }
                 }
             }
 

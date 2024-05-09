@@ -22,6 +22,7 @@ namespace WebApplication7.Controllers
 
         public IActionResult Index()
         {
+
             if (_SignInManager.IsSignedIn(User))
             {
                 var accId = _QLDBcontext.Accounts
@@ -41,7 +42,6 @@ namespace WebApplication7.Controllers
             {
                 HttpContext.Session.SetInt32("cartCount", 0);
             }
-
             return View();
         }
 
@@ -55,5 +55,6 @@ namespace WebApplication7.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
     }
 }

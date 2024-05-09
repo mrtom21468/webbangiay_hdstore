@@ -3,20 +3,24 @@
 @{
     ViewData["Title"] = "Index";
 }
+<style>
 
+    .icon-red {
+        color: red; /* Thay đổi màu sắc thành màu đỏ */
+    }
+    .icon-green{
+        color: green;
+    }
+</style>
 <h1>Index</h1>
-
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create"><i class="fas fa-plus icon-green"></i> Tạo mới size</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.SizeName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SizeCode)
+                Tên Size
             </th>
             <th></th>
         </tr>
@@ -28,14 +32,15 @@
                 @Html.DisplayFor(modelItem => item.SizeName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SizeCode)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.SizeId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.SizeId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.SizeId">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.SizeId">
+                        <i class="fas fa-edit"></i>
+                    </a> |
+                    <a asp-action="Delete" asp-route-id="@item.SizeId">
+                        <i class="fas fa-trash-alt icon-red"></i>
+                    </a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+

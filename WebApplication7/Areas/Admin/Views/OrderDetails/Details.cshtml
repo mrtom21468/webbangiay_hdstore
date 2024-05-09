@@ -1,14 +1,100 @@
-﻿@model WebApplication7.Models.OrderDetail
+﻿@model List<WebApplication7.Models.OrderDetail>
+
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
-
+@{
+        string status = @Model.FirstOrDefault().Order.Status;
+        string color = "";
+        string statusName = "";
+        // Xác định màu sắc dựa trên giá trị của Status
+        switch (status)
+        {
+            case "1":
+                statusName = "Chờ xử lý";
+                color = "orange";
+                break;
+            case "2":
+                statusName = "Đã xác nhận";
+                color = "blue";
+                break;
+            case "3":
+                statusName = "Đã đã đóng gói";
+                color = "blue";
+                break;
+            case "4":
+                statusName = "Đang vẩn chuyển";
+                color = "blue";
+                break;
+            case "5":
+                statusName = "Hoàn thành";
+                color = "green";
+                break;
+            case "6":
+                statusName = "Đã hủy";
+                color = "red";
+                break;
+            default:
+                statusName = "Lỗi";
+                color = "black"; // Màu mặc định nếu không phù hợp với các trường hợp trên
+                break;
+        }
+ }
+@{
+    string statusPay = @Model.FirstOrDefault().Order.PaymentStatus;
+    string colorPay = "";
+    string PaymentStatusName = "";
+    // Xác định màu sắc dựa trên giá trị của Status
+    switch (statusPay)
+    {
+        case "0":
+            PaymentStatusName = "Đang thanh toán";
+            colorPay = "blue";
+            break;
+        case "1":
+            PaymentStatusName = "Đã thanh toán";
+            colorPay = "green";
+            break;
+        case "2":
+            PaymentStatusName = "Thanh toán lỗi";
+            colorPay = "red";
+            break;
+        case "3":
+            PaymentStatusName = "Chưa thanh toán";
+            colorPay = "orange";
+            break;
+        default:
+            PaymentStatusName = "Lỗi";
+            colorPay = "black"; // Màu mặc định nếu không phù hợp với các trường hợp trên
+            break;
+    }
+}
 <h1>Chi tiết đơn hàng</h1>
-
 <div>
-    <h4>Mã đơn hàng @ViewBag.orderDetail[0].OrderId</h4>
-    <hr />
+    <div class="row">
+        <div class="col">
+            <h4>Mã đơn hàng @Model.FirstOrDefault().Order.OrderId</h4>
+            <p>Phương thức thanh toán: @Model.FirstOrDefault().Order.PaymentType</p>
+            <p>Trạng thái thanh toán: <span style="color: @colorPay">@PaymentStatusName</span></p>
+            <p>Tổng thanh toán: @Model.FirstOrDefault().Order.TotalAmount $</p>
+            <p>Trạng thái đơn hàng: <span style="color: @color">@statusName</span></p>
+
+        </div>
+        <div class="col">
+            <h4>Thông tin người nhận</h4>
+            <p>Họ và tên: </p>
+            <p>Địa chỉ: @Model.FirstOrDefault().Order.Address</p>
+            <p>Số điện thoại: @Model.FirstOrDefault().Order.PhoneNumber</p>
+            <p>
+                Tổng thu: @{
+                    var order = Model.FirstOrDefault(); // Lấy đơn hàng đầu tiên trong danh sách
+                    var thu = order != null && order.Order.PaymentType == "Tiền mặt" ? order.Order.TotalAmount.ToString(): "0"; // Kiểm tra xem đơn hàng tồn tại và có phải là thanh toán bằng tiền mặt không
+                    @thu
+                } $
+            </p>
+        </div>
+    </div>
     <div class="container">
         <table class="table table-bordered">
             <thead>
@@ -22,7 +108,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (OrderDetail i in ViewBag.orderDetail)
+                @foreach (OrderDetail i in Model)
                 {
                     <tr>
                         <td>@i.Productdetail.Product.ProductName</td>
@@ -36,6 +122,6 @@
             </tbody>
         </table>
     </div>
-    @Html.ActionLink("Xuất Excel", "ExportToExcel", "OrderDetails", new { id = ViewBag.orderDetail[0].OrderId }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Xuất Excel", "ExportToExcel", "OrderDetails", new { id = @Model.FirstOrDefault().OrderId }, new { @class = "btn btn-primary" })
 
 </div>

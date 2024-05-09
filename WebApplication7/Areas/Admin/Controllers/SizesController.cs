@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebApplication7.Models;
+using WebApplication7.Areas.Admin.Helpper;
+using AspNetCoreHero.ToastNotification.Notyf;
 
 namespace WebApplication7.Areas.Admin.Controllers
 {
@@ -13,10 +15,12 @@ namespace WebApplication7.Areas.Admin.Controllers
     public class SizesController : Controller
     {
         private readonly QLDBcontext _context;
+        private readonly NotyfService _notyfService;
 
-        public SizesController(QLDBcontext context)
+        public SizesController(QLDBcontext context, NotyfService notyfService)
         {
             _context = context;
+            _notyfService= notyfService;
         }
 
         // GET: Admin/Sizes
@@ -24,25 +28,6 @@ namespace WebApplication7.Areas.Admin.Controllers
         {
             return View(await _context.Sizes.ToListAsync());
         }
-
-        // GET: Admin/Sizes/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var size = await _context.Sizes
-                .FirstOrDefaultAsync(m => m.SizeId == id);
-            if (size == null)
-            {
-                return NotFound();
-            }
-
-            return View(size);
-        }
-
         // GET: Admin/Sizes/Create
         public IActionResult Create()
         {
@@ -54,14 +39,24 @@ namespace WebApplication7.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("SizeId,SizeName,SizeCode")] Size size)
+        public async Task<IActionResult> Create([Bind("SizeId,SizeName")] Size size)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(size);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                size.SizeSlug=Slug.GenerateSlug(size.SizeName);
+                var checkSize= _context.Sizes.FirstOrDefault(m => m.SizeSlug == size.SizeSlug);
+                if (checkSize == null)
+                {
+                    _context.Add(size);
+                    await _context.SaveChangesAsync();
+                    _notyfService.Success("Thêm thành công", 3);
+                    return RedirectToAction(nameof(Index));
+                }
+                _notyfService.Error("Trùng size", 3);
+                return View(size);
+
             }
+            _notyfService.Error("Dữ liệu không hợp lệ", 3);
             return View(size);
         }
 
@@ -86,7 +81,7 @@ namespace WebApplication7.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("SizeId,SizeName,SizeCode")] Size size)
+        public async Task<IActionResult> Edit(int id, [Bind("SizeId,SizeName")] Size size)
         {
             if (id != size.SizeId)
             {
@@ -97,8 +92,17 @@ namespace WebApplication7.Areas.Admin.Controllers
             {
                 try
                 {
+                    size.SizeSlug = Slug.GenerateSlug(size.SizeName);
+                    var checkSize = _context.Sizes.FirstOrDefault(m => m.SizeSlug == size.SizeSlug && m.SizeId!=id);
+                    if(checkSize != null)
+                    {
+                        _notyfService.Error("Trùng size", 3);
+                        return View(size);
+                    }
                     _context.Update(size);
                     await _context.SaveChangesAsync();
+                    _notyfService.Success("Cập nhật thành công", 3);
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {

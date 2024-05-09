@@ -36,7 +36,7 @@ namespace WebApplication7.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            ViewBag.orderDetail = await _context.OrderDetails
+            var orderDetail = await _context.OrderDetails
              .Include(o => o.Order)
             .Include(o => o.Productdetail)
                 .ThenInclude(pd => pd.Color) // Bổ sung dữ liệu từ bảng Color
@@ -48,12 +48,12 @@ namespace WebApplication7.Areas.Admin.Controllers
             .ToListAsync();
 
 
-            if (ViewBag.orderDetail == null)
+            if (orderDetail == null)
             {
                 return NotFound();
             }
 
-            return View();
+            return View(orderDetail);
         }
         public IActionResult ExportToExcel(int? id)
         {

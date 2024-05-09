@@ -3,33 +3,45 @@
 @{
     ViewData["Title"] = "Index";
 }
+<style>
 
-<h1>Index</h1>
+    .icon-red {
+        color: red; /* Thay đổi màu sắc thành màu đỏ */
+    }
 
+    .icon-green {
+        color: green;
+    }
+</style>
+<h1>Quản lý thương hiệu</h1>
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create"><i class="fas fa-plus icon-green"></i> Tạo mới thương hiệu</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.BrandName)
+                Tên thương hiệu
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.BrandName)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.BrandId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.BrandId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.BrandId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BrandName)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.BrandId">
+                        <i class="fas fa-edit"></i>
+                    </a> |
+                    <a asp-action="Delete" asp-route-id="@item.BrandId">
+                        <i class="fas fa-trash-alt icon-red"></i>
+                    </a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

@@ -9,18 +9,22 @@ namespace WebApplication7.Models;
 public partial class Product
 {
     public int ProductId { get; set; }
-
+    [DisplayName("Tên sản phẩm")]
     [Required(ErrorMessage = "Vui lòng nhập tên sản phẩm.")]
     public string ProductName { get; set; } = null!;
 
     public bool? State { get; set; }
+    [DisplayName("Thương hiệu")]
+
     public int? BrandId { get; set; }
+    [DisplayName("Thể loại")]
 
     public int? CategoryId { get; set; }
 
     public string? ImagePath { get; set; }
 
     [MaxLength(500)]
+    [DisplayName("Mô tả")]
     public string? Description { get; set; }
 
     public virtual Brand? Brand { get; set; }

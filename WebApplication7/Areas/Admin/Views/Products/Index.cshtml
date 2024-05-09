@@ -5,35 +5,41 @@
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
-
+<style>
+    .icon-green{
+        color: green;
+    }
+</style>
 <h1>Quản lý sản phẩm</h1>
 
 <p>
-    <a asp-action="Create"><i class="anticon-plus"></i>Tạo mới sản phẩm</a>
+    <a asp-action="Create"><i class="fa fa-plus icon-green"></i>Tạo mới sản phẩm</a>
 </p>
 <table class="table">
     <thead>
         <tr>
-            <th>
+            <th >
                 @Html.DisplayName("Ảnh")
             </th>
-            <th>
+            <th >
                 @Html.DisplayName("Tên sản phẩm")
             </th>
-            <th>
+            <th >
                 @Html.DisplayName("Thương hiệu")
 
             </th>
-            <th>
+            <th >
                 @Html.DisplayName("Thể loại")
             </th>
             <th>
-                @Html.DisplayName("Phiên bản")
+                @Html.DisplayName("Tổng phiên bản")
             </th>
-            <th>
-                @Html.DisplayName("Tổng có thể bán")
+            <th >
+                @Html.DisplayName("Tổng kho")
             </th>
-            <th></th>
+            <th >
+                @Html.DisplayName("Có thể bán")
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -69,13 +75,42 @@
                     }
                     @sum <!-- Hiển thị tổng -->
                 </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ProductId">Chỉnh sửa</a> |
-                <a asp-action="Details" asp-route-id="@item.ProductId">Chi tiết</a> |
-                <a asp-action="Delete" asp-route-id="@item.ProductId">Xóa</a> |
-                <a asp-controller="ProductDetails" asp-action="Create" asp-route-id="@item.ProductId">Thêm sản phẩm</a>
-            </td>
+                <td>
+                    @{
+                        bool isChecked = item.State ?? false; // Sử dụng null-coalescing operator để gán false nếu item.State là null
+                    }
+                    <input type="checkbox" class="stateCheckbox" data-id=@item.ProductId @(isChecked ? "checked" : "") />
+                </td>
         </tr>
 }
     </tbody>
 </table>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Bắt sự kiện thay đổi của checkbox
+        $('.stateCheckbox').change(function () {
+            // Lấy giá trị mới của checkbox
+            var newState = $(this).prop('checked');
+            // Lấy ID của sản phẩm từ thuộc tính data-id
+            var productId = $(this).data('id');
+            // Gửi yêu cầu AJAX lên server
+            $.ajax({
+                url: '@Url.Action("UpdateState", "Products")', // Đường dẫn đến action cập nhật trạng thái
+                type: 'POST',
+                data: { productId: productId, newState: newState },
+                success: function (response) {
+                    // Xử lý kết quả nếu cần
+                    var notyf = new Notyf();
+                    notyf.success('Cập nhật thành công');
+                },
+                error: function (xhr, status, error) {
+                    // Xử lý lỗi nếu có
+                    notyf.error('Cập nhật lỗi');
+
+                    console.error(error);
+                }
+            });
+        });
+    });
+</script>

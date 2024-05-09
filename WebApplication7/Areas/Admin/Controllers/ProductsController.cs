@@ -144,7 +144,7 @@ namespace WebApplication7.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProductId,ProductName,BrandId,CategoryId,SupplierId,PurchasePrice,Description,ImageFile")] Product product)
+        public async Task<IActionResult> Create([Bind("ProductId,ProductName,BrandId,CategoryId,Description,ImageFile")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -203,7 +203,7 @@ namespace WebApplication7.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProductId,ProductName,BrandId,CategoryId,SupplierId,PurchasePrice")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("ProductId,ProductName,BrandId,CategoryId,Description,ImageFile")] Product product)
         {
             if (id != product.ProductId)
             {
@@ -214,6 +214,26 @@ namespace WebApplication7.Areas.Admin.Controllers
             {
                 try
                 {
+                    if (product.ImageFile != null && product.ImageFile.Length > 0)
+                    {
+                        // Tạo tên cho ảnh sản phẩm
+                        string nameProductImage = Guid.NewGuid().ToString() + Path.GetExtension(product.ImageFile.FileName);
+
+                        // Đường dẫn đến thư mục lưu trữ ảnh
+                        string uploadFolder = Path.Combine(_webHostEnvironment.WebRootPath, "Userdata", "img", "product");
+
+                        // Đường dẫn đầy đủ tới tệp ảnh
+                        string imagePath = Path.Combine(uploadFolder, nameProductImage);
+
+                        // Lưu ảnh vào thư mục tạm thời
+                        using (var stream = new FileStream(imagePath, FileMode.Create))
+                        {
+                            await product.ImageFile.CopyToAsync(stream);
+                        }
+
+                        // Lưu đường dẫn của ảnh vào model
+                        product.ImagePath = "/Userdata/img/product/" + nameProductImage;
+                    }
                     _context.Update(product);
                     await _context.SaveChangesAsync();
                 }
@@ -269,7 +289,22 @@ namespace WebApplication7.Areas.Admin.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
+        // Action để cập nhật trạng thái
+        [HttpPost]
+        public ActionResult UpdateState(int productId, bool newState)
+        {
+            try
+            {
+                // Thực hiện logic để cập nhật trạng thái trong cơ sở dữ liệu hoặc nơi khác
+                _context.Products.FirstOrDefault(p => p.ProductId == productId).State = newState;
+                _context.SaveChanges();
+                return Json(new { success = true });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false });
+            }
+        }
         private bool ProductExists(int id)
         {
             return _context.Products.Any(e => e.ProductId == id);

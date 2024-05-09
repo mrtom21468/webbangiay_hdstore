@@ -243,6 +243,9 @@ namespace WebApplication7.Migrations
                         .HasColumnType("nvarchar(100)")
                         .HasColumnName("brand_name");
 
+                    b.Property<string>("BrandSlug")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("BrandId")
                         .HasName("PK__Brand__5E5A8E2750A69CA3");
 
@@ -312,6 +315,9 @@ namespace WebApplication7.Migrations
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)")
                         .HasColumnName("color_name");
+
+                    b.Property<string>("ColorSlug")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ColorId")
                         .HasName("PK__Color__1143CECB9627DBA7");
@@ -547,17 +553,17 @@ namespace WebApplication7.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SizeId"));
 
-                    b.Property<string>("SizeCode")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(max)")
-                        .HasDefaultValue("");
-
                     b.Property<string>("SizeName")
                         .IsRequired()
                         .HasMaxLength(10)
                         .IsUnicode(false)
                         .HasColumnType("varchar(10)")
                         .HasColumnName("size_name");
+
+                    b.Property<string>("SizeSlug")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(max)")
+                        .HasDefaultValue("");
 
                     b.HasKey("SizeId")
                         .HasName("PK__Size__0DCACE3135AEF154");

@@ -4,13 +4,11 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
-
-<h4>Category</h4>
+<h4>Chỉnh sửa danh mục</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="CategoryId" />
             <div class="form-group">
@@ -19,26 +17,40 @@
                 <span asp-validation-for="CategoryName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CategorySlug" class="control-label"></label>
-                <input asp-for="CategorySlug" class="form-control" />
-                <span asp-validation-for="CategorySlug" class="text-danger"></span>
+                <label asp-for="ImageFile" class="control-label"></label>
+                <input asp-for="ImageFile" type="file" class="form-control" accept=".jpg, .jpeg, .png" onchange="previewImage(event)" />
+                <input asp-for="ImagePath" value="@Model.ImagePath" style="display: none"/>
+                <span asp-validation-for="ImageFile" class="text-danger"></span>
+                <img id="imagePreview" src=@Url.Content(Model.ImagePath) alt="Preview" style=" max-width: 100px; max-height: 100px;" />
+
             </div>
-            <div class="form-group">
-                <label asp-for="ImagePath" class="control-label"></label>
-                <input asp-for="ImagePath" class="form-control" />
-                <span asp-validation-for="ImagePath" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
+        <div class="form-group">
+    <button type="submit" class="btn btn-primary">
+        <i class="fa fa-save"></i> Lưu
+    </button>
+        </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">
+        <i class="fa fa-arrow-left"></i>
+        Trở lại
+    </a>
 </div>
-
+<script>
+    function previewImage(event) {
+        var input = event.target;
+        var reader = new FileReader();
+        reader.onload = function () {
+            var imgElement = document.getElementById('imagePreview');
+            imgElement.src = reader.result;
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+</script>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
 }

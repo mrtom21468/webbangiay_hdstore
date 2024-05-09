@@ -52,7 +52,7 @@ namespace WebApplication7.Controllers
             {
                 query = query.Where(u => u.ProductDetails.First().SellingPrice >= min && u.ProductDetails.First().SellingPrice <= max);
             }
-            var productList = query.AsNoTracking();
+            var productList = query.Where(p=>p.State==true).AsNoTracking();
 
             if (productList != null)
             {
@@ -61,42 +61,6 @@ namespace WebApplication7.Controllers
             }
             _notyfService.Warning("Không có sản phẩm nào phù hợp",5);
             return RedirectToAction("Index", "Home");
-        }
-
-        public async Task<IActionResult> Search(string? search)
-        {
-            if(search == null)
-            {
-                return View("Index", await _context.Products
-            .Include(p => p.ProductDetails)
-            .ToListAsync());
-            }
-            var resul=await _context.Products
-                .Include(p => p.ProductDetails)
-                .Where(p=>p.ProductName.Contains(search))
-                .ToListAsync();
-            ViewBag.search = search;
-            return View("Index",resul);
-        }
-        public async Task<IActionResult> SortProducts(int sortBy)
-        {
-            // Xử lý logic sắp xếp sản phẩm ở đây
-            // Ví dụ:
-            switch (sortBy)
-            {
-                case 1:
-                    // Sắp xếp sản phẩm theo giá tăng dần
-                    break;
-                case 2:
-                    // Sắp xếp sản phẩm theo giá giảm dần
-                    break;
-                default:
-                    // Sắp xếp sản phẩm theo mặc định
-                    break;
-            }
-
-            // Trả về kết quả nếu cần
-            return View();
         }
     }
 }

@@ -3,23 +3,30 @@
 @{
     ViewData["Title"] = "Index";
 }
+<style>
 
+    .icon-red {
+        color: red; /* Thay đổi màu sắc thành màu đỏ */
+    }
+    .icon-green{
+        color: green;
+    }
+</style>
 <h1>Index</h1>
-
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create"><i class="fas fa-plus icon-green"></i> Tạo mới danh mục</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.CategoryName)
+                Tên thể loại
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CategorySlug)
+                Mã thể loại slug
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ImagePath)
+                Ảnh thể loại
             </th>
             <th></th>
         </tr>
@@ -34,12 +41,15 @@
                 @Html.DisplayFor(modelItem => item.CategorySlug)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ImagePath)
+                    <img style ="width: 50px; height: 50px;" class="img-fluid" src="@item.ImagePath" />
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.CategoryId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.CategoryId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.CategoryId">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.CategoryId">
+                        <i class="fas fa-edit"></i>
+                    </a> |
+                    <a asp-action="Delete" asp-route-id="@item.CategoryId">
+                        <i class="fas fa-trash-alt icon-red"></i>
+                    </a>
             </td>
         </tr>
 }

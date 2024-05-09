@@ -15,6 +15,8 @@ using System.Security.Claims;
 using System.Text;
 using Newtonsoft.Json.Linq;
 using Store_HD.Models;
+using Azure.Core;
+using DocumentFormat.OpenXml.Drawing.Charts;
 
 namespace WebApplication7.Controllers
 {
@@ -100,16 +102,16 @@ namespace WebApplication7.Controllers
                     .SumAsync(p => p.Productdetail.SellingPrice * p.Amount);
 
                 // Thêm hóa đơn mới
-                var newOrders = new Order()
+                var newOrders = new Models.Order()
                 {
                     AccountId = user.Result,
-                    Status = "Chờ xử lý",
+                    Status = "1",
                     TotalAmount = tongtien,
                     PhoneNumber = requestions["phone"],
                     PaymentType = requestions["payment_method"],
                     OrderIdMoMo="",
                     ReqrIdMoMo="",
-                    PaymentStatus="0",
+                    PaymentStatus= requestions["payment_method"]== "Tiền mặt" ? "3":"0",
                     Address = newAddress.FullAddress +"-"+ newAddress.City
                 };
                 await _context.AddAsync(newOrders);
@@ -159,6 +161,63 @@ namespace WebApplication7.Controllers
             return View();
             
         }
+        [HttpPost]
+        public ActionResult UpdatePaymentStatus(int itemId)
+        {
+            try
+            {
+                var order= _context.Orders.FirstOrDefault(o=> o.OrderId == itemId);
+                // Tại đây, bạn có thể thực hiện các thao tác cập nhật trạng thái thanh toán
+                // Ví dụ: cập nhật trong cơ sở dữ liệu, gọi API bên ngoài, vv.
+                string partnerCode = "MOMO5RGX20191128";
+                string serectkey = "nqQiVSgDMy809JoPF6OzP5OdBUB550Y4";
+                string accessKey = "M8brj9K6E22vXoDB";
+                string endpoint = "https://test-payment.momo.vn//v2/gateway/api/query";
+                //Before sign HMAC SHA256 signature
+                string rawHash = "accessKey=" + accessKey +
+                    "&orderId=" + order.OrderIdMoMo +
+                    "&partnerCode=" + partnerCode +
+                    "&requestId=" + order.ReqrIdMoMo
+                    ;
+
+                MoMoSecurity crypto = new MoMoSecurity();
+                //sign signature SHA256
+                string signature = crypto.signSHA256(rawHash, serectkey);
+                JObject message = new JObject
+                {
+                { "partnerCode", partnerCode },
+                { "requestId", order.ReqrIdMoMo },
+                { "orderId", order.OrderIdMoMo },
+                { "signature", signature },
+                { "lang", "en" }
+
+            };
+                string responseFromMomo = PaymentRequest.sendPaymentRequest(endpoint, message.ToString());
+                JObject jmessage = JObject.Parse(responseFromMomo);
+                string result = jmessage.GetValue("resultCode").ToString();
+                // Sau khi cập nhật thành công, bạn có thể trả về kết quả bất kỳ nếu cần
+                if (result == "0")
+                {
+                    order.PaymentStatus = "1";
+                    _context.SaveChanges();
+                    return Json(new { success = true, message = result });
+
+                }
+                if (result == "1000")
+                {
+                    return Json(new { success = true, message = result });
+                }
+                order.PaymentStatus = "2";
+                order.Status = "6";
+                _context.SaveChanges();
+                return Json(new { success = false, message = result });
+            }
+            catch (Exception ex)
+            {
+                // Xử lý ngoại lệ nếu có lỗi xảy ra trong quá trình cập nhật
+                return Json(new { success = false, message = "Đã xảy ra lỗi khi cập nhật trạng thái thanh toán." });
+            }
+        }
         public async Task<IActionResult> XacNhan( string orderId, string requestId)
         {
             string partnerCode = "MOMO5RGX20191128";
@@ -202,7 +261,8 @@ namespace WebApplication7.Controllers
             else
             {
                 var od = _context.Orders.Where(o => o.OrderIdMoMo == orderId).FirstOrDefault();
-                od.PaymentStatus = "0";
+                od.PaymentStatus = "2";
+                od.Status = "6";
                 _context.SaveChanges();
                 ViewBag.Message ="Thanh toán đơn hàng thất bại ";
                 ViewBag.Madonhang = orderId;

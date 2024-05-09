@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNetCoreHero.ToastNotification.Notyf;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using WebApplication7.Areas.Admin.Helpper;
 using WebApplication7.Models;
 
 namespace WebApplication7.Areas.Admin.Controllers
@@ -13,10 +15,12 @@ namespace WebApplication7.Areas.Admin.Controllers
     public class BrandsController : Controller
     {
         private readonly QLDBcontext _context;
+        private readonly NotyfService _notyfService;
 
-        public BrandsController(QLDBcontext context)
+        public BrandsController(QLDBcontext context,NotyfService notyfService)
         {
             _context = context;
+            _notyfService = notyfService; 
         }
 
         // GET: Admin/Brands
@@ -58,10 +62,19 @@ namespace WebApplication7.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(brand);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                brand.BrandSlug = Slug.GenerateSlug(brand.BrandName);
+                var checkSize = _context.Brands.FirstOrDefault(m => m.BrandSlug == brand.BrandSlug);
+                if (checkSize == null)
+                {
+                    _notyfService.Success("Thêm thành công", 3);
+                    _context.Add(brand);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                _notyfService.Error("Thương hiệu trùng", 3);
+                return View(brand);
             }
+            _notyfService.Error("Nhập dữ liệu hợp lệ", 3);
             return View(brand);
         }
 
@@ -97,8 +110,16 @@ namespace WebApplication7.Areas.Admin.Controllers
             {
                 try
                 {
+                    brand.BrandSlug = Slug.GenerateSlug(brand.BrandName);
+                    var checkSize = _context.Brands.FirstOrDefault(m => m.BrandSlug == brand.BrandSlug && m.BrandId != id);
+                    if (checkSize != null)
+                    {
+                        _notyfService.Error("Trùng thương hiệu", 3);
+                        return View(brand);
+                    }
                     _context.Update(brand);
                     await _context.SaveChangesAsync();
+                    _notyfService.Success("Cập nhật thành công", 3);
                 }
                 catch (DbUpdateConcurrencyException)
                 {

@@ -3661,6 +3661,10 @@
       "PackagePath": "staticwebassets\\Userdata\\img\\categories\\137bfd34-f0f7-4b65-b4ac-f3717314732f.jpg"
     },
     {
+      "Id": "D:\\Code_Asp\\WebApplication7\\WebApplication7\\wwwroot\\Userdata\\img\\categories\\1b4d79f7-da23-4e4a-83ea-73d36a784d4e.jpg",
+      "PackagePath": "staticwebassets\\Userdata\\img\\categories\\1b4d79f7-da23-4e4a-83ea-73d36a784d4e.jpg"
+    },
+    {
       "Id": "D:\\Code_Asp\\WebApplication7\\WebApplication7\\wwwroot\\Userdata\\img\\categories\\36acb107-71ae-4f5c-8801-90577bdea0c6.jpg",
       "PackagePath": "staticwebassets\\Userdata\\img\\categories\\36acb107-71ae-4f5c-8801-90577bdea0c6.jpg"
     },
@@ -3673,12 +3677,68 @@
       "PackagePath": "staticwebassets\\Userdata\\img\\categories\\43fbf157-8cb7-48d2-965c-19402c98d87c.jpg"
     },
     {
+      "Id": "D:\\Code_Asp\\WebApplication7\\WebApplication7\\wwwroot\\Userdata\\img\\categories\\49168d7c-2ba9-48a9-822d-848349ba35d5.jpg",
+      "PackagePath": "staticwebassets\\Userdata\\img\\categories\\49168d7c-2ba9-48a9-822d-848349ba35d5.jpg"
+    },
+    {
       "Id": "D:\\Code_Asp\\WebApplication7\\WebApplication7\\wwwroot\\Userdata\\img\\categories\\4c0f0c16-56ef-4cf1-a1b8-014bbd3cbc2b.jpg",
       "PackagePath": "staticwebassets\\Userdata\\img\\categories\\4c0f0c16-56ef-4cf1-a1b8-014bbd3cbc2b.jpg"
     },
     {
+      "Id": "D:\\Code_Asp\\WebApplication7\\WebApplication7\\wwwroot\\Userdata\\img\\categories\\4c70b8f6-100b-4489-8365-dac0da1b03e9.png",
+      "PackagePath": "staticwebassets\\Userdata\\img\\categories\\4c70b8f6-100b-4489-8365-dac0da1b03e9.png"
+    },
+    {
+      "Id": "D:\\Code_Asp\\WebApplication7\\WebApplication7\\wwwroot\\Userdata\\img\\categories\\4dac6c1e-ffa8-4bb0-a43e-faf5f9b0b975.jpg",
+      "PackagePath": "staticwebassets\\Userdata\\img\\categories\\4dac6c1e-ffa8-4bb0-a43e-faf5f9b0b975.jpg"
+    },
+    {
+      "Id": "D:\\Code_Asp\\WebApplication7\\WebApplication7\\wwwroot\\Userdata\\img\\categories\\5bbbd877-e2bf-44c9-81e5-40c9ae5b118d.png",
+      "PackagePath": "staticwebassets\\Userdata\\img\\categories\\5bbbd877-e2bf-44c9-81e5-40c9ae5b118d.png"
+    },
+    {
+      "Id": "D:\\Code_Asp\\WebApplication7\\WebApplication7\\wwwroot\\Userdata\\img\\categories\\6676906d-b41f-48a1-8620-51265da33ff1.pdf",
+      "PackagePath": "staticwebassets\\Userdata\\img\\categories\\6676906d-b41f-48a1-8620-51265da33ff1.pdf"
+    },
+    {
+      "Id": "D:\\Code_Asp\\WebApplication7\\WebApplication7\\wwwroot\\Userdata\\img\\categories\\69c51c61-6e6e-4683-8268-d38ccbeb28fc.webp",
+      "PackagePath": "staticwebassets\\Userdata\\img\\categories\\69c51c61-6e6e-4683-8268-d38ccbeb28fc.webp"
+    },
+    {
+      "Id": "D:\\Code_Asp\\WebApplication7\\WebApplication7\\wwwroot\\Userdata\\img\\categories\\72cedecc-a6e4-4b3d-b4fc-9619fee677ed.jpg",
+      "PackagePath": "staticwebassets\\Userdata\\img\\categories\\72cedecc-a6e4-4b3d-b4fc-9619fee677ed.jpg"
+    },
+    {
+      "Id": "D:\\Code_Asp\\WebApplication7\\WebApplication7\\wwwroot\\Userdata\\img\\categories\\7c26d423-3e90-4c73-8631-2eb3b5555146.png",
+      "PackagePath": "staticwebassets\\Userdata\\img\\categories\\7c26d423-3e90-4c73-8631-2eb3b5555146.png"
+    },
+    {
+      "Id": "D:\\Code_Asp\\WebApplication7\\WebApplication7\\wwwroot\\Userdata\\img\\categories\\8a8735b5-7802-480d-9535-e12c4bc43e85.pdf",
+      "PackagePath": "staticwebassets\\Userdata\\img\\categories\\8a8735b5-7802-480d-9535-e12c4bc43e85.pdf"
+    },
+    {
       "Id": "D:\\Code_Asp\\WebApplication7\\WebApplication7\\wwwroot\\Userdata\\img\\categories\\997da915-41ed-45a1-a72b-0beae1d473c1.jpg",
       "PackagePath": "staticwebassets\\Userdata\\img\\categories\\997da915-41ed-45a1-a72b-0beae1d473c1.jpg"
+    },
+    {
+      "Id": "D:\\Code_Asp\\WebApplication7\\WebApplication7\\wwwroot\\Userdata\\img\\categories\\a71e982b-4f4e-473c-a2a6-2e717bba4f6b.jpg",
+      "PackagePath": "staticwebassets\\Userdata\\img\\categories\\a71e982b-4f4e-473c-a2a6-2e717bba4f6b.jpg"
+    },
+    {
+      "Id": "D:\\Code_Asp\\WebApplication7\\WebApplication7\\wwwroot\\Userdata\\img\\categories\\ad12524c-d0a8-45cb-b222-e411bf3dc3e7.jpg",
+      "PackagePath": "staticwebassets\\Userdata\\img\\categories\\ad12524c-d0a8-45cb-b222-e411bf3dc3e7.jpg"
+    },
+    {
+      "Id": "D:\\Code_Asp\\WebApplication7\\WebApplication7\\wwwroot\\Userdata\\img\\categories\\bf7abfb8-9cac-4101-9b94-b175a2c02762.jpg",
+      "PackagePath": "staticwebassets\\Userdata\\img\\categories\\bf7abfb8-9cac-4101-9b94-b175a2c02762.jpg"
+    },
+    {
+      "Id": "D:\\Code_Asp\\WebApplication7\\WebApplication7\\wwwroot\\Userdata\\img\\categories\\c0574e36-81e6-494f-bd24-285a1613c5e8.jpg",
+      "PackagePath": "staticwebassets\\Userdata\\img\\categories\\c0574e36-81e6-494f-bd24-285a1613c5e8.jpg"
+    },
+    {
+      "Id": "D:\\Code_Asp\\WebApplication7\\WebApplication7\\wwwroot\\Userdata\\img\\categories\\c40faa96-af0e-4092-a668-de7476368205.jpg",
+      "PackagePath": "staticwebassets\\Userdata\\img\\categories\\c40faa96-af0e-4092-a668-de7476368205.jpg"
     },
     {
       "Id": "D:\\Code_Asp\\WebApplication7\\WebApplication7\\wwwroot\\Userdata\\img\\categories\\cat-1.jpg",
@@ -3699,6 +3759,14 @@
     {
       "Id": "D:\\Code_Asp\\WebApplication7\\WebApplication7\\wwwroot\\Userdata\\img\\categories\\cat-5.jpg",
       "PackagePath": "staticwebassets\\Userdata\\img\\categories\\cat-5.jpg"
+    },
+    {
+      "Id": "D:\\Code_Asp\\WebApplication7\\WebApplication7\\wwwroot\\Userdata\\img\\categories\\cb1500d4-c6c1-4086-ab45-9393a6ad4dd1.jpg",
+      "PackagePath": "staticwebassets\\Userdata\\img\\categories\\cb1500d4-c6c1-4086-ab45-9393a6ad4dd1.jpg"
+    },
+    {
+      "Id": "D:\\Code_Asp\\WebApplication7\\WebApplication7\\wwwroot\\Userdata\\img\\categories\\daf366a6-7b45-4ab2-b391-a1b9b0a7dc7d.jpg",
+      "PackagePath": "staticwebassets\\Userdata\\img\\categories\\daf366a6-7b45-4ab2-b391-a1b9b0a7dc7d.jpg"
     },
     {
       "Id": "D:\\Code_Asp\\WebApplication7\\WebApplication7\\wwwroot\\Userdata\\img\\categories\\f423af63-8d91-4b16-a0a0-797a9d267bc1.jpg",

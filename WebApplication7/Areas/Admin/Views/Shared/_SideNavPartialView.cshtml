@@ -18,13 +18,46 @@
 
                 </a>
             </li>
-            <li class="nav-item ">
-                <a class="dropdown-toggle" asp-area="Admin" asp-controller="Products" asp-action="Index">
+            <li class="nav-item dropdown">
+                <a class="dropdown-toggle" href="javascript:void(0);">
                     <span class="icon-holder">
                         <i class="fas fa-cubes"></i>
                     </span>
                     <span class="title">Quản lý sản phẩm</span>
+                    <span class="arrow">
+                        <i class="arrow-icon"></i>
+                    </span>
                 </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a asp-area="Admin" asp-controller="Products" asp-action="Index">Danh sách sản phẩm</a>
+
+                    </li>
+                    <li>
+                        <a asp-area="Admin" asp-controller="StoreIns" asp-action="Index">Danh sách đơn nhập</a>
+
+                    </li>
+                    <li>
+                        <a asp-area="Admin" asp-controller="Brands" asp-action="Index">Danh sách thương hiệu</a>
+
+                    </li>
+                    <li>
+                        <a asp-area="Admin" asp-controller="Categories" asp-action="Index">Danh sách thể loại</a>
+
+                    </li>
+                    <li>
+                        <a asp-area="Admin" asp-controller="Suppliers" asp-action="Index">Danh sách nhà cung cấp</a>
+
+                    </li>
+                    <li>
+                        <a asp-area="Admin" asp-controller="Sizes" asp-action="Index">Danh sách kích cỡ</a>
+
+                    </li>
+                    <li>
+                        <a asp-area="Admin" asp-controller="Colors" asp-action="Index">Danh sách màu sắc</a>
+
+                    </li>
+                </ul>
             </li>
             <li class="nav-item ">
                 <a class="dropdown-toggle" asp-area="Admin" asp-controller="StoreIns" asp-action="Index">
@@ -46,7 +79,7 @@
                 </a>
                 <ul class="dropdown-menu">
                     <li>
-                        <a asp-area ="Admin" asp-controller="Roles" asp-action="Index">Quản lý quyền</a>
+                        <a asp-area="Admin" asp-controller="Roles" asp-action="Index">Quản lý quyền</a>
                     </li>
                     <li>
                         <a asp-area="Admin" asp-controller="Nguoidungs" asp-action="Index">Quản lí tài khoản</a>
@@ -76,6 +109,7 @@
                     </li>
                 </ul>
             </li>
+
         </ul>
     </div>
 </div>

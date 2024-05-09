@@ -47,7 +47,7 @@ namespace WebApplication7.Areas.Identity.Pages.Account.Manage
 
             [DataType(DataType.Password)]
             [Display(Name = "Nhập lại mật khẩu mới")]
-            [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+            [Compare("NewPassword", ErrorMessage = "Mật khẩu mới và mật khẩu cũ không trùng nhau.")]
             public string ConfirmPassword { get; set; }
         }
 

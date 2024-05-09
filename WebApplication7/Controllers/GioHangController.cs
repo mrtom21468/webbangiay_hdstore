@@ -46,6 +46,9 @@ namespace WebApplication7.Controllers
                      .Include(c => c.Productdetail)
                         .ThenInclude(c => c.Size)
                     .Where(c => c.Account.AccountId == user.Result);
+                    //cập nhật item giỏ hàng
+                    int carCount = _context.Carts.Where(c => c.AccountId == user.Result).Count();
+                    HttpContext.Session.SetInt32("cartCount", carCount);
                     return View((await QLDBcontext.ToListAsync()));
                 }
                 return View();
@@ -70,6 +73,9 @@ namespace WebApplication7.Controllers
                     _context.SaveChanges();
                 }
                 _notyfService.Success("Xóa sản phẩm khỏi giỏ hàng thành công", 3);
+                //cập nhật item giỏ hàng
+                int carCount = _context.Carts.Where(c => c.AccountId == user.Result).Count();
+                HttpContext.Session.SetInt32("cartCount", carCount);
                 // Sau đó, bạn có thể redirect hoặc trả về View tùy thuộc vào yêu cầu
                 return RedirectToAction("Index", "GioHang"); // Chuyển hướng đến trang giỏ hàng
             }

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 using WebApplication7.Models;
 
 namespace WebApplication7.Controllers
@@ -18,12 +19,14 @@ namespace WebApplication7.Controllers
         private readonly QLDBcontext _context;
         private readonly UserManager<UserIdentitycs> _userManager;
         private readonly NotyfService _notyfService;
-        public SanPhamChiTietController(QLDBcontext context, UserManager<UserIdentitycs> userManager, NotyfService notyfService)
+        private readonly SignInManager<UserIdentitycs> _SignInManager;
+
+        public SanPhamChiTietController(QLDBcontext context, UserManager<UserIdentitycs> userManager, NotyfService notyfService, SignInManager<UserIdentitycs> signInManager)
         {
             _context = context;
             _userManager = userManager;
             _notyfService = notyfService;
-
+            _SignInManager = signInManager;
         }
         //lấy thông tin số lượng sản phẩm 
         [HttpGet]
@@ -69,6 +72,7 @@ namespace WebApplication7.Controllers
                     .Include(c => c.Product)
                     .ThenInclude(c=>c.Category)
                     .Include(c => c.Size)
+                    .Where(p => p.Product.State == true)
                     .ToListAsync();
 
             if (list.Count > 0)
@@ -80,7 +84,7 @@ namespace WebApplication7.Controllers
                     // Lấy ra tất cả sản phẩm có cùng categoryId với sản phẩm đầu tiên trong danh sách
                     var relatedProducts = _context.Products
                                                    .Include(p => p.ProductDetails)
-                                                   .Where(p => p.CategoryId == categoryId && p.ProductId != id && p.ProductDetails.Any(pd => pd.Quantity > 0))
+                                                   .Where(p => p.CategoryId == categoryId &&p.State==true &&p.ProductId != id && p.ProductDetails.Any(pd => pd.Quantity > 0))
                                                    .OrderBy(x => Guid.NewGuid()) // Sắp xếp ngẫu nhiên
                                                    .Take(4)
                                                    .ToList();
@@ -92,6 +96,7 @@ namespace WebApplication7.Controllers
             }
             else
             {
+                _notyfService.Warning("Sản phẩm đã bị xóa hoặc bị ẩn", 3);
                 return RedirectToAction("Index", "Home");
             }
         }
@@ -125,8 +130,28 @@ namespace WebApplication7.Controllers
                         //thực hiện thêm
                         existingCartItem.Amount = tongthem;
                         _context.SaveChanges();
-                        
-                        return Json(new { success = true, message = "Thêm sản phẩm vào giỏ hàng thành công" });
+                        //cập nhật hiển thị giỏ hàng
+                        if (_SignInManager.IsSignedIn(User))
+                        {
+                            var accId = _context.Accounts
+                                .Where(a => a.UserId == _userManager.GetUserId(User))
+                                .Select(a => a.AccountId).FirstOrDefault();
+                            if (accId != null)
+                            {
+                                int carCount = _context.Carts.Where(c => c.AccountId == accId).Count();
+                                HttpContext.Session.SetInt32("cartCount", carCount);
+                            }
+                            else
+                            {
+                                HttpContext.Session.SetInt32("cartCount", 0);
+                            }
+                        }
+                        else
+                        {
+                            HttpContext.Session.SetInt32("cartCount", 0);
+                        }
+                        return Json(new { success = true, message = "Thêm sản phẩm vào giỏ hàng thành công", carCount = _context.Carts.Where(c => c.AccountId == user.Result).Count() });
+
                     }
                     else
                     {
@@ -148,9 +173,9 @@ namespace WebApplication7.Controllers
                         };
                         await _context.AddAsync(newcart);
                         await _context.SaveChangesAsync();
-                        
+                      
 
-                        return Json(new { success = true, message = "Thêm sản phẩm vào giỏ hàng thành công" });
+                        return Json(new { success = true, message = "Thêm sản phẩm vào giỏ hàng thành công", carCount = _context.Carts.Where(c => c.AccountId == user.Result).Count() });
                     }
                     else
                     {

@@ -21,7 +21,7 @@ namespace WebApplication7.ViewComponents
         {
             var items = _QLDBcontext.Products
                 .Include(p => p.ProductDetails)
-                .Where(p => p.ProductDetails.Any(pd => pd.Quantity > 0))
+                .Where(p => p.ProductDetails.Any(pd => pd.Quantity > 0) && p.State==true)
                 .OrderByDescending(p => p.ProductId) // Sắp xếp theo thời gian thêm mới nhất
                 .Take(8)
                 .ToList();

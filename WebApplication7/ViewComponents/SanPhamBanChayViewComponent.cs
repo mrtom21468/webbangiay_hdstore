@@ -19,7 +19,7 @@ namespace WebApplication7.ViewComponents
             _QLDBcontext = QLDBcontext;
         }
         public async Task<IViewComponentResult> InvokeAsync()
-        {
+            {
             var topProducts =_QLDBcontext.OrderDetails
                 .Include(od => od.Productdetail)
                     .ThenInclude(pd => pd.Product)

@@ -23,13 +23,32 @@ namespace WebApplication7.Areas.Admin.Controllers
         }
 
         // GET: Admin/Orders
-        public async Task<IActionResult> Index(int? pageNumber)
+        public async Task<IActionResult> Index(int? pageNumber, string? orderStatus, string? paymentStatus, int? paymentType, DateTime? startDate, DateTime? endDate)
         {
             var qLDBcontext = _context.Orders
                                     .Include(o => o.Account)
                                     .OrderByDescending(o => o.CreatedAt)
                                     .AsNoTracking();
-            int pageSize = 5;
+            if (orderStatus != null)
+            {
+                qLDBcontext = qLDBcontext.Where(o => o.Status == orderStatus);
+            }
+            if (paymentStatus !=null)
+            {
+                qLDBcontext = qLDBcontext.Where(o => o.PaymentStatus == paymentStatus);
+            }
+            if (paymentType != null)
+            {
+                var typepay = paymentType == 0 ? "Tiền mặt" : (paymentType == 1 ? "Ví Momo" : "Thẻ ngân hàng");
+                qLDBcontext = qLDBcontext.Where(o => o.PaymentType == typepay);
+
+            }
+            if(startDate!=null && endDate != null)
+            {
+                qLDBcontext = qLDBcontext.Where(o => o.CreatedAt>= startDate && o.CreatedAt<= endDate);
+
+            }
+            int pageSize = 10;
             return View(await PaginatedList<Order>.CreateAsync(qLDBcontext, pageNumber ?? 1, pageSize));
         }
         // GET: Admin/Orders/Details/5
@@ -52,31 +71,6 @@ namespace WebApplication7.Areas.Admin.Controllers
 
             return View(order);
         }
-
-        // GET: Admin/Orders/Create
-        public IActionResult Create()
-        {
-            ViewData["AccountId"] = new SelectList(_context.Accounts, "AccountId", "AccountId");
-            return View();
-        }
-
-        // POST: Admin/Orders/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("OrderId,AccountId,Address,PhoneNumber,PaymentStatus,Status,TotalAmount,CreatedAt")] Order order)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(order);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["AccountId"] = new SelectList(_context.Accounts, "AccountId", "AccountId", order.AccountId);
-            return View(order);
-        }
-
         // GET: Admin/Orders/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -91,6 +85,22 @@ namespace WebApplication7.Areas.Admin.Controllers
                 return NotFound();
             }
             ViewData["AccountId"] = new SelectList(_context.Accounts, "AccountId", "AccountId", order.AccountId);
+            // Define your status options
+            var statusOptions = new List<SelectListItem>
+            {
+            new SelectListItem { Value = "1", Text = "Chờ xử lý" },
+            new SelectListItem { Value = "2", Text = "Đã xác nhận" },
+            new SelectListItem { Value = "3", Text = "Đã đóng gói" },
+            new SelectListItem { Value = "4", Text = "Đang vận chuyển" },
+            new SelectListItem { Value = "5", Text = "Hoàn thành" },
+            new SelectListItem { Value = "6", Text = "Đã hủy" }
+            };
+
+            // Create a SelectList from the status options
+            ViewBag.Statuses = new SelectList(statusOptions, "Value", "Text");
+
+            // In your view, use the SelectList to create a dropdown list
+
             return View(order);
         }
 
@@ -99,7 +109,7 @@ namespace WebApplication7.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("OrderId,AccountId,Address,PhoneNumber,PaymentStatus,Status,TotalAmount,CreatedAt")] Order order)
+        public async Task<IActionResult> Edit(int id, [Bind("OrderId,AccountId,Address,PhoneNumber,PaymentType,PaymentStatus,Status,TotalAmount,CreatedAt,OrderIdMoMo,ReqrIdMoMo ")] Order order)
         {
             if (id != order.OrderId)
             {
@@ -110,6 +120,11 @@ namespace WebApplication7.Areas.Admin.Controllers
             {
                 try
                 {
+                    if(order.ReqrIdMoMo==null || order.OrderIdMoMo == null)
+                    {
+                        order.OrderIdMoMo = "-";
+                        order.ReqrIdMoMo = "-";
+                    }
                     _context.Update(order);
                     await _context.SaveChangesAsync();
                 }
@@ -129,41 +144,6 @@ namespace WebApplication7.Areas.Admin.Controllers
             ViewData["AccountId"] = new SelectList(_context.Accounts, "AccountId", "AccountId", order.AccountId);
             return View(order);
         }
-
-        // GET: Admin/Orders/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var order = await _context.Orders
-                .Include(o => o.Account)
-                .FirstOrDefaultAsync(m => m.OrderId == id);
-            if (order == null)
-            {
-                return NotFound();
-            }
-
-            return View(order);
-        }
-
-        // POST: Admin/Orders/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var order = await _context.Orders.FindAsync(id);
-            if (order != null)
-            {
-                _context.Orders.Remove(order);
-            }
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
         private bool OrderExists(int id)
         {
             return _context.Orders.Any(e => e.OrderId == id);
