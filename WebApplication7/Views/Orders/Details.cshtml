@@ -1,0 +1,183 @@
+﻿@model List<WebApplication7.Models.OrderDetail>
+
+@{
+    string status = @Model.FirstOrDefault().Order.Status;
+    string color = "";
+    string statusName = "";
+    // Xác định màu sắc dựa trên giá trị của Status
+    switch (status)
+    {
+        case "1":
+            statusName = "Chờ xử lý";
+            color = "orange";
+            break;
+        case "2":
+            statusName = "Đã xác nhận";
+            color = "blue";
+            break;
+        case "3":
+            statusName = "Đã đã đóng gói";
+            color = "blue";
+            break;
+        case "4":
+            statusName = "Đang vẩn chuyển";
+            color = "blue";
+            break;
+        case "5":
+            statusName = "Hoàn thành";
+            color = "green";
+            break;
+        case "6":
+            statusName = "Đã hủy";
+            color = "red";
+            break;
+        default:
+            statusName = "Lỗi";
+            color = "black"; // Màu mặc định nếu không phù hợp với các trường hợp trên
+            break;
+    }
+}
+@{
+    string statusPay = @Model.FirstOrDefault().Order.PaymentStatus;
+    string colorPay = "";
+    string PaymentStatusName = "";
+    // Xác định màu sắc dựa trên giá trị của Status
+    switch (statusPay)
+    {
+        case "0":
+            PaymentStatusName = "Đang thanh toán";
+            colorPay = "blue";
+            break;
+        case "1":
+            PaymentStatusName = "Đã thanh toán";
+            colorPay = "green";
+            break;
+        case "2":
+            PaymentStatusName = "Thanh toán lỗi";
+            colorPay = "red";
+            break;
+        case "3":
+            PaymentStatusName = "Chưa thanh toán";
+            colorPay = "orange";
+            break;
+        default:
+            PaymentStatusName = "Lỗi";
+            colorPay = "black"; // Màu mặc định nếu không phù hợp với các trường hợp trên
+            break;
+    }
+}
+<!-- Hero Section Begin -->
+<section class="hero hero-normal">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="hero__categories">
+                    <div class="hero__categories__all">
+                        <i class="fa fa-bars"></i>
+                        <span>Tât cả thể loại</span>
+                    </div>
+                    <ul>
+                        @await Component.InvokeAsync("TheLoai")
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="hero__search">
+                    <div class="hero__search__form">
+                        <form id="searchForm" method="get">
+                            <div class="hero__search__categories">
+                                Tất cả sản phẩm
+                                <span class="arrow_carrot-down"></span>
+                            </div>
+                            <input type="text" name="search" id="searchInput" placeholder="Bạn cần tìm gì?" value="@(ViewBag.search != null ? ViewBag.search : "")">
+                            <button type="submit" class="site-btn">Tìm kiếm</button>
+                        </form>
+                    </div>
+                    <div class="hero__search__phone">
+                        <div class="hero__search__phone__icon">
+                            <i class="fa fa-phone"></i>
+                        </div>
+                        <div class="hero__search__phone__text">
+                            <h5>+84 68.688.888</h5>
+                            <span>hỗ trợ 24/7</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Hero Section End -->
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-section set-bg" data-setbg="@Url.Content("~/Userdata/img/breadcrumb1.jpg")">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2>HD Shop</h2>
+                    <div class="breadcrumb__option">
+                        <a asp-area="" asp-action="Index" asp-controller="Home">Trang chủ</a>
+                        <a asp-area="" asp-action="Index" asp-controller="Orders">Đơn hàng của tôi</a>
+                        <span>Chi tiết đơn hàng</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="product spad">
+    <div class="container">
+        <a asp-action="Index"><i class="fa fa-arrow-left" aria-hidden="true"></i> Trở về</a>
+
+    <div class="row">
+        <div class="col">
+            <h4>Mã đơn hàng @Model.FirstOrDefault().Order.OrderId</h4>
+            <p>Phương thức thanh toán: @Model.FirstOrDefault().Order.PaymentType</p>
+            <p>Trạng thái thanh toán: <span style="color: @colorPay">@PaymentStatusName</span></p>
+            <p>Tổng thanh toán: @Model.FirstOrDefault().Order.TotalAmount $</p>
+            <p>Trạng thái đơn hàng: <span style="color: @color">@statusName</span></p>
+
+        </div>
+        <div class="col">
+            <h4>Thông tin người nhận</h4>
+            <p>Họ và tên:  @Model.FirstOrDefault().Order.FullName</p>
+            <p>Địa chỉ: @Model.FirstOrDefault().Order.Address</p>
+            <p>Số điện thoại: @Model.FirstOrDefault().Order.PhoneNumber</p>
+            <p>
+                Tổng thu: @{
+                    var order = Model.FirstOrDefault(); // Lấy đơn hàng đầu tiên trong danh sách
+                    var thu = order != null && order.Order.PaymentType == "Tiền mặt" ? order.Order.TotalAmount.ToString() : "0"; // Kiểm tra xem đơn hàng tồn tại và có phải là thanh toán bằng tiền mặt không
+                    @thu
+                } $
+            </p>
+        </div>
+    </div>
+    <div class="container">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">Tên sản phẩm</th>
+                    <th scope="col">Màu sản phẩm</th>
+                    <th scope="col">Size sản phẩm</th>
+                    <th scope="col">Số lượng</th>
+                    <th scope="col">Đơn giá</th>
+                    <th scope="col">Thành tiền</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (OrderDetail i in Model)
+                {
+                    <tr>
+                        <td>@i.Productdetail.Product.ProductName</td>
+                        <td>@i.Productdetail.Color.ColorName</td>
+                        <td>@i.Productdetail.Size.SizeName</td>
+                        <td>@i.Quantity</td>
+                        <td>@i.PriceAtOrderTime $</td>
+                        <td>@(@i.PriceAtOrderTime * @i.Quantity) $</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+</section>

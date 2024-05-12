@@ -21,14 +21,13 @@
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="header__top__right">
-                        <div class="header__top__right__social">
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>@* 
-                            <a href="#"><i class="fa fa-linkedin"></i></a>
-                            <a href="#"><i class="fa fa-pinterest-p"></i></a> *@
-                        </div>
                         @if (SignInManager.IsSignedIn(User))
                         {
+                            <div class="header__top__right__social">
+                                <a asp-area="" asp-controller="Orders" asp-action="Index">
+                                    <i class="fa fa-list-alt" aria-hidden="true"></i> Đơn hàng của tôi
+                                </a>
+                            </div>
                             <div class="header__top__right__language">
                                 <a style="color:black;" id="manage" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><i class="fa fa-user"></i> Hello @UserManager.GetUserName(User)!</a>
                             </div>

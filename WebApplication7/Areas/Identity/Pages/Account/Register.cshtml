@@ -3,7 +3,6 @@
 @{
     ViewData["Title"] = "Đăng kí tài khoản";
 }
-<!-- Breadcrumb Section Begin -->
 <section class="breadcrumb-section set-bg" data-setbg="@Url.Content("~/Userdata/img/breadcrumb1.jpg")">
     <div class="container">
         <div class="row">
@@ -19,6 +18,7 @@
         </div>
     </div>
 </section>
+
 <div class="row mb-6 mx-auto overflow-auto">
     <div class="col-md-4 mx-auto">
         <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
@@ -44,8 +44,17 @@
                 <label asp-for="Input.ConfirmPassword">Nhập lại mật khẩu</label>
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
-            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+            <button id="registerSubmit" type="submit" class="w-100 rounded-3 site-btn">Register</button>
+
         </form>
+        <div class="mt-2">
+            @*                     <p>
+            <a id="forgot-password" asp-page="./ForgotPassword">Quên mật khẩu?</a>
+            </p> *@
+            <p>
+                <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl" style="color: black;" onmouseover="this.style.color='#7fad39'" onmouseout="this.style.color='black'"><i class="fa fa-sign-in"></i> Trở lại đăng nhập</a>
+            </p>
+        </div>
     </div>
    @*  <div class="col-md-6 col-md-offset-2">
         <section>
@@ -78,7 +87,7 @@
         </section>
     </div> *@
 </div>
-<br />
+<hr />
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }

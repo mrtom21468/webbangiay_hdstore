@@ -27,6 +27,7 @@
                 <option value="0">Tiền mặt</option>
                 <option value="1">Ví momo</option>
                 <option value="2">Thẻ ATM</option>
+                <option value="3">Thẻ VISA</option>
             </select>
         </div>
     </div>
@@ -187,7 +188,11 @@
                 @Html.DisplayFor(modelItem => item.TotalAmount)
             </td>
             <td>
-                    <a asp-controller="Orders" asp-action="Edit" asp-route-id="@item.OrderId"><i class="fa fa-pencil" aria-hidden="true"></i></a> |
+                    @if ((item.PaymentStatus == "1" || item.PaymentStatus == "3") && (item.Status != "5" && item.Status != "6"))
+                    {
+                        <a asp-controller="Orders" asp-action="Edit" asp-route-id="@item.OrderId"><i class="fa fa-pencil" aria-hidden="true"></i></a>   <span>|</span>
+                    }
+
                     <a asp-controller="OrderDetails" asp-action="Details" asp-route-id="@item.OrderId"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
             </td>
         </tr>
@@ -237,32 +242,39 @@
             type: 'POST',
             data: { itemId: itemId },
             success: function (data) {
-
-                // Xử lý kết quả từ máy chủ (nếu cần)
-                if (data.message === "0") {
-                    // Trường hợp đã thanh toán thành công
+                //nếu gặp lỗi
+                if (data.success == false) {
                     // Cập nhật giao diện thành "Đã thanh toán"
                     var notyf = new Notyf();
-                    notyf.success('Đơn hàng đã thanh toán thành công');
-                    var row = $('[data-item-id="' + itemId + '"]').closest('tr');
-                    var paymentStatusCell = row.find('td:eq(3)'); // Ô chứa trạng thái thanh toán
-                    paymentStatusCell.find('span').text('Đã thanh toán').css('color', 'green');
-                } else if (data.message === "1000") {
-                    var notyf = new Notyf();
-                    notyf.success('Đơn hàng đang được thanh toán');
-                    // Trường hợp không cần cập nhật giao diện
-
-                } else {
-                    // Trường hợp thanh toán lỗi
-                    // Cập nhật giao diện thành "Thanh toán lỗi"
-                    var notyf = new Notyf();
-                    notyf.error('Thanh toán thất bại');
-                    var row = $('[data-item-id="' + itemId + '"]').closest('tr');
-                    row.find('span').text('Thanh toán lỗi').css('color', 'red');
-                    // Cập nhật trạng thái đơn hàng thành "Đã hủy"
-                    row.find('td:eq(4)').text('Đã hủy').css('color', 'red');
+                    notyf.error('Cập nhật thất bại lỗi hệ thống');
                 }
-                // Cập nhật giao diện nếu cần
+                else {
+                    // Xử lý kết quả từ máy chủ (nếu cần)
+                    if (data.message === "0") {
+                        // Trường hợp đã thanh toán thành công
+                        // Cập nhật giao diện thành "Đã thanh toán"
+                        var notyf = new Notyf();
+                        notyf.success('Đơn hàng đã thanh toán thành công');
+                        var row = $('[data-item-id="' + itemId + '"]').closest('tr');
+                        var paymentStatusCell = row.find('td:eq(3)'); // Ô chứa trạng thái thanh toán
+                        paymentStatusCell.find('span').text('Đã thanh toán').css('color', 'green');
+                    } else if (data.message === "1000" || data.message==="7002" || data.message==="7000") {
+                        var notyf = new Notyf();
+                        notyf.success('Đơn hàng đang được thanh toán');
+                        // Trường hợp không cần cập nhật giao diện
+
+                    } else {
+                        // Trường hợp thanh toán lỗi
+                        // Cập nhật giao diện thành "Thanh toán lỗi"
+                        var notyf = new Notyf();
+                        notyf.error('Thanh toán thất bại');
+                        var row = $('[data-item-id="' + itemId + '"]').closest('tr');
+                        row.find('span').text('Thanh toán lỗi').css('color', 'red');
+                        // Cập nhật trạng thái đơn hàng thành "Đã hủy"
+                        row.find('td:eq(4)').text('Đã hủy').css('color', 'red');
+                    }
+                    // Cập nhật giao diện nếu cần
+                }
             },
             error: function (xhr, status, error) {
                 console.error('Error:', error);

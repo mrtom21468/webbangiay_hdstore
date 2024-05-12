@@ -16,9 +16,9 @@ namespace WebApplication7.Areas.Admin.Controllers
         public IActionResult Index()
         {
             ViewBag.Tongdonhang = _qLDBcontext.Orders.Count();
-            ViewBag.Tongdoanhthu = _qLDBcontext.Orders.Sum(order => order.TotalAmount);
+            ViewBag.Tongdoanhthu = _qLDBcontext.Orders.Where(o=>o.Status=="5").Sum(order => order.TotalAmount);
             ViewBag.Tongtaikhoan = _qLDBcontext.Accounts.Count();
-            ViewBag.Tongsosanphamban = _qLDBcontext.OrderDetails.Sum(or=>or.Quantity);
+            ViewBag.Tongsosanphamban = _qLDBcontext.OrderDetails.Where(o=>o.Order.Status=="5").Sum(or=>or.Quantity);
             return View();
         }
     }

@@ -49,7 +49,7 @@
                 <div class="breadcrumb__text">
                     <h2>Thanh toán</h2>
                     <div class="breadcrumb__option">
-                        <a asp-controller="Home">Home</a>
+                        <a asp-controller="Home" asp-area="" asp-action="Index">Home</a>
                         <span>Thanh toán</span>
                     </div>
                 </div>
@@ -74,16 +74,10 @@
                 <div class="row">
                     <div class="col-lg-6 col-md-4">
                         <div class="row">
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="checkout__input">
-                                    <p>Fist Name<span>*</span></p>
+                                    <p>Họ và tên<span>*</span></p>
                                     <input type="text" name="fname" required>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="checkout__input">
-                                    <p>Last Name<span>*</span></p>
-                                    <input type="text" name="lname" required>
                                 </div>
                             </div>
                         </div>
@@ -189,8 +183,15 @@
                             </div>
                             <div class="checkout__input__checkbox">
                                 <label for="paypal">
+                                    Thanh toán bằng thẻ Visa
+                                    <input type="radio" id="paypal" name="payment_method" value="Thẻ thanh toán quốc tế">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="checkout__input__checkbox">
+                                <label for="momo">
                                     Thanh toán bằng ví điện tử Momo
-                                    <input type="radio" id="paypal" name="payment_method" value="Ví Momo">
+                                    <input type="radio" id="momo" name="payment_method" value="Ví Momo">
                                     <span class="checkmark"></span>
                                 </label>
                             </div>

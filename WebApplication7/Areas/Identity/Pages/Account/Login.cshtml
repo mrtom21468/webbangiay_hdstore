@@ -45,19 +45,19 @@
                 <div>
                     <button id="login-submit" type="submit" class="w-100 rounded-3 site-btn">Đăng nhập</button>
                 </div>
-                <div>
-                    <p>
+                <div class="mt-2 mb-5">
+@*                     <p>
                         <a id="forgot-password" asp-page="./ForgotPassword">Quên mật khẩu?</a>
-                    </p>
+                    </p> *@
                     <p>
-                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Đăng kí tài khoản mới</a>
+                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" style="color: black;" onmouseover="this.style.color='#7fad39'" onmouseout="this.style.color='black'"> <i class="fa fa-external-link"></i> Đăng kí tài khoản mới</a>
                     </p>
                 </div>
             </form>
         </section>
     </div>
 </div>
-
+<hr />
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }

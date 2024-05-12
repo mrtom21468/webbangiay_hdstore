@@ -12,7 +12,14 @@ public partial class Order
 
     public int? AccountId { get; set; }
 
+    [DisplayName("Địa chỉ")]
+
     public string? Address { get; set; }
+    [StringLength(30)]
+    [DisplayName("Họ và tên")]
+
+    public string? FullName { get; set; }
+    [DisplayName("Số điện thoại")]
 
     public string? PhoneNumber { get; set; }
 
@@ -35,6 +42,7 @@ public partial class Order
     [StringLength(64)]
     public string? ReqrIdMoMo { get; set; }
 
+    [DisplayName("Ngày tạo")]
 
     public DateTime? CreatedAt { get; set; }
 

@@ -4,20 +4,60 @@
     ViewData["Title"] = "Edit";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
-
-<h1>Edit</h1>
-
-<h4>Order</h4>
-<hr />
+@{
+    string statusPay = Model.PaymentStatus;
+    string colorPay = "";
+    string PaymentStatusName = "";
+    // Xác định màu sắc dựa trên giá trị của Status
+    switch (statusPay)
+    {
+        case "0":
+            PaymentStatusName = "Đang thanh toán";
+            colorPay = "blue";
+            break;
+        case "1":
+            PaymentStatusName = "Đã thanh toán";
+            colorPay = "green";
+            break;
+        case "2":
+            PaymentStatusName = "Thanh toán lỗi";
+            colorPay = "red";
+            break;
+        case "3":
+            PaymentStatusName = "Chưa thanh toán";
+            colorPay = "orange";
+            break;
+        default:
+            PaymentStatusName = "Lỗi";
+            colorPay = "black"; // Màu mặc định nếu không phù hợp với các trường hợp trên
+            break;
+    }
+}
+<h4>Cập nhật trạng thái đơn hàng</h4>
+<div class="col">
+    <h4>Mã đơn hàng @Model.OrderId</h4>
+    <p>Phương ngày tạo: @Model.CreatedAt</p>
+    <p>Phương thức thanh toán: @Model.PaymentType</p>
+    <p>Trạng thái thanh toán: <span style="color: @colorPay">@PaymentStatusName</span></p>
+    <p>Tổng thanh toán: @Model.TotalAmount $</p>
+</div>
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="OrderId" />
+            <input asp-for="PaymentType" class="form-control" style="display:none" />
+            <input asp-for="PaymentStatus" class="form-control" style="display:none" />
+            <input asp-for="ReqrIdMoMo" class="form-control" style="display:none" />
+            <input asp-for="OrderIdMoMo" class="form-control" style="display:none" />
+            <select asp-for="AccountId" class="form-control" asp-items="ViewBag.AccountId" style="display:none"></select>
+            <input asp-for="TotalAmount" class="form-control" style="display:none" />
+            <input asp-for="CreatedAt" class="form-control" style="display:none" />
+
             <div class="form-group">
-                <label asp-for="AccountId" class="control-label"></label>
-                <select asp-for="AccountId" class="form-control" asp-items="ViewBag.AccountId"></select>
-                <span asp-validation-for="AccountId" class="text-danger"></span>
+                <label asp-for="FullName" class="control-label"></label>
+                <input asp-for="FullName" class="form-control" />
+                <span asp-validation-for="FullName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Address" class="control-label"></label>
@@ -29,39 +69,25 @@
                 <input asp-for="PhoneNumber" class="form-control" />
                 <span asp-validation-for="PhoneNumber" class="text-danger"></span>
             </div>
-            <input asp-for="PaymentType" class="form-control"  style="display:none"/>
-            <input asp-for="ReqrIdMoMo" class="form-control" style="display:none" />
-            <input asp-for="OrderIdMoMo" class="form-control" style="display:none" />
-
-            <div class="form-group">
-                <label asp-for="PaymentStatus" class="control-label"></label>
-                <input asp-for="PaymentStatus" class="form-control" />
-                <span asp-validation-for="PaymentStatus" class="text-danger"></span>
-            </div>
             <div class="form-group">
                 <label asp-for="Status" class="control-label"></label>
                 @Html.DropDownList("Status", (SelectList)ViewBag.Statuses, null, new { @class = "form-control" })
                 <span asp-validation-for="Status" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="TotalAmount" class="control-label"></label>
-                <input asp-for="TotalAmount" class="form-control" />
-                <span asp-validation-for="TotalAmount" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CreatedAt" class="control-label"></label>
-                <input asp-for="CreatedAt" class="form-control" />
-                <span asp-validation-for="CreatedAt" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-save"></i> Lưu
+                </button>
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">
+        <i class="fa fa-arrow-left"></i>
+        Trở lại
+    </a>
 </div>
 
 @section Scripts {

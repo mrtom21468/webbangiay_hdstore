@@ -83,7 +83,7 @@
         </div>
         <div class="col">
             <h4>Thông tin người nhận</h4>
-            <p>Họ và tên: </p>
+            <p>Họ và tên:  @Model.FirstOrDefault().Order.FullName</p>
             <p>Địa chỉ: @Model.FirstOrDefault().Order.Address</p>
             <p>Số điện thoại: @Model.FirstOrDefault().Order.PhoneNumber</p>
             <p>

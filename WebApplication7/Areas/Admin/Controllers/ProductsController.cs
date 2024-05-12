@@ -41,15 +41,14 @@ namespace WebApplication7.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-
             var product = await _context.Products
-                .Include(p => p.Brand)
-                .Include(p => p.Category)
-                .Include(p => p.ProductDetails)
-                .ThenInclude(p=>p.Size)
-                .Include(p => p.ProductDetails)
-                .ThenInclude(p => p.Color)
-                .FirstOrDefaultAsync(m => m.ProductId == id);
+              .Include(p => p.Brand)
+              .Include(p => p.Category)
+              .Include(p => p.ProductDetails)
+                  .ThenInclude(pd => pd.Size)
+              .Include(p => p.ProductDetails)
+                  .ThenInclude(pd => pd.Color)
+              .FirstOrDefaultAsync(m => m.ProductId == id);
             ViewData["ColorId"] = new SelectList(_context.Colors, "ColorId", "ColorName");
             ViewData["SizeId"] = new SelectList(_context.Sizes, "SizeId", "SizeName");
             if (product == null)

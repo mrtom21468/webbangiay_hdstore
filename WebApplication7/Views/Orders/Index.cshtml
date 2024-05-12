@@ -1,0 +1,370 @@
+﻿@using WebApplication7.Areas.Admin.Helpper
+@model PaginatedList<WebApplication7.Models.Order>
+@{
+    ViewData["Title"] = "Index";
+}
+<!-- Hero Section Begin -->
+<section class="hero hero-normal">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="hero__categories">
+                    <div class="hero__categories__all">
+                        <i class="fa fa-bars"></i>
+                        <span>Tât cả thể loại</span>
+                    </div>
+                    <ul>
+                        @await Component.InvokeAsync("TheLoai")
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="hero__search">
+                    <div class="hero__search__form">
+                        <form id="searchForm" method="get">
+                            <div class="hero__search__categories">
+                                Tất cả sản phẩm
+                                <span class="arrow_carrot-down"></span>
+                            </div>
+                            <input type="text" name="search" id="searchInput" placeholder="Bạn cần tìm gì?" value="@(ViewBag.search != null ? ViewBag.search : "")">
+                            <button type="submit" class="site-btn">Tìm kiếm</button>
+                        </form>
+                    </div>
+                    <div class="hero__search__phone">
+                        <div class="hero__search__phone__icon">
+                            <i class="fa fa-phone"></i>
+                        </div>
+                        <div class="hero__search__phone__text">
+                            <h5>+84 68.688.888</h5>
+                            <span>hỗ trợ 24/7</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Hero Section End -->
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-section set-bg" data-setbg="@Url.Content("~/Userdata/img/breadcrumb1.jpg")">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2>HD Shop</h2>
+                    <div class="breadcrumb__option">
+                        <a  asp-area="" asp-action="Index" asp-controller="Home" >Home</a>
+                        <span>Đơn hàng của tôi</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+@if (Model.Count() <= 0)
+{
+    <h4 class="alert-danger">Không tìm thấy đơn hàng nào</h4>
+}
+else
+{
+    <section class="product spad">
+        <div class="container">
+
+            <div class="row mt-2 mb-4">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="paymentStatusFilter">Trạng thái thanh toán:</label>
+                        <select id="paymentStatusFilter" class="form-control">
+                            <option value="">Tất cả</option>
+                            <option value="0">Đang thanh toán</option>
+                            <option value="1">Đã thanh toán</option>
+                            <option value="2">Thanh toán lỗi</option>
+                            <option value="3">Chưa thanh toán</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="orderStatusFilter">Trạng thái đơn hàng:</label>
+                        <select id="orderStatusFilter" class="form-control">
+                            <option value="">Tất cả</option>
+                            <option value="1">Chờ xử lý</option>
+                            <option value="2">Đã xác nhận</option>
+                            <option value="3">Đã đóng gói</option>
+                            <option value="4">Đang vận chuyển</option>
+                            <option value="5">Hoàn thành</option>
+                            <option value="6">Đã hủy</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <button id="filterButton" class="btn btn-primary">Lọc</button>
+            <button id="clearFilterButton" class="btn btn-secondary">Xóa bộ lọc</button>
+
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayName("Mã đơn")
+
+                        </th>
+                        <th>
+                            @Html.DisplayName("Ngày tạo")
+
+                        </th>
+                        <th>
+                            @Html.DisplayName("Kiểu thanh toán")
+
+                        </th>
+                        <th>
+                            @Html.DisplayName("Trạng thái thanh toán")
+
+                        </th>
+                        <th>
+                            @Html.DisplayName("Trạng thái đơn hàng")
+
+                        </th>
+                        <th>
+                            @Html.DisplayName("Tổng tiền")
+
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.OrderId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CreatedAt)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PaymentType)
+                            </td>
+                            <td>
+                                @{
+                                    string statusPay = item.PaymentStatus;
+                                    string colorPay = "";
+                                    string PaymentStatusName = "";
+                                    // Xác định màu sắc dựa trên giá trị của Status
+                                    switch (statusPay)
+                                    {
+                                        case "0":
+                                            PaymentStatusName = "Đang thanh toán";
+                                            colorPay = "blue";
+                                            break;
+                                        case "1":
+                                            PaymentStatusName = "Đã thanh toán";
+                                            colorPay = "green";
+                                            break;
+                                        case "2":
+                                            PaymentStatusName = "Thanh toán lỗi";
+                                            colorPay = "red";
+                                            break;
+                                        case "3":
+                                            PaymentStatusName = "Chưa thanh toán";
+                                            colorPay = "orange";
+                                            break;
+                                        default:
+                                            PaymentStatusName = "Lỗi";
+                                            colorPay = "black"; // Màu mặc định nếu không phù hợp với các trường hợp trên
+                                            break;
+                                    }
+                                }
+                                <span style="color: @colorPay;">
+                                    @PaymentStatusName
+@*                                     @if (PaymentStatusName == "Đang thanh toán")
+                                    {
+                                        <a class="refresh-icon" data-item-id="@item.OrderId"><i class="fa fa-refresh fa-spin fa-fw"></i></a>
+                                    } *@
+                                </span>
+                            </td>
+                            <td>
+                                @{
+                                    string status = item.Status;
+                                    string color = "";
+                                    string statusName = "";
+                                    // Xác định màu sắc dựa trên giá trị của Status
+                                    switch (status)
+                                    {
+                                        case "1":
+                                            statusName = "Chờ xử lý";
+                                            color = "orange";
+                                            break;
+                                        case "2":
+                                            statusName = "Đã xác nhận";
+                                            color = "blue";
+                                            break;
+                                        case "3":
+                                            statusName = "Đã đã đóng gói";
+                                            color = "blue";
+                                            break;
+                                        case "4":
+                                            statusName = "Đang vẩn chuyển";
+                                            color = "blue";
+                                            break;
+                                        case "5":
+                                            statusName = "Hoàn thành";
+                                            color = "green";
+                                            break;
+                                        case "6":
+                                            statusName = "Đã hủy";
+                                            color = "red";
+                                            break;
+                                        default:
+                                            statusName = "Lỗi";
+                                            color = "black"; // Màu mặc định nếu không phù hợp với các trường hợp trên
+                                            break;
+                                    }
+                                }
+                                <span style="color: @color;">@statusName</span>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TotalAmount)
+                            </td>
+                            <td>
+                                @if ((item.PaymentStatus == "3") && ( item.Status == "1"))
+                                {
+                                    <a href="#" class="cancel-order-link" data-order-id="@item.OrderId" style="color: black;"
+                                       onmouseover="this.style.color='#7fad39'" onmouseout="this.style.color='black'">
+                                        <i class="fa fa-times" aria-hidden="true" style="color:red"></i>Hủy đơn
+                                    </a> <span>|</span>
+                                }
+
+                                <a asp-area="" asp-controller="Orders" asp-action="Details" asp-route-id="@item.OrderId" style="color: black;" onmouseover="this.style.color='#7fad39'" onmouseout="this.style.color='black'"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            @{
+                var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+                var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+            }
+            @{
+                var orderStatus = Context.Request.Query["orderStatus"].FirstOrDefault();
+                var paymentStatus = Context.Request.Query["paymentStatus"].FirstOrDefault();
+                var paymentType = Context.Request.Query["paymentType"].FirstOrDefault();
+                var startDate = Context.Request.Query["startDate"].FirstOrDefault();
+                var endDate = Context.Request.Query["endDate"].FirstOrDefault();
+            }
+
+            <a asp-action="Index"
+               asp-route-pageNumber="@(Model.PageIndex - 1)"
+               asp-route-orderStatus="@orderStatus"
+               asp-route-paymentStatus="@paymentStatus"
+               asp-route-paymentType="@paymentType"
+               asp-route-startDate="@startDate"
+               asp-route-endDate="@endDate"
+               class="btn btn-default @prevDisabled">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+            </a>
+            <a asp-action="Index"
+               asp-route-pageNumber="@(Model.PageIndex + 1)"
+               asp-route-orderStatus="@orderStatus"
+               asp-route-paymentStatus="@paymentStatus"
+               asp-route-paymentType="@paymentType"
+               asp-route-startDate="@startDate"
+               asp-route-endDate="@endDate"
+               class="btn btn-default @nextDisabled">
+                <i class="fa fa-arrow-right" aria-hidden="true"></i>
+            </a>
+            <span>Trang @Model.PageIndex/ @Model.TotalPages</span>
+        </div>
+    </section>
+}
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Phân tích URL để lấy các thông tin lọc từ query string
+            var urlParams = new URLSearchParams(window.location.search);
+            var orderStatus = urlParams.get('orderStatus');
+            var paymentStatus = urlParams.get('paymentStatus');
+            var paymentType = urlParams.get('paymentType');
+            var startDate = urlParams.get('startDate');
+            var endDate = urlParams.get('endDate');
+            // Bắt sự kiện click trên liên kết "Hủy đơn"
+            $('.cancel-order-link').click(function (e) {
+                e.preventDefault(); // Ngăn chặn hành động mặc định của liên kết
+
+                var orderId = $(this).data('order-id');
+
+                // Hiển thị hộp thoại xác nhận
+                if (confirm("Bạn có chắc chắn muốn hủy đơn này không?")) {
+                    // Nếu người dùng xác nhận, chuyển hướng đến action hủy đơn
+                    window.location.href = "/Orders/Huy/" + orderId;
+                } else {
+                    // Nếu người dùng không xác nhận, không thực hiện hành động gì cả
+                    return false;
+                }
+            });
+            // Thiết lập giá trị của dropdown list dựa trên thông tin từ URL
+            if (orderStatus) {
+                $('#orderStatusFilter').val(orderStatus);
+            }
+            if (paymentStatus) {
+                $('#paymentStatusFilter').val(paymentStatus);
+            }
+            if (paymentType) {
+                $('#paymentTypeFilter').val(paymentType);
+            }
+            if (startDate) {
+                $('#startDateFilter').val(startDate);
+            }
+            if (endDate) {
+                $('#endDateFilter').val(endDate);
+            }
+            // Bắt sự kiện click trên nút lọc
+            $('#filterButton').click(function () {
+                var orderStatus = $('#orderStatusFilter').val();
+                var paymentStatus = $('#paymentStatusFilter').val();
+                var paymentType = $('#paymentTypeFilter').val();
+                var startDate = $('#startDateFilter').val();
+                var endDate = $('#endDateFilter').val();
+                // Tạo một đối tượng chứa các thông tin lọc
+                var filters = {};
+                if (orderStatus !== '') {
+                    filters.orderStatus = orderStatus;
+                }
+                if (paymentStatus !== '') {
+                    filters.paymentStatus = paymentStatus;
+                }
+                if (paymentType !== '') {
+                    filters.paymentType = paymentType;
+                }
+                if (startDate !== '') {
+                    filters.startDate = startDate;
+                }
+                if (endDate !== '') {
+                    filters.endDate = endDate;
+                }
+                // Tạo một URL mới dựa trên các thông tin lọc và chuyển hướng tới URL đó
+                var baseUrl = window.location.href.split('?')[0]; // Lấy phần URL cơ sở (không bao gồm query string)
+                var queryString = $.param(filters); // Chuyển đổi đối tượng filters thành query string
+                var newUrl = baseUrl + '?' + queryString; // Tạo URL mới
+                window.location.href = newUrl; // Chuyển hướng tới URL mới
+            });
+        });
+        $(document).ready(function () {
+            // Bắt sự kiện click trên nút xóa bộ lọc
+            $('#clearFilterButton').click(function () {
+                // Xóa giá trị trong các trường input và select
+                $('#startDateFilter').val('');
+                $('#endDateFilter').val('');
+                $('#paymentTypeFilter').val('');
+                $('#paymentStatusFilter').val('');
+                $('#orderStatusFilter').val('');
+                // Tạo một URL mới chỉ với trang hiện tại và chuyển hướng tới URL đó
+                var baseUrl = window.location.href.split('?')[0]; // Lấy phần URL cơ sở (không bao gồm query string)
+                window.location.href = baseUrl; // Chuyển hướng tới URL mới
+            });
+        });
+    </script>
+}

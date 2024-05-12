@@ -125,7 +125,7 @@ namespace WebApplication7.Controllers
                 {
                     //check tiếp là số lượng thêm vào có đủ hàng không 
                     var tongthem = existingCartItem.Amount + Soluongthem;
-                    if (tongthem < addProductDetails.Quantity)
+                    if (tongthem <= addProductDetails.Quantity)
                     {
                         //thực hiện thêm
                         existingCartItem.Amount = tongthem;

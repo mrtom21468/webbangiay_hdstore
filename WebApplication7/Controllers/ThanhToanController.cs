@@ -52,13 +52,14 @@ namespace WebApplication7.Controllers
                         .Include(c => c.Productdetail)
                     .ThenInclude(c => c.Size)
                        .Where(c => c.Account.AccountId == user.Result);
-                    if(QLDBcontext!=null)
+                    if(QLDBcontext.Count()>0)
                     {
                         return View((await QLDBcontext.ToListAsync()));
                     }
                     else
                     {
-                        return RedirectToAction("Index","Home");
+                        _notyfService.Warning("Vui lòng chọn sản phẩm để thanh toán");
+                        return RedirectToAction("Index","GioHang");
                     }
                 }
                 return RedirectToAction("Index", "Home");
@@ -84,15 +85,50 @@ namespace WebApplication7.Controllers
 
                 var userid = _userManager.GetUserId(User);
                 var user = _context.Accounts.Where(u => u.UserId == userid).Select(u => u.AccountId).FirstOrDefaultAsync();
+                var carts = await _context.Carts.Where(c => c.AccountId == user.Result).Include(p => p.Productdetail).ThenInclude(p => p.Product).ToListAsync();
+                if (carts.Count<=0)
+                {
+                _notyfService.Warning("Vui lòng chọn sản phẩm để thanh toán!",5);
+                return RedirectToAction("Index", "SanPhamShop", new { area = "" });
+                }
+                //check số lượng sản phẩm trong kho có còn đủ không
+                foreach (var cartItem in carts)
+                {
+                var sp = _context.ProductDetails.Where(p => p.ProductdetailId == cartItem.ProductdetailId)
+                    .Include(p=>p.Product)
+                    .Include(c=>c.Color)
+                    .Include(s=>s.Size)
+                    .FirstOrDefault();
+                if (sp.Quantity < cartItem.Amount)
+                {
+                    var err = string.Format("Sản phẩm {0}-{1}-{2} không đủ hàng! SL còn: {3}", sp.Product.ProductName,sp.Color.ColorName, sp.Size.SizeName, sp.Quantity);
+                    if (sp.Quantity <= 0)
+                    {
+                        //xóa sản phẩm khỏi giỏ hàng đó
+                        _context.Remove(cartItem);
+                        _context.SaveChanges();
+                    }
+                    cartItem.Amount = 1;
+                    _notyfService.Error(err, 5);
+                    return RedirectToAction("Index", "GioHang", new { area = "" });
+                }
+                }
+                //check thành công tiến hành giảm số lượng sản phẩm shop
+                foreach (var cartItem in carts)
+                {
+                    var sp = _context.ProductDetails.Where(p => p.ProductdetailId == cartItem.ProductdetailId).FirstOrDefault();
+                    sp.Quantity-=cartItem.Amount;
+                    _context.Update(sp);
+                }
                 // Thêm địa chỉ cho acc
                 var newAddress = new Address()
-                {
-                    AccountId = user.Result,
-                    Country = "Việt Nam",
-                    City = requestions["tinh"],
-                    PhoneNumber = requestions["phone"],
-                    FullAddress = requestions["chitietdiachi"] +"-"+ requestions["huyen"]
-                };
+                    {
+                        AccountId = user.Result,
+                        Country = "Việt Nam",
+                        City = requestions["tinh"],
+                        PhoneNumber = requestions["phone"],
+                        FullAddress = requestions["chitietdiachi"] +"-"+ requestions["huyen"]
+                    };
                 _context.Add(newAddress);
                 await _context.SaveChangesAsync();
 
@@ -111,7 +147,8 @@ namespace WebApplication7.Controllers
                     PaymentType = requestions["payment_method"],
                     OrderIdMoMo="",
                     ReqrIdMoMo="",
-                    PaymentStatus= requestions["payment_method"]== "Tiền mặt" ? "3":"0",
+                    FullName = requestions["fname"],
+                    PaymentStatus = requestions["payment_method"]== "Tiền mặt" ? "3":"0",
                     Address = newAddress.FullAddress +"-"+ newAddress.City
                 };
                 await _context.AddAsync(newOrders);
@@ -154,7 +191,13 @@ namespace WebApplication7.Controllers
             if (requestions["payment_method"] == "Thẻ ngân hàng")
             {
 
-                var link= thanhToanATM((float)tongtien * 26000);
+                var link= thanhToanATM(newOrders.OrderId,(float)tongtien * 26000);
+                return Redirect(link);
+            }
+            if (requestions["payment_method"] == "Thẻ thanh toán quốc tế")
+            {
+
+                var link = thanhToanCC(newOrders.OrderId, (float)tongtien * 26000);
                 return Redirect(link);
             }
             ViewBag.Message = "Đặt hàng thành công";
@@ -203,14 +246,31 @@ namespace WebApplication7.Controllers
                     return Json(new { success = true, message = result });
 
                 }
-                if (result == "1000")
+                if (result == "1000" || result=="7002" || result=="7000")
                 {
                     return Json(new { success = true, message = result });
                 }
                 order.PaymentStatus = "2";
+                if(order.Status == "6")
+                {
+                    return Json(new { success = true, message = result });
+                }
+                //cập nhật trạng thái đơn hàng hủy
                 order.Status = "6";
+                //nếu hủy cập nhật lại sản phẩm trong kho
+                var ord = _context.OrderDetails.Where(o => o.OrderId == order.OrderId).ToList();
+                 if (ord.Count() > 0)
+                 {
+                    foreach (var item in ord)
+                    {
+                        var sp = _context.ProductDetails.FirstOrDefault(p => p.ProductdetailId == item.ProductdetailId);
+                        sp.Quantity += item.Quantity;
+                        _context.Update(sp);
+                    }
+                }            
                 _context.SaveChanges();
-                return Json(new { success = false, message = result });
+                return Json(new { success = true, message = result });
+
             }
             catch (Exception ex)
             {
@@ -262,7 +322,25 @@ namespace WebApplication7.Controllers
             {
                 var od = _context.Orders.Where(o => o.OrderIdMoMo == orderId).FirstOrDefault();
                 od.PaymentStatus = "2";
+                if (od.Status == "6")
+                {
+                    _context.SaveChanges();
+                    ViewBag.Message = "Thanh toán đơn hàng thất bại ";
+                    ViewBag.Madonhang = orderId;
+                    return View("XuLyThanhToan");
+                }
                 od.Status = "6";
+                //nếu hủy cập nhật lại sản phẩm trong kho
+                var ord = _context.OrderDetails.Where(o => o.OrderId == od.OrderId).ToList();
+                if (ord.Count() > 0)
+                {
+                    foreach (var item in ord)
+                    {
+                        var sp = _context.ProductDetails.FirstOrDefault(p => p.ProductdetailId == item.ProductdetailId);
+                        sp.Quantity += item.Quantity;
+                        _context.Update(sp);
+                    }
+                }
                 _context.SaveChanges();
                 ViewBag.Message ="Thanh toán đơn hàng thất bại ";
                 ViewBag.Madonhang = orderId;
@@ -333,7 +411,7 @@ namespace WebApplication7.Controllers
             JObject jmessage = JObject.Parse(responseFromMomo);
             return jmessage.GetValue("payUrl").ToString();
         }
-        private string thanhToanATM(float sotien)
+        private string thanhToanATM(int OrderId,float sotien)
         {
             string endpoint = "https://test-payment.momo.vn//v2/gateway/api/create";
             string partnerCode = "MOMO5RGX20191128";
@@ -349,7 +427,14 @@ namespace WebApplication7.Controllers
             string extraData = "";
             string lang = "vi";
             string signature = "";
-
+            //lưu mã đơn hàng và mã yêu cầu vào đây
+            var od = _context.Orders.Where(o => o.OrderId == OrderId).FirstOrDefault();
+            if (od != null)
+            {
+                od.OrderIdMoMo = orderId;
+                od.ReqrIdMoMo = requestId;
+                _context.SaveChanges();
+            }
             string rawhash = "accessKey=" + accessKey +
                                 "&amount=" + amount +
                                 "&extraData=" + extraData +
@@ -388,7 +473,68 @@ namespace WebApplication7.Controllers
                 return "";
             }
         }
+        private string thanhToanCC(int OrderId, float sotien)
+        {
+            string endpoint = "https://test-payment.momo.vn//v2/gateway/api/create";
+            string partnerCode = "MOMO5RGX20191128";
+            string accessKey = "M8brj9K6E22vXoDB";
+            string serectkey = "nqQiVSgDMy809JoPF6OzP5OdBUB550Y4";
+            string requestId = Guid.NewGuid().ToString();
+            string amount = sotien.ToString();
+            string orderId = Guid.NewGuid().ToString();
+            string orderInfo = "Store HD";
+            string redirectUrl = "https://localhost:7166/ThanhToan/XacNhan";
+            string ipnUrl = "https://facebook.com";
+            string requestType = "payWithCC";
+            string extraData = "";
+            string lang = "vi";
+            string signature = "";
+            //lưu mã đơn hàng và mã yêu cầu vào đây
+            var od = _context.Orders.Where(o => o.OrderId == OrderId).FirstOrDefault();
+            if (od != null)
+            {
+                od.OrderIdMoMo = orderId;
+                od.ReqrIdMoMo = requestId;
+                _context.SaveChanges();
+            }
+            string rawhash = "accessKey=" + accessKey +
+                                "&amount=" + amount +
+                                "&extraData=" + extraData +
+                                "&ipnUrl=" + ipnUrl +
+                                "&orderId=" + orderId +
+                                "&orderInfo=" + orderInfo +
+                                "&partnerCode=" + partnerCode +
+                                "&redirectUrl=" + redirectUrl +
+                                "&requestId=" + requestId +
+                                "&requestType=" + requestType;
+            MoMoSecurity moMoSecurity = new MoMoSecurity();
+            signature = moMoSecurity.signSHA256(rawhash, serectkey);
 
+            JObject message = new JObject
+            {
+                { "partnerCode", partnerCode },
+                { "requestId", requestId },
+                { "amount", amount },
+                { "orderId", orderId },
+                { "orderInfo", orderInfo },
+                { "redirectUrl", redirectUrl },
+                { "ipnUrl", ipnUrl },
+                { "requestType", requestType },
+                { "extraData", extraData },
+                {"lang", lang },
+                { "signature", signature}
+            };
+            string responseMomo = PaymentRequest.sendPaymentRequest(endpoint, message.ToString());
+            try
+            {
+                JObject jmessage = JObject.Parse(responseMomo);
+                return jmessage.GetValue("payUrl").ToString();
+            }
+            catch (Exception ex)
+            {
+                return "";
+            }
+        }
         public string CreateOrderSummaryTable(List<OrderDetail> orderDetails)
         {
             // Tạo biến string chứa nội dung bảng

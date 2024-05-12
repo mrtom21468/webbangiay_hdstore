@@ -27,7 +27,16 @@ namespace WebApplication7.Areas.Admin.Controllers
         // GET: Admin/StoreIns
         public async Task<IActionResult> Index()
         {
-            var qLDBcontext = _context.StoreIns.Include(s => s.Account).Include(s => s.ProductDetail).Include(s => s.Supplier);
+            var qLDBcontext = _context.StoreIns.Include(s => s.Account)
+                .Include(s => s.ProductDetail)
+                .ThenInclude(p=>p.Product)
+                .Include(s => s.ProductDetail)
+                .ThenInclude(p=>p.Size)
+                .Include(s => s.ProductDetail)
+                .ThenInclude(p => p.Color)
+                .Include(s => s.Supplier)
+                .OrderByDescending(s=>s.StoreInId);
+                
             return View(await qLDBcontext.ToListAsync());
         }
 
@@ -56,14 +65,18 @@ namespace WebApplication7.Areas.Admin.Controllers
         public IActionResult Create()
         {
             var products = _context.ProductDetails
-                            .Include(p=>p.Product)
-                            .Include(c=>c.Color)
-                            .Include(s => s.Size)
-                .Select(s => new
+                                .Include(p => p.Product)
+                                .Include(c => c.Color)
+                                .Include(s => s.Size)
+                                .OrderBy(s => s.Product.ProductName)
+                                .ThenBy(s => s.Color.ColorName)
+                                .ThenBy(s => s.Size.SizeName)
+                            .Select(s => new
             {
                 ProductDetailId = s.ProductdetailId,
                 FullName = $"{s.Product.ProductName} - {s.Color.ColorName} - {s.Size.SizeName}" // Kết hợp tên và số điện thoại của nhà cung cấp trong cùng một chuỗi
-            }).ToList();
+            })
+            .ToList();
             ViewData["ProductdetailId"] = new SelectList(products, "ProductDetailId", "FullName");
             // Lấy danh sách nhà cung cấp từ cơ sở dữ liệu
             var suppliers = _context.Suppliers.Select(s => new
@@ -104,8 +117,16 @@ namespace WebApplication7.Areas.Admin.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["AccountId"] = new SelectList(_context.Accounts, "AccountId", "AccountId", storeIn.AccountId);
-            ViewData["ProductdetailId"] = new SelectList(_context.ProductDetails, "ProductdetailId", "ProductdetailId", storeIn.ProductdetailId);
-            // Lấy danh sách nhà cung cấp từ cơ sở dữ liệu
+            var products = _context.ProductDetails
+                            .Include(p => p.Product)
+                            .Include(c => c.Color)
+                            .Include(s => s.Size)
+                .Select(s => new
+                {
+                    ProductDetailId = s.ProductdetailId,
+                    FullName = $"{s.Product.ProductName} - {s.Color.ColorName} - {s.Size.SizeName}" // Kết hợp tên và số điện thoại của nhà cung cấp trong cùng một chuỗi
+                }).ToList();
+            ViewData["ProductdetailId"] = new SelectList(products, "ProductDetailId", "FullName", storeIn.ProductdetailId);            // Lấy danh sách nhà cung cấp từ cơ sở dữ liệu
             var suppliers = _context.Suppliers.Select(s => new
             {
                 SupplierId = s.SupplierId,
@@ -129,8 +150,22 @@ namespace WebApplication7.Areas.Admin.Controllers
                 return NotFound();
             }
             ViewData["AccountId"] = new SelectList(_context.Accounts, "AccountId", "AccountId", storeIn.AccountId);
-            ViewData["ProductdetailId"] = new SelectList(_context.ProductDetails, "ProductdetailId", "ProductdetailId", storeIn.ProductdetailId);
-            ViewData["SupplierId"] = new SelectList(_context.Suppliers, "SupplierId", "SupplierId", storeIn.SupplierId);
+            var products = _context.ProductDetails
+                            .Include(p => p.Product)
+                            .Include(c => c.Color)
+                            .Include(s => s.Size)
+                .Select(s => new
+                {
+                    ProductDetailId = s.ProductdetailId,
+                    FullName = $"{s.Product.ProductName} - {s.Color.ColorName} - {s.Size.SizeName}" // Kết hợp tên và số điện thoại của nhà cung cấp trong cùng một chuỗi
+                }).ToList();
+            ViewData["ProductdetailId"] = new SelectList(products, "ProductDetailId", "FullName", storeIn.ProductdetailId);            // Lấy danh sách nhà cung cấp từ cơ sở dữ liệu
+            var suppliers = _context.Suppliers.Select(s => new
+            {
+                SupplierId = s.SupplierId,
+                FullName = $"{s.SupplierName} - {s.PhoneNumber}" // Kết hợp tên và số điện thoại của nhà cung cấp trong cùng một chuỗi
+            }).ToList();
+            ViewData["SupplierId"] = new SelectList(suppliers, "SupplierId", "FullName", storeIn.SupplierId);
             return View(storeIn);
         }
 
@@ -167,8 +202,22 @@ namespace WebApplication7.Areas.Admin.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["AccountId"] = new SelectList(_context.Accounts, "AccountId", "AccountId", storeIn.AccountId);
-            ViewData["ProductdetailId"] = new SelectList(_context.ProductDetails, "ProductdetailId", "ProductdetailId", storeIn.ProductdetailId);
-            ViewData["SupplierId"] = new SelectList(_context.Suppliers, "SupplierId", "SupplierId", storeIn.SupplierId);
+            var products = _context.ProductDetails
+                            .Include(p => p.Product)
+                            .Include(c => c.Color)
+                            .Include(s => s.Size)
+                .Select(s => new
+                {
+                    ProductDetailId = s.ProductdetailId,
+                    FullName = $"{s.Product.ProductName} - {s.Color.ColorName} - {s.Size.SizeName}" // Kết hợp tên và số điện thoại của nhà cung cấp trong cùng một chuỗi
+                }).ToList();
+            ViewData["ProductdetailId"] = new SelectList(products, "ProductDetailId", "FullName", storeIn.ProductdetailId);            // Lấy danh sách nhà cung cấp từ cơ sở dữ liệu
+            var suppliers = _context.Suppliers.Select(s => new
+            {
+                SupplierId = s.SupplierId,
+                FullName = $"{s.SupplierName} - {s.PhoneNumber}" // Kết hợp tên và số điện thoại của nhà cung cấp trong cùng một chuỗi
+            }).ToList();
+            ViewData["SupplierId"] = new SelectList(suppliers, "SupplierId", "FullName", storeIn.SupplierId);
             return View(storeIn);
         }
 

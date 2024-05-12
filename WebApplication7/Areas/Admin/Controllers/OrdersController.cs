@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNetCoreHero.ToastNotification.Notyf;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -15,11 +16,13 @@ namespace WebApplication7.Areas.Admin.Controllers
     {
         private readonly QLDBcontext _context;
         private readonly UserManager<UserIdentitycs> _userManager;
+        private readonly NotyfService _NotyfService;
 
-        public OrdersController(QLDBcontext context, UserManager<UserIdentitycs> userManager)
+        public OrdersController(QLDBcontext context, UserManager<UserIdentitycs> userManager, NotyfService notyfService)
         {
             _context = context; 
             _userManager = userManager;
+            _NotyfService= notyfService;
         }
 
         // GET: Admin/Orders
@@ -39,7 +42,7 @@ namespace WebApplication7.Areas.Admin.Controllers
             }
             if (paymentType != null)
             {
-                var typepay = paymentType == 0 ? "Tiền mặt" : (paymentType == 1 ? "Ví Momo" : "Thẻ ngân hàng");
+                var typepay = paymentType == 0 ? "Tiền mặt" : (paymentType == 1 ? "Ví Momo" : (paymentType == 2 ? "Thẻ ngân hàng" : "Thẻ thanh toán quốc tế"));
                 qLDBcontext = qLDBcontext.Where(o => o.PaymentType == typepay);
 
             }
@@ -109,7 +112,7 @@ namespace WebApplication7.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("OrderId,AccountId,Address,PhoneNumber,PaymentType,PaymentStatus,Status,TotalAmount,CreatedAt,OrderIdMoMo,ReqrIdMoMo ")] Order order)
+        public async Task<IActionResult> Edit(int id, [Bind("OrderId,AccountId,Address,PhoneNumber,PaymentType,PaymentStatus,Status,TotalAmount,CreatedAt,OrderIdMoMo,ReqrIdMoMo,FullName")] Order order)
         {
             if (id != order.OrderId)
             {
@@ -125,11 +128,28 @@ namespace WebApplication7.Areas.Admin.Controllers
                         order.OrderIdMoMo = "-";
                         order.ReqrIdMoMo = "-";
                     }
+                    //nếu hủy cập nhật lại sản phẩm trong kho
+                    if (order.Status == "6")
+                    {
+                        var ord=_context.OrderDetails.Where(o => o.OrderId == order.OrderId).ToList();
+                        if (ord.Count() > 0)
+                        {
+                            foreach(var item in ord)
+                            {
+                                var sp = _context.ProductDetails.FirstOrDefault(p => p.ProductdetailId == item.ProductdetailId);
+                                sp.Quantity += item.Quantity;
+                                _context.Update(sp);
+                            }
+                        }
+                    }
                     _context.Update(order);
                     await _context.SaveChangesAsync();
+                    _NotyfService.Success("Cập nhật trạng thái đơn hàng thành công",3);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
+                    _NotyfService.Error("Cập nhật trạng thái đơn hàng thất bại", 3);
+
                     if (!OrderExists(order.OrderId))
                     {
                         return NotFound();
@@ -138,6 +158,7 @@ namespace WebApplication7.Areas.Admin.Controllers
                     {
                         throw;
                     }
+
                 }
                 return RedirectToAction(nameof(Index));
             }

@@ -4,41 +4,42 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Quản lý đơn nhập</h1>
 
 <p>
-    <a asp-action="Create" class="btn btn-primary">Create New</a>
+    <a asp-action="Create"><i class="fas fa-plus icon-green"></i> Tạo mới đơn nhập</a>
 </p>
-
-<div class="table-responsive">
-    <table class="table table-striped table-bordered">
-        <thead class="thead-dark">
+    <table class="table">
             <tr>
                 <th>
-                    Created At
+                    @Html.DisplayNameFor(item => item.StoreInId)
                 </th>
                 <th>
-                    Import Price
+                    @Html.DisplayNameFor(item => item.CreatedAt)
                 </th>
                 <th>
-                    Quantity
+                    @Html.DisplayNameFor(item => item.ImprortPrice)
                 </th>
                 <th>
-                    Supplier
+                    @Html.DisplayNameFor(item => item.Quantity)
+
                 </th>
                 <th>
-                    Product Detail
+                    @Html.DisplayNameFor(item => item.SupplierId)
+
                 </th>
                 <th>
-                    Account
+                    @Html.DisplayNameFor(item => item.ProductdetailId)
                 </th>
                 <th></th>
             </tr>
-        </thead>
         <tbody>
             @foreach (var item in Model)
             {
                 <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StoreInId)
+                    </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.CreatedAt)
                     </td>
@@ -49,21 +50,20 @@
                         @Html.DisplayFor(modelItem => item.Quantity)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Supplier.SupplierId)
+                        @Html.DisplayFor(modelItem => item.Supplier.SupplierName)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.ProductDetail.ProductdetailId)
+                        @item.ProductDetail.Product.ProductName- @item.ProductDetail.Color.ColorName-@item.ProductDetail.Size.SizeName
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Account.AccountId)
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.StoreInId" class="btn btn-primary">Edit</a>
-                        <a asp-action="Details" asp-route-id="@item.StoreInId" class="btn btn-info">Details</a>
-                        <a asp-action="Delete" asp-route-id="@item.StoreInId" class="btn btn-danger">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.StoreInId">
+                        <i class="fas fa-edit"></i>
+                    </a> |
+                    <a asp-action="Details" asp-route-id="@item.StoreInId">
+                        <i class="fa fa-info-circle"></i>
+                    </a>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
-</div>
